@@ -57,6 +57,13 @@ def signUp():
         _preco = request.form['inputPreco']
         _descricao = request.form['inputDescricao']
         _ingredientes = request.form['inputIngredientes']
+
+        if _litros == "":
+            _litros = None
+        if _peso == "":
+            _peso = None
+        if _ingredientes == "":
+            _ingredientes = None
     
 
         print(_nome)
