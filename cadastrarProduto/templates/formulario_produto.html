@@ -6,7 +6,7 @@
     <title>Cadastrar produto</title>
 </head>
 <body>
-    <form action="produto" method="POST">
+    <form action="signUp" method="post" >
         <label for="inputNome" class="sr-only">Nome do produto: </label>
         <input type="text" name="inputNome" id="inputNome" class="form-control"  required autofocus>
         <label for="inputCategoria">Categoria: </label>
@@ -15,6 +15,10 @@
             <option value="alimento">Alimento</option>
             <option value="sobremesa">Sobremesa</option>
         </select>
+
+
+        <label for="inputQuantidade">Quantidade:</label>
+        <input type="number" name="inputQuantidade" id="inputQuantidade" class="form-control" placeholder="Digite a quantidade do produto" min="0" required>
         <label for="inputLitros">Litros:</label>
         <input type="number" name="inputLitros" id="inputLitros" class="form-control" step="0.01" placeholder="Digite a quantidade de litros" >
         <label for="inputPeso">Kilograma:</label>
@@ -24,7 +28,7 @@
         <label for="inputDescricao">Descrição:</label>
         <textarea name="inputDescricao" id="inputDescricao" class="form-control" placeholder="Digite a descrição" maxlength="45" ></textarea>
         <label for="inputIngredientes">Ingredientes:</label>
-        <textarea name="inputIngredientes" id="inputIngredientes" class="form-control" placeholder="Digite os ingredientes" maxlength="1000" required></textarea>
+        <textarea name="inputIngredientes" id="inputIngredientes" class="form-control" placeholder="Digite os ingredientes" maxlength="1000"></textarea>
         <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
 
 
