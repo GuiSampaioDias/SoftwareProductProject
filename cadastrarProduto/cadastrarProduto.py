@@ -63,7 +63,7 @@ def signUp():
         if _peso == "":
             _peso = None
         if _ingredientes == "":
-            _ingredientes = None
+            _ingredientes
     
 
         print(_nome)
@@ -83,8 +83,8 @@ def signUp():
             #_hashed_password = _password
             cursor.execute('insert into tbl_produto (NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', ( _nome,_categoria,_quantidade,_litros,_peso,_preco,_descricao,_ingredientes ))
             conn.commit()
-
-            return render_template('OK')
+            msg = "Produtos cadastrados com sucesso"
+            return render_template('formulario_produto.html', mensagem = msg)
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
 
