@@ -53,39 +53,39 @@ def showSignUp():
 @app.route('/signUp',methods=['POST','GET'])
 def signUp():
     try:
-        _nome = request.form['inputNome']
-        _categoria = request.form['inputCategoria']
-        _quantidade = request.form['inputQuantidade']
-        _litros = request.form['inputLitros']
-        _peso = request.form['inputPeso']
-        _preco = request.form['inputPreco']
-        _descricao = request.form['inputDescricao']
-        _ingredientes = request.form['inputIngredientes']
+        nome = request.form['inputNome']
+        categoria = request.form['inputCategoria']
+        quantidade = request.form['inputQuantidade']
+        litros = request.form['inputLitros']
+        peso = request.form['inputPeso']
+        preco = request.form['inputPreco']
+        descricao = request.form['inputDescricao']
+        ingredientes = request.form['inputIngredientes']
 
-        if _litros == "":
-            _litros = None
-        if _peso == "":
-            _peso = None
-        if _ingredientes == "":
-            _ingredientes
+        if not litros:
+            litros = 0
+        if not peso :
+            peso = 0
+        if not ingredientes :
+            ingredientes = "Não Há"
     
 
-        print(_nome)
-        print(_categoria)
-        print(_quantidade)
-        print(_litros)
-        print(_peso)
-        print(_preco)
-        print(_descricao) 
-        print(_ingredientes)
+        print(nome)
+        print(categoria)
+        print(quantidade)
+        print(litros)
+        print(peso)
+        print(preco)
+        print(descricao) 
+        print(ingredientes)
 
         # validate the received values
-        if _nome and _categoria and _preco:
+        if nome and categoria and preco:
             
             conn = mysql.connection
             cursor = conn.cursor()
             #_hashed_password = _password
-            cursor.execute('insert into tbl_produto (NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', ( _nome,_categoria,_quantidade,_litros,_peso,_preco,_descricao,_ingredientes ))
+            cursor.execute('insert into tbl_produto (NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', ( nome,categoria,quantidade,litros,peso,preco,descricao,ingredientes ))
             conn.commit()
             msg = "Produtos cadastrados com sucesso"
             return render_template('formulario_produto.html', mensagem = msg)
@@ -98,20 +98,17 @@ def signUp():
 @app.route('/list',methods=['POST','GET'])
 def list():
     try:
-            conn = mysql.connect()
+            conn = mysql.connection
             cursor = conn.cursor()
             cursor.execute ('select NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes from tbl_produto')
             data = cursor.fetchall()
             print(data[0])
 
             conn.commit()
-            return render_template('signup2.html', datas=data)
+            return render_template('listar.html', datas=data)
 
     except Exception as e:
         return json.dumps({'error':str(e)})
-    finally:
-        cursor.close()
-        conn.close()
 
 
 
