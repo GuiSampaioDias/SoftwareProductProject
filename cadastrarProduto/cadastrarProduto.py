@@ -45,12 +45,8 @@ mysql.init_app(app)
 def main():
     return render_template('formulario_produto.html')
 
-@app.route('/produto')
-def showSignUp():
-    return render_template('formulario_produto.html')
 
-
-@app.route('/signUp',methods=['POST','GET'])
+@app.route('/cadastrar',methods=['POST','GET'])
 def signUp():
     try:
         nome = request.form['inputNome']
