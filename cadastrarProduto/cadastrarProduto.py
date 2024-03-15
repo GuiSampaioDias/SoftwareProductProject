@@ -58,6 +58,9 @@ def signUp():
         descricao = request.form['inputDescricao']
         ingredientes = request.form['inputIngredientes']
 
+
+        if not quantidade:
+            quantidade  = 0
         if not litros:
             litros = 0
         if not peso :
@@ -91,7 +94,7 @@ def signUp():
     except Exception as e:
         return json.dumps({'error':str(e)})
 
-@app.route('/list',methods=['POST','GET'])
+@app.route('/list',methods=['GET'])
 def list():
     try:
             conn = mysql.connection
@@ -99,8 +102,6 @@ def list():
             cursor.execute ('select NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes from tbl_produto')
             data = cursor.fetchall()
             print(data[0])
-
-            conn.commit()
             return render_template('listar.html', datas=data)
 
     except Exception as e:
