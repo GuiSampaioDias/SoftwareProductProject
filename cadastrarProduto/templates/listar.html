@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/static/styleList.css">
+    <title>Listar Produtos</title>
 </head>
 <body>
+<header>
+    <ul>
+        <li>
+            <a href="http://localhost:5000/">Cadastrar Produtos</a>
+        </li>
+    </ul>
+</header>
     <table>
-        <tr><td> Nomes </td></tr>
+        <tr><td> Nomes </td><td>Tipo</td><td>Quantidade</td><td>Litros</td><td>KG</td><td>Preço</td><td>Descrição</td><td>Ingredientes</td></tr>
         {% for item in datas %}
         <tr>
-            <td>{{item[0]}}</td>
-            <td>{{item[1]}}</td>
-            <td>{{item[2]}}</td>
-            <td>{{item[3]}}</td>
-            <td>{{item[4]}}</td>
-            <td>{{item[5]}}</td>
-            <td>{{item[6]}}</td>
-            <td>{{item[7]}}</td>
+            <th>{{item[0]}}</th>
+            <th>{{item[1]}}</th>
+            <th>{{item[2]}}</th>
+            <th>{{item[3]}}</th>
+            <th>{{item[4]}}</th>
+            <th>{{item[5]}}</th>
+            <th>{{item[6]}}</th>
+            <th>{{item[7]}}</th>
         </tr>
         {% endfor %}
         </table>
