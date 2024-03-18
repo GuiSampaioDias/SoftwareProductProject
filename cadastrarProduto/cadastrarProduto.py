@@ -34,7 +34,7 @@ app = Flask(__name__)
 
 # MySQL configurations
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Impacta2024'
+app.config['MYSQL_PASSWORD'] = 'impacta1234'
 app.config['MYSQL_DB'] = 'restaurante'
 app.config['MYSQL_HOST'] = 'localhost'
 #app.config['MYSQL_DATABASE_HOST'] = '172.17.0.7'
@@ -99,9 +99,13 @@ def list():
     try:
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute ('select NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes from tbl_produto')
+            cursor.execute ('select produto_id,NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes from tbl_produto')
             data = cursor.fetchall()
+            print()
+            print()
             print(data[0])
+            print()
+            print()
             return render_template('listar.html', datas=data)
 
     except Exception as e:

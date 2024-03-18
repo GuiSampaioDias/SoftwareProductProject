@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styleForm.css">
+    <title>Cadastrar produto</title>
+</head>
+<body>
+    <header>
+        <nav class="menu">
+            <ul>
+                <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+            </ul>
+        </nav>
+    </header>
+    <form action="editar" method="post">
+        <label for="inputNome" class="sr-only">Nome do produto: </label>
+        <input type="text" name="inputNome" id="inputNome" class="form-control"  required autofocus><br>
+        <label for="inputCategoria">Categoria: </label>
+        <select name="inputCategoria" id="inputCategoria" class="form-control" required>
+            <option value="bebida">Bebida</option>
+            <option value="alimento">Alimento</option>
+            <option value="sobremesa">Sobremesa</option>
+        </select><br>
+
+
+        <label for="inputQuantidade">Quantidade:</label>
+        <input type="number" name="inputQuantidade" id="inputQuantidade" class="form-control" placeholder="Digite a quantidade do produto" min="0" ><br>
+        <label for="inputLitros">Litros:</label>
+        <input type="number" name="inputLitros" id="inputLitros" class="form-control" step="0.01" placeholder="Digite a quantidade de litros" ><br>
+        <label for="inputPeso">Kilograma:</label>
+        <input type="number" name="inputPeso" id="inputLitros" class="form-control" step="0.001" placeholder="Digite a quantidade de Kilos" ><br>
+        <label for="inputPreco">Preço:</label>
+        <input type="number" name="inputPreco" id="inputPreco" class="form-control" placeholder="Digite o preço (ex: 10.99)" step="0.01" min="0" required><br>
+        <label for="inputDescricao">Descrição:</label>
+        <textarea name="inputDescricao" id="inputDescricao" class="form-control" placeholder="Digite a descrição" maxlength="45" ></textarea><br>
+        <label for="inputIngredientes">Ingredientes:</label>
+        <textarea name="inputIngredientes" id="inputIngredientes" class="form-control" placeholder="Digite os ingredientes" maxlength="1000"></textarea><br>
+        <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
+    </form>
+    <p>{{mensagem}}</p>
+</body>
+</html>
