@@ -93,6 +93,9 @@ def signUp():
 
     except Exception as e:
         return json.dumps({'error':str(e)})
+    
+
+
 
 @app.route('/list',methods=['GET'])
 def list():
@@ -108,6 +111,20 @@ def list():
             print()
             return render_template('listar.html', datas=data)
 
+    except Exception as e:
+        return json.dumps({'error':str(e)})
+
+@app.route('/list',methods=['POST'])    
+def editProd():
+    try:
+            id = request.form['inputId']
+            conn = mysql.connection
+            cursor = conn.cursor()
+            cursor.execute (f'select produto_id,NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes from tbl_produto where produto_id = {id}')
+            data = cursor.fetchall()
+            print(data)
+            return render_template('editarProduto.html', datas=data)
+    
     except Exception as e:
         return json.dumps({'error':str(e)})
 
