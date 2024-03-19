@@ -40,24 +40,21 @@ app.config['MYSQL_HOST'] = 'localhost'
 #app.config['MYSQL_DATABASE_HOST'] = '172.17.0.7'
 mysql.init_app(app)
 
-
 @app.route('/')
 def main():
     return render_template('formulario_produto.html')
 
-
 @app.route('/cadastrar',methods=['POST','GET'])
-def signUp():
+def cadastro():
     try:
-        nome = request.form['inputNome']
+        nome = request.form['inputNome'].title()
         categoria = request.form['inputCategoria']
         quantidade = request.form['inputQuantidade']
         litros = request.form['inputLitros']
         peso = request.form['inputPeso']
         preco = request.form['inputPreco']
-        descricao = request.form['inputDescricao']
-        ingredientes = request.form['inputIngredientes']
-
+        descricao = request.form['inputDescricao'].lower()
+        ingredientes = request.form['inputIngredientes'].lower()
 
         if not quantidade:
             quantidade  = 0
@@ -67,18 +64,8 @@ def signUp():
             peso = 0
         if not ingredientes :
             ingredientes = "Não Há"
-    
 
-        print(nome)
-        print(categoria)
-        print(quantidade)
-        print(litros)
-        print(peso)
-        print(preco)
-        print(descricao) 
-        print(ingredientes)
 
-        # validate the received values
         if nome and categoria and preco:
             
             conn = mysql.connection
