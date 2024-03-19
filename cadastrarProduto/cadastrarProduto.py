@@ -120,7 +120,7 @@ def editProd():
             id = request.form['inputId']
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute (f'select produto_id,NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes from tbl_produto where produto_id = {id}')
+            cursor.execute('select produto_id,NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes from tbl_produto where produto_id = %s', (id,))
             data = cursor.fetchall()
             print(data)
             return render_template('editarProduto.html', datas=data)
