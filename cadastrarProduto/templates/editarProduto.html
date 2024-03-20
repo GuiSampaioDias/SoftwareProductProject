@@ -41,6 +41,7 @@
         <label for="inputIngredientes">Ingredientes:</label>
         <textarea name="inputIngredientes" id="inputIngredientes" value="{{datas[0][8]}}" class="form-control" placeholder="Digite os ingredientes" maxlength="1000"></textarea><br>
         <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Gravar</button>
+        <input type="hidden" id="id_prod" name="id_prod" value="{{datas[0][0]}}">
     </form>
     <p>{{mensagem}}</p>
 </body>
