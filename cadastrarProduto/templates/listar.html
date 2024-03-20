@@ -18,7 +18,7 @@
         <tr><td>produto_id</td><td> Nomes </td><td>Tipo</td><td>Quantidade</td><td>Litros</td><td>KG</td><td>Preço</td><td>Descrição</td><td>Ingredientes</td></tr>
         {% for item in datas %}
         <tr>
-            <th>{{item[0]}}</th>
+            <th><a href="/produto/{{item[0]}}">{{item[0]}}</a></th>
             <th>{{item[1]}}</th>
             <th>{{item[2]}}</th>
             <th>{{item[3]}}</th>
@@ -29,11 +29,6 @@
             <th>{{item[8]}}</th>
         </tr>
         {% endfor %}
-        </table>
-        <form action="list" method="post"></form>
-        <h2>Editar produto por id:</h2>
-        <label for="inputId" class="sr-only">Id do produto:</label>
-        <input type="number" name="inputId" id="inputId" class="form-control" required>
-        <button id="editarProduto" class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
+    </table>
 </body>
 </html>

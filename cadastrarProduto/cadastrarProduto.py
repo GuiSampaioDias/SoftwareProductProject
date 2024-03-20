@@ -34,7 +34,7 @@ app = Flask(__name__)
 
 # MySQL configurations
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'impacta1234'
+app.config['MYSQL_PASSWORD'] = 'impacta2024'
 app.config['MYSQL_DB'] = 'restaurante'
 app.config['MYSQL_HOST'] = 'localhost'
 #app.config['MYSQL_DATABASE_HOST'] = '172.17.0.7'
@@ -114,13 +114,14 @@ def list():
     except Exception as e:
         return json.dumps({'error':str(e)})
 
-@app.route('/list',methods=['POST'])    
-def editProd():
+@app.route('/produto/<id>',methods=['GET'])    
+def editProd(id):
+    print(id)
     try:
-            id = request.form['inputId']
+            id = int(id)
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute('select produto_id,NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes from tbl_produto where produto_id = %s', (id,))
+            cursor.execute('select * from tbl_produto where produto_id = %s', (id,))
             data = cursor.fetchall()
             print(data)
             return render_template('editarProduto.html', datas=data)
