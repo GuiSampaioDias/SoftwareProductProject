@@ -124,6 +124,8 @@ def editProd(id):
             cursor.execute('select * from tbl_produto where produto_id = %s', (id,))
             data = cursor.fetchall()
             print(data)
+            print(data[0][7])
+            print(data[0][8])
             return render_template('editarProduto.html', datas=data)
     
     except Exception as e:
