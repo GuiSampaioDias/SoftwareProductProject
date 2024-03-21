@@ -34,7 +34,7 @@ app = Flask(__name__)
 
 # MySQL configurations
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'impacta1234'
+app.config['MYSQL_PASSWORD'] = 'Impacta2024'
 app.config['MYSQL_DB'] = 'restaurante'
 app.config['MYSQL_HOST'] = 'localhost'
 #app.config['MYSQL_DATABASE_HOST'] = '172.17.0.7'
