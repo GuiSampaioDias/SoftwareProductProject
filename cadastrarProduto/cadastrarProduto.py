@@ -27,17 +27,14 @@ SELECT * FROM tbl_produto
 import os
 from flask import Flask, render_template, json, request,jsonify
 from flask_mysqldb import MySQL
-#from werkzeug import generate_password_hash, check_password_hash
 
 mysql = MySQL()
 app = Flask(__name__)
 
-# MySQL configurations
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'Impacta2024'
 app.config['MYSQL_DB'] = 'restaurante'
 app.config['MYSQL_HOST'] = 'localhost'
-#app.config['MYSQL_DATABASE_HOST'] = '172.17.0.7'
 mysql.init_app(app)
 
 
@@ -57,7 +54,6 @@ def cadastro():
         descricao = request.form['inputDescricao'].lower()
         ingredientes = request.form['inputIngredientes'].lower()
 
-        print(nome)
         if not quantidade:
             quantidade  = 0
         if not litros:
@@ -67,18 +63,12 @@ def cadastro():
         if not ingredientes :
             ingredientes = "Não Há"
     
-
-    # Conecta ao banco de dados
         cur = mysql.connection.cursor()
 
-    # Executa a consulta SQL para verificar se o produto já existe na tabela
         cur.execute("SELECT NomeDoProduto FROM tbl_produto WHERE NomeDoProduto = %s", (nome,))
 
-    # Obtém o resultado da consulta
         resultado = cur.fetchone()
-        print(resultado)
 
-    # Verifica se o produto existe
         if resultado:
             msg = "Produto ja cadastrados na base de dados"
             return render_template('formulario_produto.html', mensagem = msg)
@@ -86,7 +76,6 @@ def cadastro():
                        
             conn = mysql.connection
             cursor = conn.cursor()
-            #_hashed_password = _password
             cursor.execute('insert into tbl_produto (NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', ( nome,categoria,quantidade,litros,peso,preco,descricao,ingredientes ))
             conn.commit()
             msg = "Produtos cadastrados com sucesso"
@@ -105,11 +94,6 @@ def list():
             cursor = conn.cursor()
             cursor.execute ('select * from tbl_produto')
             data = cursor.fetchall()
-            print()
-            print()
-            print(data[0])
-            print()
-            print()
             return render_template('listar.html', datas=data)
 
     except Exception as e:
@@ -125,7 +109,6 @@ def editProd(id):
             cursor = conn.cursor()
             cursor.execute('select * from tbl_produto where produto_id = %s', (id,))
             data = cursor.fetchall()
-            print(data)
             return render_template('editarProduto.html', datas=data)
     
     except Exception as e:
@@ -152,23 +135,11 @@ def editarProduto(id):
             peso = 0
         if not ingredientes :
             ingredientes = "Não Há"
-    
 
-        print(nome)
-        print(categoria)
-        print(quantidade)
-        print(litros)
-        print(peso)
-        print(preco)
-        print(descricao) 
-        print(ingredientes)
-
-        # validate the received values
         if nome and categoria and preco:
             
             conn = mysql.connection
             cursor = conn.cursor()
-            #_hashed_password = _password
             cursor.execute('UPDATE tbl_produto SET NomeDoProduto = %s, Categoria = %s, Quantidade = %s, litros = %s,Peso_kg = %s, Preço = %s, Descrição = %s, Ingredientes = %s WHERE produto_id = %s ', ( nome,categoria,quantidade,litros,peso,preco,descricao,ingredientes, id_pro))
             conn.commit()
             msg = "Edção realizada com sucesso"
