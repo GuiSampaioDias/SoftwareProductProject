@@ -25,4 +25,9 @@ CMD ["python","cadastrarProduto.py"]
 Entrar no site https://labs.play-with-docker.com/ 
 para colocar a pasta para rodar no containe.
 fazer o login e clicar no botão: + ADD NEW INSTANCE
-vai abrir o cmd automatico e la camos pegar o caminho da pasta no githun copiar e dar um git clone "caminho que colou la na github"
+vai abrir o cmd automatico e la camos pegar o caminho da pasta no github copiar e dar um git clone "caminho que colou la na github"(para colar tem que usar o shift + insert)
+
+Depois de clonado vai usar o comando ls que equicale ao dir no cmd, para per os diretorios e entrar na pasta onde esta o Dockerfile usando o cd e o nome da pasta
+
+ usar o comando para construir a imagem:
+ docker image build -t python-web .
