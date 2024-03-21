@@ -172,7 +172,11 @@ def editarProduto(id):
             cursor.execute('UPDATE tbl_produto SET NomeDoProduto = %s, Categoria = %s, Quantidade = %s, litros = %s,Peso_kg = %s, Preço = %s, Descrição = %s, Ingredientes = %s WHERE produto_id = %s ', ( nome,categoria,quantidade,litros,peso,preco,descricao,ingredientes, id_pro))
             conn.commit()
             msg = "Edção realizada com sucesso"
-            return render_template('formulario_produto.html', mensagem = msg)
+            
+            cursor.execute ('select * from tbl_produto WHERE produto_id = %s ', (id_pro,))
+            data = cursor.fetchall()
+            
+            return render_template('listar.html', mensagem = msg, datas=data)
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
 
