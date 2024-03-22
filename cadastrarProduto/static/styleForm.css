@@ -77,8 +77,3 @@ flex-direction: row;
 justify-content: center;
 align-items: center;
 }
-
-.Buttons-list{
-    display: flex;
-    justify-content: space-between;
-}
