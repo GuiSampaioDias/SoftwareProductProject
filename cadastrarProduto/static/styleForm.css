@@ -66,12 +66,15 @@ a:hover{
     animation: ease-in 2s linear;
     color: blue;
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 .Buttons-list{
     display: flex;
     justify-content: space-between;
 =======
+=======
+>>>>>>> 2dc13eb7bfaf6a4bfdba9709be3e87f369999d2d
     transition: 400ms linear;
 }
 ul{
@@ -83,5 +86,8 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
+<<<<<<< HEAD
 >>>>>>> 057d17d53d61a7a82ed37ec3a7f0255160209df7
+=======
+>>>>>>> 2dc13eb7bfaf6a4bfdba9709be3e87f369999d2d
 }

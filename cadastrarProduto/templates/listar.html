@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +24,7 @@
         <tr><td>produto_id</td><td> Nomes </td><td>Tipo</td><td>Quantidade</td><td>Litros</td><td>KG</td><td>Preço</td><td>Descrição</td><td>Ingredientes</td></tr>
         {% for item in datas %}
         <tr>
-            <th><a href="/produto/{{item[0]}}">{{item[0]}}</a></th>
+            <th>{{item[0]}}</th>
             <th>{{item[1]}}</th>
             <th>{{item[2]}}</th>
             <th>{{item[3]}}</th>
@@ -33,8 +33,11 @@
             <th>{{item[6]}}</th>
             <th>{{item[7]}}</th>
             <th>{{item[8]}}</th>
+            <th><a href="produto/{{item[0]}}"><button>Atualizar</button></a></th>
+            <th><button onclick="funcao1('{{item[0]}}')">Deletar</button></th>
         </tr>
         {% endfor %}
+<<<<<<< HEAD
 <<<<<<< HEAD
         </table>
 
@@ -47,5 +50,18 @@
 =======
     </table>
 >>>>>>> 057d17d53d61a7a82ed37ec3a7f0255160209df7
+=======
+    </table>
+    <script>
+        function funcao1(itemIndex) {
+            var r = confirm("Tem certeza que deseja excluir esse produto?");
+            if (r == true) {
+                window.location.href = "/produto/delete/" + itemIndex;
+            } else {
+                document.getElementById("demo").innerHTML = "Você pressionou Cancelar!";
+            }
+        }
+    </script>
+>>>>>>> 2dc13eb7bfaf6a4bfdba9709be3e87f369999d2d
 </body>
 </html>
