@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="imagex/png" href="/cadastrarProduto/images/Logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styleList.css">
     <title>Listar Produtos</title>
 </head>
 <body>
 <header>
+    <nav class="menu">
     <ul>
-        <li>
-            <a href="http://localhost:5000/">Cadastrar Produtos</a>
-        </li>
+        <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+        <li><a href="http://localhost:5000/list">Listar Todos Produtos</a></li>
     </ul>
+</nav>
 </header>
+<hr>
     <table>
-        <tr><td> Nomes </td><td>Tipo</td><td>Quantidade</td><td>Litros</td><td>KG</td><td>Preço</td><td>Descrição</td><td>Ingredientes</td></tr>
+        <tr><td>produto_id</td><td> Nomes </td><td>Tipo</td><td>Quantidade</td><td>Litros</td><td>KG</td><td>Preço</td><td>Descrição</td><td>Ingredientes</td></tr>
         {% for item in datas %}
         <tr>
-            <th>{{item[0]}}</th>
+            <th><a href="/produto/{{item[0]}}">{{item[0]}}</a></th>
             <th>{{item[1]}}</th>
             <th>{{item[2]}}</th>
             <th>{{item[3]}}</th>
@@ -26,8 +32,10 @@
             <th>{{item[5]}}</th>
             <th>{{item[6]}}</th>
             <th>{{item[7]}}</th>
+            <th>{{item[8]}}</th>
         </tr>
         {% endfor %}
+<<<<<<< HEAD
         </table>
 
         <div class="Buttons-list">
@@ -36,5 +44,8 @@
             <a href="#" class="btn btn-danger">Excluir</a>
             
         </div>
+=======
+    </table>
+>>>>>>> 057d17d53d61a7a82ed37ec3a7f0255160209df7
 </body>
 </html>

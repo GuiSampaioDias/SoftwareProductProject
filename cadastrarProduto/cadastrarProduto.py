@@ -25,9 +25,8 @@ SELECT * FROM tbl_produto
 '''
 
 import os
-from flask import Flask, render_template, json, request
+from flask import Flask, render_template, json, request,jsonify
 from flask_mysqldb import MySQL
-#from werkzeug import generate_password_hash, check_password_hash
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -45,10 +44,95 @@ mysql.init_app(app)
 def main():
     return render_template('formulario_produto.html')
 
-
 @app.route('/cadastrar',methods=['POST','GET'])
-def signUp():
+def cadastro():
     try:
+        nome = request.form['inputNome'].title().strip()
+        categoria = request.form['inputCategoria']
+        quantidade = request.form['inputQuantidade']
+        litros = request.form['inputLitros']
+        peso = request.form['inputPeso']
+        preco = request.form['inputPreco']
+        descricao = request.form['inputDescricao'].lower()
+        ingredientes = request.form['inputIngredientes'].lower()
+
+        print(nome)
+        if not quantidade:
+            quantidade  = 0
+        if not litros:
+            litros = 0
+        if not peso :
+            peso = 0
+        if not ingredientes :
+            ingredientes = "Não Há"
+    
+
+    # Conecta ao banco de dados
+        cur = mysql.connection.cursor()
+
+    # Executa a consulta SQL para verificar se o produto já existe na tabela
+        cur.execute("SELECT NomeDoProduto FROM tbl_produto WHERE NomeDoProduto = %s", (nome,))
+
+    # Obtém o resultado da consulta
+        resultado = cur.fetchone()
+        print(resultado)
+
+    # Verifica se o produto existe
+        if resultado:
+            msg = "Produto ja cadastrados na base de dados"
+            return render_template('formulario_produto.html', mensagem = msg)
+        else:
+                       
+            conn = mysql.connection
+            cursor = conn.cursor()
+            #_hashed_password = _password
+            cursor.execute('insert into tbl_produto (NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', ( nome,categoria,quantidade,litros,peso,preco,descricao,ingredientes ))
+            conn.commit()
+            msg = "Produtos cadastrados com sucesso"
+            return render_template('formulario_produto.html', mensagem = msg)
+
+    except Exception as e:
+        return json.dumps({'error':str(e)})
+    
+
+
+
+@app.route('/list',methods=['GET'])
+def list():
+    try:
+            conn = mysql.connection
+            cursor = conn.cursor()
+            cursor.execute ('select * from tbl_produto')
+            data = cursor.fetchall()
+            print()
+            print()
+            print(data[0])
+            print()
+            print()
+            return render_template('listar.html', datas=data)
+
+    except Exception as e:
+
+        return json.dumps({'error':str(e)})
+
+@app.route('/produto/<id>',methods=['GET'])    
+def editProd(id):
+    print(id)
+    try:
+            id = int(id)
+            conn = mysql.connection
+            cursor = conn.cursor()
+            cursor.execute('select * from tbl_produto where produto_id = %s', (id,))
+            data = cursor.fetchall()
+            print(data)
+            return render_template('editarProduto.html', datas=data)
+    
+    except Exception as e:
+        return json.dumps({'error':str(e)})
+@app.route('/produto/<id>',methods=['POST'])
+def editarProduto(id):
+    try:
+        id_pro = int(request.form['id_prod'])
         nome = request.form['inputNome']
         categoria = request.form['inputCategoria']
         quantidade = request.form['inputQuantidade']
@@ -84,16 +168,21 @@ def signUp():
             conn = mysql.connection
             cursor = conn.cursor()
             #_hashed_password = _password
-            cursor.execute('insert into tbl_produto (NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', ( nome,categoria,quantidade,litros,peso,preco,descricao,ingredientes ))
+            cursor.execute('UPDATE tbl_produto SET NomeDoProduto = %s, Categoria = %s, Quantidade = %s, litros = %s,Peso_kg = %s, Preço = %s, Descrição = %s, Ingredientes = %s WHERE produto_id = %s ', ( nome,categoria,quantidade,litros,peso,preco,descricao,ingredientes, id_pro))
             conn.commit()
-            msg = "Produtos cadastrados com sucesso"
-            return render_template('formulario_produto.html', mensagem = msg)
+            msg = "Edção realizada com sucesso"
+            
+            cursor.execute ('select * from tbl_produto WHERE produto_id = %s ', (id_pro,))
+            data = cursor.fetchall()
+            
+            return render_template('listar.html', mensagem = msg, datas=data)
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
 
     except Exception as e:
         return json.dumps({'error':str(e)})
 
+<<<<<<< HEAD
 @app.route('/list',methods=['GET'])
 def list():
     try:
@@ -108,6 +197,9 @@ def list():
         return json.dumps({'error':str(e)})
     
 
+=======
+   
+>>>>>>> 057d17d53d61a7a82ed37ec3a7f0255160209df7
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
