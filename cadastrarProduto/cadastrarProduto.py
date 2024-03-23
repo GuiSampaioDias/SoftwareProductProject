@@ -186,14 +186,8 @@ def editarProduto(id):
     except Exception as e:
         return json.dumps({'error':str(e)})
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-@app.route('/list',methods=['GET'])
-def list():
-=======
 @app.route('/produto/delete/<int:id>',methods=['DELETE'])
 def delete(id):
->>>>>>> 2dc13eb7bfaf6a4bfdba9709be3e87f369999d2d
     try:
         id = int(id)
         conn = mysql.connection
@@ -207,17 +201,9 @@ def delete(id):
 
         return render_template('listar.html', mensagem = msg, datas=data)
     
-<<<<<<< HEAD
-
-=======
-   
->>>>>>> 057d17d53d61a7a82ed37ec3a7f0255160209df7
-=======
     except Exception as e:
         return json.dumps({'error': str(e)})   
->>>>>>> 2dc13eb7bfaf6a4bfdba9709be3e87f369999d2d
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
-
