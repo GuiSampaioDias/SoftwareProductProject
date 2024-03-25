@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="imagex/png" href="/cadastrarProduto/images/Logo.png">
+    <script src="/static/list.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -20,11 +20,12 @@
 </nav>
 </header>
 <hr>
+<div class="container">
     <table>
         <tr><td>produto_id</td><td> Nomes </td><td>Tipo</td><td>Quantidade</td><td>Litros</td><td>KG</td><td>Preço</td><td>Descrição</td><td>Ingredientes</td></tr>
         {% for item in datas %}
         <tr>
-            <th><a href="/produto/{{item[0]}}">{{item[0]}}</a></th>
+            <th>{{item[0]}}</th>
             <th>{{item[1]}}</th>
             <th>{{item[2]}}</th>
             <th>{{item[3]}}</th>
@@ -33,8 +34,12 @@
             <th>{{item[6]}}</th>
             <th>{{item[7]}}</th>
             <th>{{item[8]}}</th>
+            <th><a href="produto/{{item[0]}}"><button>Atualizar</button></a></th>
+            <th><button onclick="funcao1('{{item[0]}}')">Deletar</button></th>
         </tr>
         {% endfor %}
     </table>
+    <p>{{mensagem}}</p>
+    </div>
 </body>
 </html>
