@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="imagex/png" href="/cadastrarProduto/images/Logo.png">
+    <script src="/static/list.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -20,6 +20,7 @@
 </nav>
 </header>
 <hr>
+<div class="container">
     <table>
         <tr><td>produto_id</td><td> Nomes </td><td>Tipo</td><td>Quantidade</td><td>Litros</td><td>KG</td><td>Preço</td><td>Descrição</td><td>Ingredientes</td></tr>
         {% for item in datas %}
@@ -38,15 +39,7 @@
         </tr>
         {% endfor %}
     </table>
-    <script>
-        function funcao1(itemIndex) {
-            var r = confirm("Tem certeza que deseja excluir esse produto?");
-            if (r == true) {
-                window.location.href = "/produto/delete/" + itemIndex;
-            } else {
-                document.getElementById("demo").innerHTML = "Você pressionou Cancelar!";
-            }
-        }
-    </script>
+    <p>{{mensagem}}</p>
+    </div>
 </body>
 </html>
