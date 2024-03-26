@@ -1,55 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/styleForm.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <title>Cadastrar produto</title>
-</head>
-<body>
-    <header>
-        <nav class="menu">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/static/styleForm.css">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+      <title>Cadastrar produto</title>
+   </head>
+   <body>
+      <header>
+         <nav class="menu">
             <ul>
-                <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
-                <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+               <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+               <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
             </ul>
-        </nav>
-    </header>
-    <hr>
-    <div class="container">
-    <form action="editar" method="post">
-        <label for="inputNome" class="sr-only">Nome do produto: </label><br>
-        <input type="text" name="inputNome" id="inputNome" value="{{datas[0][1]}}"
-        class="form-control"  required autofocus ><br>
-        <label for="inputCategoria">Categoria: </label><br>
-        <select name="inputCategoria" id="inputCategoria"
-         class="form-control" required>
-            <option value="{{datas[0][2]}}">{{datas[0][2]}}</option>
-            <option value="bebida">Bebida</option>
-            <option value="alimento">Alimento</option>
-            <option value="sobremesa">Sobremesa</option>
-        </select><br>
-   
-
-        <label for="inputQuantidade">Quantidade:</label><br>
-        <input type="number" name="inputQuantidade" value="{{datas[0][3]}}" id="inputQuantidade" class="form-control" placeholder="Digite a quantidade do produto" min="0" ><br>
-        <label for="inputLitros">Litros:</label><br>
-        <input type="number" name="inputLitros" id="inputLitros" value="{{datas[0][4]}}" class="form-control" step="0.01" placeholder="Digite a quantidade de litros" ><br>
-        <label for="inputPeso">Kilograma:</label><br>
-        <input type="number" name="inputPeso" id="inputLitros" value="{{datas[0][5]}}" class="form-control" step="0.001" placeholder="Digite a quantidade de Kilos" ><br>
-        <label for="inputPreco">Preço:</label><br>
-        <input type="number" name="inputPreco" id="inputPreco" value="{{datas[0][6]}}" class="form-control" placeholder="Digite o preço (ex: 10.99)" step="0.01" min="0" required><br>
-        <label for="inputDescricao">Descrição:</label><br>
-        <textarea name="inputDescricao" id="inputDescricao" value="{{datas[0][7]}}" class="form-control" placeholder="Digite a descrição" maxlength="45" >{{datas[0][7]}}</textarea><br>
-        <label for="inputIngredientes">Ingredientes:</label><br>
-        <textarea name="inputIngredientes" id="inputIngredientes" value="{{datas[0][8]}}" class="form-control" placeholder="Digite os ingredientes" maxlength="1000">{{datas[0][8]}}</textarea><br>
-        <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Salvar</button>
-        <input type="hidden" id="id_prod" name="id_prod" value="{{datas[0][0]}}">
-    </form>
-    <p>{{mensagem}}</p>
-    </div>
-</body>
+         </nav>
+      </header>
+      <hr>
+      <div class="container">
+         <form action="editar" method="post">
+            <label for="inputNome" class="sr-only">Nome do produto: </label><br>
+            <input type="text" name="inputNome" id="inputNome" value="{{datas[0][1]}}"
+               class="form-control"  required autofocus ><br>
+            <label for="inputCategoria">Categoria: </label><br>
+            <select name="inputCategoria" id="inputCategoria"
+               class="form-control" required>
+               <option value="{{datas[0][2]}}">{{datas[0][2]}}</option>
+               <option value="bebida">Bebida</option>
+               <option value="alimento">Alimento</option>
+               <option value="sobremesa">Sobremesa</option>
+            </select>
+            <br>
+            <label for="inputQuantidade">Quantidade:</label><br>
+            <input type="number" name="inputQuantidade" value="{{datas[0][3]}}" id="inputQuantidade" class="form-control" placeholder="Digite a quantidade do produto" min="0" ><br>
+            <label for="inputLitros">Litros:</label><br>
+            <input type="number" name="inputLitros" id="inputLitros" value="{{datas[0][4]}}" class="form-control" step="0.01" placeholder="Digite a quantidade de litros" ><br>
+            <label for="inputPeso">Kilograma:</label><br>
+            <input type="number" name="inputPeso" id="inputLitros" value="{{datas[0][5]}}" class="form-control" step="0.001" placeholder="Digite a quantidade de Kilos" ><br>
+            <label for="inputPreco">Preço:</label><br>
+            <input type="number" name="inputPreco" id="inputPreco" value="{{datas[0][6]}}" class="form-control" placeholder="Digite o preço (ex: 10.99)" step="0.01" min="0" required><br>
+            <label for="inputDescricao">Descrição:</label><br>
+            <textarea name="inputDescricao" id="inputDescricao" value="{{datas[0][7]}}" class="form-control" placeholder="Digite a descrição" maxlength="45" >{{datas[0][7]}}</textarea>
+            <br>
+            <label for="inputIngredientes">Ingredientes:</label><br>
+            <textarea name="inputIngredientes" id="inputIngredientes" value="{{datas[0][8]}}" class="form-control" placeholder="Digite os ingredientes" maxlength="1000">{{datas[0][8]}}</textarea>
+            <br>
+            <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Salvar</button>
+            <input type="hidden" id="id_prod" name="id_prod" value="{{datas[0][0]}}">
+         </form>
+         <p>{{mensagem}}</p>
+      </div>
+   </body>
 </html>
