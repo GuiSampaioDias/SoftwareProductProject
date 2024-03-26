@@ -27,11 +27,11 @@ SELECT * FROM tbl_produto
 import os
 from flask import Flask, render_template, json, request,jsonify
 from flask_mysqldb import MySQL
-#from werkzeug import generate_password_hash, check_password_hash
 
 mysql = MySQL()
 app = Flask(__name__)
 
+# MySQL configurations
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'Impacta2024'
 app.config['MYSQL_DB'] = 'restaurante'
@@ -106,7 +106,6 @@ def list():
 
 @app.route('/produto/<id>',methods=['GET'])    
 def editProd(id):
-    print(id)
     try:
             id = int(id)
             conn = mysql.connection
