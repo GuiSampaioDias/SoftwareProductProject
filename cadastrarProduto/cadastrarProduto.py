@@ -28,6 +28,7 @@ import os
 from flask import Flask, render_template, json, request,jsonify
 from flask_mysqldb import MySQL
 
+
 mysql = MySQL()
 app = Flask(__name__)
 
@@ -43,7 +44,9 @@ mysql.init_app(app)
 def main():
     return render_template('formulario_produto.html')
 
-@app.route('/cadastrar',methods=['POST','GET'])
+
+
+@app.route('/cadastrar', methods=['GET','POST'])
 def cadastro():
     try:
         nome = request.form['inputNome'].title().strip()
