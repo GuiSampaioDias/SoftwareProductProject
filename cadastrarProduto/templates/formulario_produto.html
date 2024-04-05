@@ -11,13 +11,15 @@
 </head>
 <body>
     <header>
-        <nav class="menu">
+            <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+            <nav class="menu">
             <ul>
                 <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
             </ul>
         </nav>
     </header>
     <hr>
+    <p class="titulo">Cadastre um produto</p>
     <div class="container">
     <form action="cadastrar" method="post">
         <label for="inputNome" class="sr-only">Nome do produto: </label><br>    

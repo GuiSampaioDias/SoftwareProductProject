@@ -12,6 +12,7 @@
 </head>
 <body>
 <header>
+    <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
     <nav class="menu">
     <ul>
         <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
@@ -20,6 +21,7 @@
 </nav>
 </header>
 <hr>
+<p class="titulo">Lista de produtos</p>
 <div class="container">
     <table>
         <tr><td>produto_id</td><td> Nomes </td><td>Tipo</td><td>Quantidade</td><td>Litros</td><td>KG</td><td>Preço</td><td>Descrição</td><td>Ingredientes</td></tr>
@@ -39,7 +41,7 @@
         </tr>
         {% endfor %}
     </table>
-    <p>{{mensagem}}</p>
     </div>
+    <p>{{mensagem}}</p>
 </body>
 </html>
