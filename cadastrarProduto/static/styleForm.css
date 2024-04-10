@@ -1,3 +1,9 @@
+.be-vietnam pro-medium {
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+
 *
 {
     font-family:Be Vietnam Pro  ;
@@ -8,17 +14,10 @@ body{
     color: white;
 }
 
-.be-vietnam pro-medium {
-    font-family: "Be Vietnam Pro", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-  }
-
 p{
     text-align: center;
     font-size: 25px;
 }
-
 
 input, textarea, select{
     border:none;
@@ -57,9 +56,6 @@ a:hover{
     color: rgb(236, 70, 70);
     transition: 400ms linear;
 }
-ul{
-  list-style-type: none;  
-}
 .container
 {
 display: flex;
@@ -88,4 +84,36 @@ align-items: center;
     animation: fadeOut 2s ease forwards;
     animation-delay: 2s; /* Define o atraso antes de começar a animação */
     opacity: 1; /* Define a opacidade inicial */
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.logo {
+    width: 80px; /* Defina o tamanho desejado para a imagem */
+    height: auto;
+}
+
+.titulo{
+    font-size: 35px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
 }
