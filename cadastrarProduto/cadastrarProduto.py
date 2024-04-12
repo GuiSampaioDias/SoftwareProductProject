@@ -25,19 +25,17 @@ SELECT * FROM tbl_produto
 '''
 
 import os
-from flask import Flask, render_template, json, request
+from flask import Flask, render_template, json, request,jsonify
 from flask_mysqldb import MySQL
-#from werkzeug import generate_password_hash, check_password_hash
 
 mysql = MySQL()
 app = Flask(__name__)
 
 # MySQL configurations
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'impacta1234'
+app.config['MYSQL_PASSWORD'] = 'Impacta2024'
 app.config['MYSQL_DB'] = 'restaurante'
 app.config['MYSQL_HOST'] = 'localhost'
-#app.config['MYSQL_DATABASE_HOST'] = '172.17.0.7'
 mysql.init_app(app)
 
 
@@ -45,19 +43,19 @@ mysql.init_app(app)
 def main():
     return render_template('formulario_produto.html')
 
-
 @app.route('/cadastrar',methods=['POST','GET'])
-def signUp():
+def cadastro():
     try:
-        nome = request.form['inputNome']
+        nome = request.form['inputNome'].title().strip()
+        #title pega o comeco das palavras. Strip tira os espacoes
         categoria = request.form['inputCategoria']
         quantidade = request.form['inputQuantidade']
         litros = request.form['inputLitros']
         peso = request.form['inputPeso']
         preco = request.form['inputPreco']
-        descricao = request.form['inputDescricao']
-        ingredientes = request.form['inputIngredientes']
-
+        descricao = request.form['inputDescricao'].lower()
+        #lower deixa tudo minusculo
+        ingredientes = request.form['inputIngredientes'].lower()
 
         if not quantidade:
             quantidade  = 0
@@ -67,29 +65,26 @@ def signUp():
             peso = 0
         if not ingredientes :
             ingredientes = "Não Há"
+        if not descricao:
+            descricao = "Não Há"
     
+        cur = mysql.connection.cursor()
 
-        print(nome)
-        print(categoria)
-        print(quantidade)
-        print(litros)
-        print(peso)
-        print(preco)
-        print(descricao) 
-        print(ingredientes)
+        cur.execute("SELECT NomeDoProduto FROM tbl_produto WHERE NomeDoProduto = %s", (nome,))
 
-        # validate the received values
-        if nome and categoria and preco:
-            
+        resultado = cur.fetchone()
+
+        if resultado:
+            msg = "Produto ja cadastrados na base de dados"
+            return render_template('formulario_produto.html', mensagem = msg)
+        else:
+                       
             conn = mysql.connection
             cursor = conn.cursor()
-            #_hashed_password = _password
             cursor.execute('insert into tbl_produto (NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', ( nome,categoria,quantidade,litros,peso,preco,descricao,ingredientes ))
             conn.commit()
             msg = "Produtos cadastrados com sucesso"
             return render_template('formulario_produto.html', mensagem = msg)
-        else:
-            return json.dumps({'html':'<span>Enter the required fields</span>'})
 
     except Exception as e:
         return json.dumps({'error':str(e)})
@@ -102,13 +97,10 @@ def list():
     try:
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute ('select produto_id,NomeDoProduto, Categoria, Quantidade, litros,Peso_kg, Preço, Descrição, Ingredientes from tbl_produto')
+            cursor.execute ('select * from tbl_produto')
             data = cursor.fetchall()
-            print()
-            print()
-            print(data[0])
-            print()
-            print()
+            if data == '()':
+                return render_template('listar.html')
             return render_template('listar.html', datas=data)
 
     except Exception as e:
@@ -116,22 +108,20 @@ def list():
 
 @app.route('/produto/<id>',methods=['GET'])    
 def editProd(id):
-    print(id)
     try:
             id = int(id)
             conn = mysql.connection
             cursor = conn.cursor()
             cursor.execute('select * from tbl_produto where produto_id = %s', (id,))
             data = cursor.fetchall()
-            print(data)
-            print(data[0][7])
-            print(data[0][8])
             return render_template('editarProduto.html', datas=data)
     
     except Exception as e:
         return json.dumps({'error':str(e)})
-@app.route('/produto/<id>',methods=['POST'])
+    
+@app.route('/produto/<id>',methods=['POST','GET'])
 def editarProduto(id):
+    
     try:
         id_pro = int(request.form['id_prod'])
         nome = request.form['inputNome']
@@ -152,33 +142,42 @@ def editarProduto(id):
             peso = 0
         if not ingredientes :
             ingredientes = "Não Há"
-    
 
-        print(nome)
-        print(categoria)
-        print(quantidade)
-        print(litros)
-        print(peso)
-        print(preco)
-        print(descricao) 
-        print(ingredientes)
-
-        # validate the received values
         if nome and categoria and preco:
             
             conn = mysql.connection
             cursor = conn.cursor()
-            #_hashed_password = _password
             cursor.execute('UPDATE tbl_produto SET NomeDoProduto = %s, Categoria = %s, Quantidade = %s, litros = %s,Peso_kg = %s, Preço = %s, Descrição = %s, Ingredientes = %s WHERE produto_id = %s ', ( nome,categoria,quantidade,litros,peso,preco,descricao,ingredientes, id_pro))
             conn.commit()
-            msg = "Edção realizada com sucesso"
-            return render_template('formulario_produto.html', mensagem = msg)
+            msg = "Edição realizada com sucesso"
+            
+            cursor.execute ('select * from tbl_produto WHERE produto_id = %s ', (id_pro,))
+            data = cursor.fetchall()
+            
+            return render_template('listar.html', mensagem = msg, datas=data)
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
 
     except Exception as e:
         return json.dumps({'error':str(e)})
 
+@app.route('/produto/delete/<int:id>')
+def delete(id):
+    try:
+        id = int(id)
+        conn = mysql.connection
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM tbl_produto WHERE produto_id = %s', (id,))
+        conn.commit()
+        msg = "Excluido com sucesso"
+        
+        cursor.execute ('select * from tbl_produto')
+        data = cursor.fetchall()
+
+        return render_template('listar.html', mensagem = msg, datas=data)
+    
+    except Exception as e:
+        return json.dumps({'error': str(e)})   
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
