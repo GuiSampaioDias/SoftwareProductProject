@@ -68,6 +68,8 @@ def cadastro():
             peso = 0
         if not ingredientes :
             ingredientes = "Não Há"
+        if not descricao:
+            descricao = "Não Há"
     
         cur = mysql.connection.cursor()
 
