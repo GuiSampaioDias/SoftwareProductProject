@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio</title>
+</head>
+<body>
+    <p class="titulo">Cadastrar um item do menu</p>
+    <form action="cadastrar" method="post">
+        <label for="inputNome" class="sr-only">Nome do Item:</label>
+        <input type="text" name="inputNome" id="inputNome" class="form-control" required autofocus placeholder="Digite o nome do item"><br>
+        <label for="inputCategoria">Categoria</label>
+        <select name="inputCategoria" id="inputCategoria" class="form-control" required>
+            <option value="" disabled selected>Selecione categoria... </option>
+            <option value="Bebida">Bebida</option>
+            <option value="Drink">Drink</option>
+            <option value="Pizza">Pizza</option>
+            <option value="Prato">Prato</option>
+            <option value="Sobremesa">Sobremesa</option>
+        </select><br>
+        <label for="inputDescricao">Descrição:</label>
+        <input type="text" name="inputDescricao" id="inputDescricao" class="form-control" required autofocus placeholder="Descrição do item"><br>
+        <label for="inputPreco">Preço: </label>
+        <input type="number" name="inputPreco" id="inputPreco" class="form-control" required autofocus placeholder="Preço do item"><br>
+        <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button><br>
+        <p class="mensagem">{{mensagem}}</p>
+    </form>
+</body>
+</html>

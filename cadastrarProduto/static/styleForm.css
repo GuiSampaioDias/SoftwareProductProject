@@ -1,3 +1,9 @@
+.be-vietnam pro-medium {
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+
 *
 {
     font-family:Be Vietnam Pro  ;
@@ -8,15 +14,54 @@ body{
     color: white;
 }
 
-.be-vietnam pro-medium {
-    font-family: "Be Vietnam Pro", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-  }
-
 p{
     text-align: center;
     font-size: 25px;
+}
+
+input, textarea, select{
+    border:none;
+    width:500px;
+    height: 25px;
+    border-radius: 10px;
+    background-color: rgb(244, 245, 247);
+    margin: 5px;
+    padding-left: 10px;
+    resize: none;
+}
+select{
+    width: 512px;
+}
+
+input::placeholder, textarea::placeholder, select::placeholder{
+    color: rgb(0, 0, 0,0.8);
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;      /* Remove default outline and use border or box-shadow */
+    box-shadow: 0 0 0 2px rgb(236, 70, 70); 
+}
+
+li {
+    display: inline;
+    margin-right: 20px;
+  }
+a{
+    text-decoration: none;
+    color: white;
+}
+
+a:hover{
+    animation: ease-in 2s linear;
+    color: rgb(236, 70, 70);
+    transition: 400ms linear;
+}
+.container
+{
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
 }
 
 
@@ -41,39 +86,34 @@ p{
     opacity: 1; /* Define a opacidade inicial */
 }
 
-input, textarea, select{
-    border: none;
-    width:500px;
-    height: 25px;
-    border-radius: 10px;
-    background-color: rgb(244, 245, 247);
-    margin: 5px;
-    padding-left: 10px;
-    resize: none;
-}
 
-input::placeholder, textarea::placeholder, select::placeholder{
-    color: rgb(0, 0, 0,0.8);
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 
-a{
-    text-decoration: none;
-    color: white;
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.logo {
+    width: 80px; /* Defina o tamanho desejado para a imagem */
+    height: auto;
 }
 
-a:hover{
-    animation: ease-in 2s linear;
-    color: blue;
-    transition: 400ms linear;
+.titulo{
+    font-size: 35px;
 }
-ul{
-  list-style-type: none;  
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
-.container
-{
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
 }
