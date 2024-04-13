@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS tbl_menu
     Categoria      VARCHAR(15)  NOT NULL,
     Descrição      VARCHAR(85)  NULL,
     Preço          FLOAT(6,2),
-    PRIMARY KEY (pedido_id)
+    PRIMARY KEY (item_menu_id)
 
 );
 
@@ -21,7 +21,7 @@ app = Flask(__name__)
 
 # MySQL configurations
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'impacta1234'
+app.config['MYSQL_PASSWORD'] = 'Impacta2024'
 app.config['MYSQL_DB'] = 'restaurante'
 app.config['MYSQL_HOST'] = 'localhost'
 mysql.init_app(app)
@@ -37,9 +37,8 @@ def cadastro():
         nome = request.form['inputNome'].title().strip()
         #title pega o comeco das palavras. Strip tira os espacoes
         categoria = request.form['inputCategoria']
-        descricao = request.form['inputDescricao']
+        descricao = request.form['inputDescricao'].lower()
         preco = request.form['inputPreco']
-        print('Estou aqui')
         cur = mysql.connection.cursor()
         cur.execute("SELECT NomeDoItem FROM tbl_menu WHERE NomeDoItem = %s",(nome,))
 
