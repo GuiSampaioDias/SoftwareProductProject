@@ -106,15 +106,11 @@ def list():
             cursor = conn.cursor()
             cursor.execute ('select * from tbl_produto')
             data = cursor.fetchall()
-            print()
-            print()
-            print(data[0])
-            print()
-            print()
+            if data == '()':
+                return render_template('listar.html')
             return render_template('listar.html', datas=data)
 
     except Exception as e:
-
         return json.dumps({'error':str(e)})
 
 @app.route('/produto/<id>',methods=['GET'])    
@@ -132,8 +128,9 @@ def editProd(id):
     except Exception as e:
         return json.dumps({'error':str(e)})
     
-@app.route('/produto/<id>',methods=['POST'])
-def editarProduto():
+@app.route('/produto/<id>',methods=['POST','GET'])
+def editarProduto(id):
+    
     try:
         id_pro = int(request.form['id_prod'])
         nome = request.form['inputNome']
@@ -185,18 +182,21 @@ def editarProduto():
     except Exception as e:
         return json.dumps({'error':str(e)})
 
-@app.route('/produto/delete/<id>',methods=['DELETE'])
+@app.route('/produto/delete/<int:id>')
 def delete(id):
     try:
         id = int(id)
         conn = mysql.connection
         cursor = conn.cursor()
-        cursor.execute('DELETE FROM tbl_tutor WHERE CPF = %s', (id,))
+        cursor.execute('DELETE FROM tbl_produto WHERE produto_id = %s', (id,))
         conn.commit()
         print(id)
         msg = "Excluido com sucesso"
         
-        return render_template('produtodeletado.html', mensagem = msg)
+        cursor.execute ('select * from tbl_produto')
+        data = cursor.fetchall()
+
+        return render_template('listar.html', mensagem = msg, datas=data)
     
     except Exception as e:
         return json.dumps({'error': str(e)})   
