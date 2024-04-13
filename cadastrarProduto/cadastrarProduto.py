@@ -20,14 +20,13 @@ CREATE TABLE IF NOT EXISTS tbl_produto
 );
 
 
-SELECT * FROM tbl_produto
+SELECT * FROM tbl_produto;
 
 '''
 
 import os
 from flask import Flask, render_template, json, request,jsonify
 from flask_mysqldb import MySQL
-#from werkzeug import generate_password_hash, check_password_hash
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -49,7 +48,7 @@ def main():
 def cadastro():
     try:
         nome = request.form['inputNome'].title().strip()
-        #title pega o comeco das palavras. Strip tira os espacoes
+        #title pega o comeco das palavras e transforma em maiusculo. Strip tira os espacos
         categoria = request.form['inputCategoria']
         quantidade = request.form['inputQuantidade']
         litros = request.form['inputLitros']
@@ -134,7 +133,7 @@ def editProd(id):
         return json.dumps({'error':str(e)})
     
 @app.route('/produto/<id>',methods=['POST'])
-def editarProduto(id):
+def editarProduto():
     try:
         id_pro = int(request.form['id_prod'])
         nome = request.form['inputNome']
@@ -186,20 +185,18 @@ def editarProduto(id):
     except Exception as e:
         return json.dumps({'error':str(e)})
 
-@app.route('/produto/delete/<int:id>',methods=['DELETE'])
+@app.route('/produto/delete/<id>',methods=['DELETE'])
 def delete(id):
     try:
         id = int(id)
         conn = mysql.connection
         cursor = conn.cursor()
-        cursor.execute('DELETE FROM tbl_tutor WHERE CPF = %s', (id))
+        cursor.execute('DELETE FROM tbl_tutor WHERE CPF = %s', (id,))
         conn.commit()
+        print(id)
         msg = "Excluido com sucesso"
         
-        cursor.execute ('select * from tbl_produto WHERE produto_id = %s ', (id,))
-        data = cursor.fetchall()
-
-        return render_template('listar.html', mensagem = msg, datas=data)
+        return render_template('produtodeletado.html', mensagem = msg)
     
     except Exception as e:
         return json.dumps({'error': str(e)})   
