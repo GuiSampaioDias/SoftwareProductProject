@@ -8,10 +8,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styleList.css">
+    <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
     <title>Listar Produtos</title>
 </head>
 <body>
 <header>
+    <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
     <nav class="menu">
     <ul>
         <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
@@ -20,6 +22,7 @@
 </nav>
 </header>
 <hr>
+<p class="titulo">Lista de produtos</p>
 <div class="container">
     <table>
         <tr><td>produto_id</td><td> Nomes </td><td>Tipo</td><td>Quantidade</td><td>Litros</td><td>KG</td><td>Preço</td><td>Descrição</td><td>Ingredientes</td></tr>
@@ -39,7 +42,7 @@
         </tr>
         {% endfor %}
     </table>
-    <p>{{mensagem}}</p>
     </div>
+    <p class="mensagem">{{mensagem}}</p>
 </body>
 </html>
