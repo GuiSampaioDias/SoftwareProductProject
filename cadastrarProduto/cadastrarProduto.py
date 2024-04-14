@@ -33,7 +33,7 @@ app = Flask(__name__)
 
 # MySQL configurations
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'impacta1234'
+app.config['MYSQL_PASSWORD'] = 'Impacta2024'
 app.config['MYSQL_DB'] = 'restaurante'
 app.config['MYSQL_HOST'] = 'localhost'
 mysql.init_app(app)
@@ -99,8 +99,6 @@ def list():
             cursor = conn.cursor()
             cursor.execute ('select * from tbl_produto')
             data = cursor.fetchall()
-            if data == '()':
-                return render_template('listar.html')
             return render_template('listar.html', datas=data)
 
     except Exception as e:
