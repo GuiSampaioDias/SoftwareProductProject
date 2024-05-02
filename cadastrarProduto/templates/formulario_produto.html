@@ -3,11 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Document</title>
 </head>
 <body>
 
      
+=======
+    <link rel="stylesheet" href="/static/styleForm.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <title>Cadastrar produto</title>
+</head>
+<body>
+    <header>
+            <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+            <nav class="menu">
+            <ul>
+                <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+            </ul>
+        </nav>
+    </header>
+    <hr>
+    <p class="titulo">Cadastre um produto</p>
+>>>>>>> 86864f2e77da23d3fe62cbf377abbf7bccfdb4db
     <div class="container">
         <form action="cadastrar" method="post" >
             <label for="inputNome" class="sr-only">Nome do produto: </label><br>    
