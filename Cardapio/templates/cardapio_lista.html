@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="class container">
+
+    <div class="class container">
+        {% include 'navCardapio.html' %}
+        <hr>
+    </div>
+
+    <div class="row mt-4" >
+        <h3>Petisco</h3>
+    </div>
+
+    <div class="row mt-4 p-4 ">
+        <table class="table">
+            <thead class="table-primary">
+                <tr>
+                    <th>Id</th>
+                    <th>Item</th>
+                    <th>Ordem</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Imagem </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for linha in dados %} 
+                {% if linha[3] == 'Petisco' %}
+                <tr>
+                    <td>{{ linha[0] }}</td>
+                    <td>{{ linha[1] }}</td>
+                    <td>{{ linha[2] }}</td>
+                    <td>{{ linha[3] }}</td>
+                    <td>{{ linha[4] }}</td>
+                    <td>{{ linha[5] }}</td>
+                    <td>{{ linha[6] }}</td>
+                    <td><a href="http://localhost:5000/item_excluir/{{ linha[0] }}">Excluir</a></td>
+                    <td><a href="http://localhost:5000/item_atualizar/{{ linha[0]}}">Editar</a></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table> 
+    </div>
+
+
+    <div class="row mt-4" >
+        <h3>Pizza</h3>
+    </div>
+
+    <div class="row mt-4 p-4 ">
+        <table class="table">
+            <thead class="table-primary">
+                <tr>
+                    <th>Id</th>
+                    <th>Item</th>
+                    <th>Ordem</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Imagem </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for linha in dados %} 
+                {% if linha[3] == 'Pizza' %}
+                <tr>
+                    <td>{{ linha[0] }}</td>
+                    <td>{{ linha[1] }}</td>
+                    <td>{{ linha[2] }}</td>
+                    <td>{{ linha[3] }}</td>
+                    <td>{{ linha[4] }}</td>
+                    <td>{{ linha[5] }}</td>
+                    <td>{{ linha[6] }}</td>
+                    <td><a href="http://localhost:5000/item_excluir/{{ linha[0] }}">Excluir</a></td>
+                    <td><a href="http://localhost:5000/item_atualizar/{{ linha[0] }}">Editar</a></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+        </table> 
+    </div>
+
+    <div class="row mt-4" >
+        <h3>Bebida</h3>
+    </div>
+
+    <div class="row mt-4 p-4 ">
+        <table class="table">
+            <thead class="table-primary">
+                <tr>
+                    <th>Id</th>
+                    <th>Item</th>
+                    <th>Ordem</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Imagem </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for linha in dados %} 
+                {% if linha[3] == 'Bebida' %}
+                <tr>
+                    <td>{{ linha[0] }}</td>
+                    <td>{{ linha[1] }}</td>
+                    <td>{{ linha[2] }}</td>
+                    <td>{{ linha[3] }}</td>
+                    <td>{{ linha[4] }}</td>
+                    <td>{{ linha[5] }}</td>
+                    <td>{{ linha[6] }}</td>
+                    <td><a href="http://localhost:5000/item_excluir/{{ linha[0] }}">Excluir</a></td>
+                    <td><a href="http://localhost:5000/item_atualizar/{{ linha[0] }}">Editar</a></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table> 
+    </div>
+                    
+    <div class="row mt-4" >
+        <h3>Sobremesa</h3>
+    </div>
+
+    <div class="row mt-4 p-4 ">
+        <table class="table">
+            <thead class="table-primary">
+                <tr>
+                    <th>Id</th>
+                    <th>Item</th>
+                    <th>Ordem</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Imagem </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for linha in dados %} 
+                {% if linha[3] == 'Sobremesa' %}
+                <tr>
+                    <td>{{ linha[0] }}</td>
+                    <td>{{ linha[1] }}</td>
+                    <td>{{ linha[2] }}</td>
+                    <td>{{ linha[3] }}</td>
+                    <td>{{ linha[4] }}</td>
+                    <td>{{ linha[5] }}</td>
+                    <td>{{ linha[6] }}</td>
+                    <td><a href="http://localhost:5000/item_excluir/{{ linha[0] }}">Excluir</a></td>
+                    <td><a href="http://localhost:5000/item_atualizar/{{ linha[0] }}">Editar</a></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table> 
+    </div>
+
+    <div class="row mt-4" >
+        <h3>Drink</h3>
+    </div>
+
+    <div class="row mt-4 p-4 ">
+        <table class="table">
+            <thead class="table-primary">
+                <tr>
+                    <th>Id</th>
+                    <th>Item</th>
+                    <th>Ordem</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Imagem </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for linha in dados %} 
+                {% if linha[3] == 'Drink' %}
+                <tr>
+                    <td>{{ linha[0] }}</td>
+                    <td>{{ linha[1] }}</td>
+                    <td>{{ linha[2] }}</td>
+                    <td>{{ linha[3] }}</td>
+                    <td>{{ linha[4] }}</td>
+                    <td>{{ linha[5] }}</td>
+                    <td>{{ linha[6] }}</td>
+                    <td><a href="http://localhost:5000/item_excluir/{{ linha[0] }}">Excluir</a></td>
+                    <td><a href="http://localhost:5000/item_atualizar/{{ linha[0] }}">Editar</a></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+        </table> 
+    </div>
+
+</div>
+{% endblock %}

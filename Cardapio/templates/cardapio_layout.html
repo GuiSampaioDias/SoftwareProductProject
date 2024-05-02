@@ -1,0 +1,703 @@
+{% extends 'base.html' %}
+
+{% block title %}Cardápio{% endblock %}
+
+{% block content %}
+<div class="class container">
+    <div>
+        {% include 'navCardapio.html' %}
+        <hr>
+    </div>
+    <section id="body" class="container-fluid p-0 bg-cardapio">
+        <section id="fabricacao-propia" class="container-fluid bg-dark p-0 m-0">
+            <div class="container text-uppercase text-center text-white p-t2">
+                <h1 class="fw-bold mt-4 text-yellow">Cardápio</h1>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="waves m-auto ">&nbsp;</div>
+                    </div>
+                <div class="col-12">&nbsp;</div>
+            </div>
+        </section>
+    </section>
+
+    <section id="pratos" class="container my-4">
+        <div class="row g-4">
+            <div class="col-12 my-3">
+                <h1 class="text-secondary fw-bold">PETISCOS</h1>
+            </div>
+            {% for linha in resultado_petiscos %} 
+            {% if linha[2] == 1 %}   
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">1</span>
+                     - {{linha[1]}}
+                </div>
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+            {% elif linha[2] == 2 %}     
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">2</span>
+                     - {{linha[1]}}
+                </div>
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+            {% elif linha[2]== 3 %}   
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">3</span>
+                     - {{linha[1]}}
+                </div>
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+            {% elif linha[2]== 4 %}   
+
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">4</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+            {% elif linha[2] == 5 %}   
+
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">5</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+
+            {% elif linha[2] == 6 %}   
+
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">6</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+            <div class="col-12 my-3">
+                <h1 class="text-secondary fw-bold">PIZZAS</h1>
+            </div>
+            {% for linha in resultado_pizza %}
+
+            {% if linha[2] == 1 %}   
+           <div class="col-6 col-md-3">
+                 <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">7</span>
+                     - {{ linha[1] }}
+                </div>
+                
+                <p class="receita">
+                    {{ linha[4] }}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+
+            {% elif linha[2] == 2 %}   
+
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">8</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+
+            {% elif linha[2] == 3 %}   
+
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">9</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+
+            {% elif linha[2] == 4 %}   
+
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">10</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+            
+            {% elif linha[2] == 5 %}   
+
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">11</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+            
+            {% elif linha[2] == 6 %}   
+
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">12</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            <div class="col-12 my-3">
+                <h1 class="text-secondary fw-bold">BEBIDAS</h1>
+            </div>
+            {% for linha in resultado_bebida %}
+            {% if linha[2] == 1 %}   
+            <div class="col-6 col-md-3">
+                  <div class="photo">
+                     <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                     width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                     rounded-3" loading="lazy">
+                 </div>
+                 <div class="text-uppercase fw-bold">
+                     <span class="text-danger">13</span>
+                      - {{ linha[1] }}
+                 </div>
+                 
+                 <p class="receita">
+                     {{ linha[4] }}
+                 </p>
+                 <div class="preco">
+                     R$ 
+                     <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                 </div>
+             </div>
+
+             {% elif linha[2] == 2 %}   
+
+             <div class="col-6 col-md-3">
+                 <div class="photo">
+                     <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                     width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                     rounded-3" loading="lazy">
+                 </div>
+                 <div class="text-uppercase fw-bold">
+                     <span class="text-danger">14</span>
+                      - {{linha[1]}}
+                 </div>
+                 
+                 <p class="receita">
+                     {{linha[4]}}
+                 </p>
+                 <div class="preco">
+                     R$ 
+                     <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                 </div>
+             </div>
+
+             {% elif linha[2] == 3 %}   
+
+             <div class="col-6 col-md-3">
+                 <div class="photo">
+                     <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                     width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                     rounded-3" loading="lazy">
+                 </div>
+                 <div class="text-uppercase fw-bold">
+                     <span class="text-danger">15</span>
+                      - {{linha[1]}}
+                 </div>
+                 
+                 <p class="receita">
+                     {{linha[4]}}
+                 </p>
+                 <div class="preco">
+                     R$ 
+                     <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                 </div>
+             </div>
+
+             {% elif linha[2] == 4 %}   
+
+             <div class="col-6 col-md-3">
+                 <div class="photo">
+                     <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                     width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                     rounded-3" loading="lazy">
+                 </div>
+                 <div class="text-uppercase fw-bold">
+                     <span class="text-danger">16</span>
+                      - {{linha[1]}}
+                 </div>
+                 
+                 <p class="receita">
+                     {{linha[4]}}
+                 </p>
+                 <div class="preco">
+                     R$ 
+                     <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                 </div>
+             </div>
+
+             {% elif linha[2] == 5 %}   
+
+             <div class="col-6 col-md-3">
+                 <div class="photo">
+                     <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                     width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                     rounded-3" loading="lazy">
+                 </div>
+                 <div class="text-uppercase fw-bold">
+                     <span class="text-danger">17</span>
+                      - {{linha[1]}}
+                 </div>
+                 
+                 <p class="receita">
+                     {{linha[4]}}
+                 </p>
+                 <div class="preco">
+                     R$ 
+                     <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                 </div>
+             </div>
+
+             {% elif linha[2] == 6 %}   
+
+             <div class="col-6 col-md-3">
+                 <div class="photo">
+                     <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                     width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                     rounded-3" loading="lazy">
+                 </div>
+                 <div class="text-uppercase fw-bold">
+                     <span class="text-danger">18</span>
+                      - {{linha[1]}}
+                 </div>
+                 
+                 <p class="receita">
+                     {{linha[4]}}
+                 </p>
+                 <div class="preco">
+                     R$ 
+                     <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                 </div>
+             </div>
+
+            {% endif %}
+            {% endfor %}
+
+            <div class="col-12 my-3">
+                <h1 class="text-secondary fw-bold">SOBREMESA</h1>
+            </div>
+            {% for linha in resultado_sobremesa %}
+            {% if linha[2] == 1 %} 
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">19</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+            
+            {% elif linha[2] == 2 %} 
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">20</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+            
+                
+            {% elif linha[2] == 3 %} 
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">21</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div> 
+
+                
+            {% elif linha[2] == 4 %} 
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">22</span>
+                     - {{linha[1]}}
+                </div>
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div> 
+
+                
+            {% elif linha[2] == 5 %} 
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">23</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div> 
+
+                
+            {% elif linha[2] == 6 %} 
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">24</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div> 
+
+            {% endif %}
+            {% endfor %}
+
+            <div class="col-12 my-3">
+                <h1 class="text-secondary fw-bold">DRINK</h1>
+            </div>
+
+            {% for linha in resultado_drinks %}
+            {% if linha[2] == 1 %} 
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">25</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+
+            {% elif linha[2] == 2 %} 
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">26</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+
+            {% elif linha[2] == 3 %} 
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">27</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+
+            {% elif linha[2] == 4 %} 
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">28</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+
+            {% elif linha[2] == 5 %} 
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">29</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+
+            {% elif linha[2] == 6 %} 
+            <div class="col-6 col-md-3">
+                <div class="photo">
+                    <img src="{{ url_for('static', filename='data/cardapio/{}'.format(linha[6]) ) }}" 
+                    width="200" height="317" class="w-100 mfp-auto-cursor border border-1
+                    rounded-3" loading="lazy">
+                </div>
+                <div class="text-uppercase fw-bold">
+                    <span class="text-danger">30</span>
+                     - {{linha[1]}}
+                </div>
+                
+                <p class="receita">
+                    {{linha[4]}}
+                </p>
+                <div class="preco">
+                    R$ 
+                    <span class="fw-bold fs-3"> {{linha[5]}}</span>
+                </div>
+            </div>
+
+
+            {% endif %}
+            {% endfor %}
+
+</div>
+{% endblock %}

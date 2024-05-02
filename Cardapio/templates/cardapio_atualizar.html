@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="class container">
+
+    <div class="class container">
+        {% include 'navCardapio.html' %}
+        <hr>
+    </div>
+
+    <div class="row mt-4" >
+        <h3>Novo Item Do Cardápio</h3>
+    </div>
+
+
+    <div class="container">
+        <form action="" method="post" enctype="multipart/form-data">
+            <input type="hidden" id="item_id" name="item_id" value="{{data[0][0]}}">
+
+            <label for="inputItem" >Nome do item: </label><br>    
+            <input type="text" name="inputItem"  value="{{data[0][1]}}" id="inputItem" class="form-control"  required autofocus placeholder="Digite o nome do item"><br><br>
+
+            <label for="inputCategoria">Categoria: </label><br>
+            <select name="inputCategoria" id="inputCategoria" class="form-control" required>
+                <option value="{{data[0][3]}}">{{data[0][3]}}</option>
+                <option value="Petisco">Petisco</option>
+                <option value="Pizza">Pizza</option>
+                <option value="Bebida">Bebida</option>
+                <option value="Sobremesa">Sobremesa</option>
+                <option value="Drink">Drinks</option>
+            </select><br><br>
+
+            <label for="inputOrdem">Ordem:</label><br>
+            <input type="number" name="inputOrdem" value="{{data[0][2]}}" id="inputOrdem" class="form-control" required placeholder="Digite a posição da ordem onde vai aparcer no menu..." ><br><br>
+            
+            <label for="inputDescricao">Descrição:</label><br>
+            <textarea name="inputDescricao"   id="inputDescricao" class="form-control" placeholder="Digite a descrição" maxlength="100" >{{data[0][4]}}</textarea><br><br>
+
+            <label for="inputPreco">Preço:</label><br>
+            <input type="number" name="inputPreco" value="{{data[0][5]}}"  id="inputPreco" class="form-control" default= 0 placeholder="Digite o preço (ex: 10.99)" required><br><br>
+            
+            <label for="imagem">Selecione uma imagem:</label>
+            <input type="file" id="imagem" name="imagem" ><br>
+             
+
+            <input type="submit" value="Upload">
+            
+
+        </form>
+    </div>
+    
+</div>
+
+
+{% endblock %}
