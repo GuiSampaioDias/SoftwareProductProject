@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <link rel="stylesheet" href="/static/styleList.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+    <table>
+        {% for item in datas %}
+        <tr><td colspan="4" class="title">{{item[2]}}</td></tr>
+        <tr><td> Nome </td><td>Tipo</td><td class="desc">Descrição</td><td>Preço</td></tr>
+        <tr>
+            <th>{{item[1]}}</th>
+            <th>{{item[2]}}</th>
+            <th class="desc">{{item[3]}}</th>
+            <th>{{item[4]}}</th>
+            <th><a href="/produto/{{item[0]}}"><button>Atualizar</button></a></th>
+            <th><button onclick="funcao1('{{item[0]}}')">Deletar</button></th>
+        </tr>
+        {% endfor %}
+    </table><br>
+</div>
+<p class="mensagem">{{mensagem}}</p>
+</body>
+</html>

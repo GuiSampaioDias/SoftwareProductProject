@@ -99,8 +99,6 @@ def list():
             cursor = conn.cursor()
             cursor.execute ('select * from tbl_produto')
             data = cursor.fetchall()
-            if data == '()':
-                return render_template('listar.html')
             return render_template('listar.html', datas=data)
 
     except Exception as e:
