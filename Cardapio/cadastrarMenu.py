@@ -1,14 +1,18 @@
-# CREATE TABLE IF NOT EXISTS tbl_cardapio
-# ( 
-#     item_id     BIGINT       NOT NULL   AUTO_INCREMENT, 
-#     item_nome  VARCHAR(45)  NOT NULL,
-#     item_ordem  BIGINT       NOT NULL,
-#     item_categoria      VARCHAR(15)  NOT NULL,
-#     item_descricao      VARCHAR(45)NOT NULL,
-#     item_preco          FLOAT(4,2)   NOT NULL, 
-#     item_imagem     VARCHAR(45)  NOT NULL,   
-#     PRIMARY KEY (item_id)
-# );
+'''
+use restaurante;
+
+    CREATE TABLE IF NOT EXISTS tbl_cardapio
+    ( 
+        item_id     BIGINT       NOT NULL   AUTO_INCREMENT, 
+        item_nome  VARCHAR(45)  NOT NULL,
+        item_ordem  BIGINT       NOT NULL,
+        item_categoria      VARCHAR(15)  NOT NULL,
+        item_descricao      VARCHAR(45)NOT NULL,
+        item_preco          FLOAT(4,2)   NOT NULL, 
+        item_imagem     VARCHAR(45)  NOT NULL,   
+        PRIMARY KEY (item_id)
+    );
+'''
 
 
 import os
