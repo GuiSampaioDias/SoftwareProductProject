@@ -25,10 +25,9 @@
 <p class="titulo">Lista de produtos</p>
 <div class="container">
     <table>
-        <tr><td>produto_id</td><td> Nomes </td><td>Tipo</td><td>Quantidade</td><td>Litros</td><td>KG</td><td>Preço</td><td>Descrição</td><td>Ingredientes</td></tr>
+        <tr><td> Nomes </td><td>Tipo</td><td>Quantidade</td><td>Litros</td><td>KG</td><td>Preço</td><td>Descrição</td><td>Ingredientes</td></tr>
         {% for item in datas %}
         <tr>
-            <th>{{item[0]}}</th>
             <th>{{item[1]}}</th>
             <th>{{item[2]}}</th>
             <th>{{item[3]}}</th>
