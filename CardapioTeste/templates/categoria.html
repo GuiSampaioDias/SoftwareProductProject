@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="class container">
+
+    <div class="class container">
+        {% include 'navCardapio.html' %}
+        <hr>
+    </div>
+
+    <div class="row mt-4" >
+        <h3>Adicionar Categoria</h3>
+    </div>
+
+
+    <div class="container">
+        <form action="/novoItem_categoria" method="post" class="row  mb-4 p-4 rounded border shadow">
+
+            <label for="inputCategoria" style="font-weight: bold">Categoria: </label><br>    
+            <input type="text" name="inputCategoria" id="inputCategoria" class="form-control"  required autofocus placeholder="Digite o nome da categoria"><br><br>
+            
+
+            <label for="inputOrdem" style="font-weight: bold">Ordem:</label><br>
+            <input type="number" name="inputOrdem" id="inputOrdem" class="form-control" required placeholder="Digite a posição da ordem onde vai aparecer no menu..." ><br><br>
+             
+            <input type="submit" value="Salvar">
+        </form>
+    </div>
+
+    <div class="row mt-5" >
+        <h3>Categorias</h3>
+    </div>
+
+    
+    <div class= "row p-4 ">
+        <table class="table">
+            <thead class="table-primary">
+                <tr>
+                    <th>Id</th>
+                    <th>Categoria</th>
+                    <th>Ordem</th>
+                    <th></th>
+                    <th></th>
+            </thead>
+            <tbody>
+                {% for linha in dados %} 
+                <tr>
+                    <td>{{ linha[0] }}</td>
+                    <td>{{ linha[1] }}</td>
+                    <td>{{ linha[2] }}</td>
+                    <td><a href="http://localhost:5000/categoiar_atualizar_item/{{ linha[0] }}">Editar</a></td>
+                    <td><a href="http://localhost:5000/categoria_excluir_item/{{ linha[0] }}">Excluir</a></td>
+                {% endfor %}
+            </tbody>
+        </table> 
+    </div>
+    
+</div>
+
+
+{% endblock %}

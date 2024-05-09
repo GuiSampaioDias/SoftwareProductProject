@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="class container">
+
+    <div class="class container">
+        {% include 'navCardapio.html' %}
+        <hr>
+    </div>
+
+    <div class="row mt-4" >
+        <h4>Atualizar item: {{data[1]}}</h4> 
+    </div>
+
+
+    <div class="container">
+        <form action="/item_atualizar/{{data[0]}}" method="post" class="row  mb-4 p-4 rounded border shadow" enctype="multipart/form-data">
+            <input type="hidden" id="item_id" name="item_id" value="{{data[0]}}">
+
+            <label for="inputItem" style="font-weight: bold">Nome do item: </label><br>    
+            <input type="text" name="inputItem"  value="{{data[1]}}" id="inputItem" class="form-control"  required autofocus placeholder="Digite o nome do item"><br><br>
+
+            <label for="inputCategoria" style="font-weight: bold">Categoria: </label><br>
+            <select name="inputCategoria" id="inputCategoria" class="form-control" required>
+                <option value="{{data[3]}}">{{data[3]}}</option>
+                {% for categoria in categorias %}
+                    <option value="{{categoria[0]}}">{{categoria[0]}}</option>
+                {%endfor%}
+            </select><br><br>
+
+            <label for="inputOrdem" style="font-weight: bold">Ordem:</label><br>
+            <input type="number" name="inputOrdem" value="{{data[2]}}" id="inputOrdem" class="form-control" required placeholder="Digite a posição da ordem onde vai aparcer no menu..." ><br><br>
+            
+            <label for="inputDescricao" style="font-weight: bold">Descrição:</label><br>
+            <textarea name="inputDescricao"   id="inputDescricao" class="form-control" placeholder="Digite a descrição" maxlength="100" >{{data[4]}}</textarea><br><br>
+
+            <label for="inputPreco" style="font-weight: bold">Preço:</label><br>
+            <input type="number" name="inputPreco" value="{{data[5]}}"  id="inputPreco" class="form-control" default= 0 placeholder="Digite o preço (ex: 10.99)" required><br><br>
+            
+            <label for="imagem" style="font-weight: bold">Selecione uma imagem:</label><br>
+            <input type="file" id="imagem" name="imagem" ><br><br>
+             
+            <input type="submit" value="Upload">   
+        </form>
+    </div>
+    
+</div>
+
+
+{% endblock %}
