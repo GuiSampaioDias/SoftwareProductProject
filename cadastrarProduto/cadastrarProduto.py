@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS tbl_produto
 );
 
 
-SELECT * FROM tbl_produto
+SELECT * FROM tbl_produto;
 
 '''
 
@@ -50,7 +50,7 @@ def main():
 def cadastro():
     try:
         nome = request.form['inputNome'].title().strip()
-        #title pega o comeco das palavras. Strip tira os espacoes
+        #title pega o comeco das palavras e transforma em maiusculo. Strip tira os espacos
         categoria = request.form['inputCategoria']
         quantidade = request.form['inputQuantidade']
         litros = request.form['inputLitros']
@@ -170,6 +170,7 @@ def delete(id):
         cursor = conn.cursor()
         cursor.execute('DELETE FROM tbl_produto WHERE produto_id = %s', (id,))
         conn.commit()
+        print(id)
         msg = "Excluido com sucesso"
         
         cursor.execute ('select * from tbl_produto')
