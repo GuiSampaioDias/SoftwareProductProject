@@ -48,7 +48,7 @@ def cardapio_layout():
 
     conn = mysql.connection 
     cursor = conn.cursor() 
-    tuplas_cardapio = "SELECT * FROM tbl_cardapio  ORDER BY item_ordem"
+    tuplas_cardapio = "SELECT * FROM tbl_cardapio ORDER BY item_ordem"
     cursor.execute(tuplas_cardapio)
     tuplas_cardapio= cursor.fetchall()
     print(tuplas_cardapio)
