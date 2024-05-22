@@ -11,6 +11,15 @@ CREATE TABLE IF NOT EXISTS tbl_cardapio
     PRIMARY KEY (item_id)
 );
 
+
+CREATE TABLE IF NOT EXISTS tbl_categoria
+( 
+    categoria_id     BIGINT       NOT NULL   AUTO_INCREMENT, 
+    categoria_nome  VARCHAR(45)  NOT NULL,
+    categoria_ordem  BIGINT       NOT NULL,
+    PRIMARY KEY (categoria_id)
+);
+
 '''
 
 
