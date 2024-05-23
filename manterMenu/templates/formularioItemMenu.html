@@ -15,7 +15,7 @@
         <a href="http://localhost:5001"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
         <nav class="menu">
         <ul>
-            <li><a href="http://localhost:5001/cadastrar_categoria">Cadastrar Categoria</a></li>
+            <li><a href="http://localhost:5001/categoria">Cadastrar Categoria</a></li>
             <li><a href="http://localhost:5001/list_produto">Lista de Produtos</a></li>
             <li><a href="http://localhost:5001/list_categoria">Lista de Categorias</a></li>
             <li><a href="http://localhost:5001/menu">Menu Cardápio</a></li>
@@ -35,7 +35,7 @@
                 {% for categoria in categorias %}
                 <option value="{{categoria[0]}}">{{categoria[0]}}</option>
                 {%endfor%}
-            </select>
+            </select><br>
             
         <label for="inputOrdem" class="sr-only">Ordem do Item:</label><br>
         <input type="number" name="inputOrdem" id="inputOrdem" class="form-control" required autofocus placeholder="Digite a posição que o item irá aparecer no menu..."><br>    
@@ -43,11 +43,11 @@
         <input type="text" name="inputDescricao" id="inputDescricao" class="form-control" default= "Não há" required autofocus placeholder="Descrição do item"><br>
         <label for="inputPreco">Preço: </label><br>
         <input type="number" name="inputPreco" id="inputPreco" class="form-control" required autofocus placeholder="Preço do item"><br>
-        <label for="imagem" style="font-weight: bold">Selecione uma imagem:</label>
-            <input type="file" id="imagem" name="imagem" ><br><br>
+        <label for="imagem" style="font-weight: bold">Selecione uma imagem:</label><br>
+            <input type="file" id="imagem" name="imagem" ><br>
              
 
-            <input type="submit" value="Upload">
+            <input type="submit" value="Upload"><br>
 
         <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button><br>
         <p class="mensagem">{{mensagem}}</p>

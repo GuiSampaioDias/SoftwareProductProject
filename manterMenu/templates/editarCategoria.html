@@ -16,7 +16,7 @@
             <nav class="menu">
             <ul>
                 <li><a href="http://localhost:5001/">Cadastrar Produtos</a></li>
-                <li><a href="http://localhost:5001/cadastrar_categoria">Cadastrar Categoria</a></li>
+                <li><a href="http://localhost:5001/categoria">Cadastrar Categoria</a></li>
                 <li><a href="http://localhost:5001/list_produto">Lista de Produtos</a></li>
                 <li><a href="http://localhost:5001/list_categoria">Lista de Categorias</a></li>
                 <li><a href="http://localhost:5001/menu">Menu Cardápio</a></li>
@@ -29,8 +29,8 @@
 
     <form action="editar" method="post">
 
-        <label for="inputCategoria">Categoria: </label><br>    
-        <input type="text" name="inputCategoria" id="inputCategoria" value="{{data[0][1]}}" class="form-control"  required autofocus placeholder="Digite o nome da categoria"><br><br>
+        <label for="inputNomeCategoria">Categoria: </label><br>    
+        <input type="text" name="inputNomeCategoria" id="inputNomeCategoria" value="{{data[0][1]}}" class="form-control"  required autofocus placeholder="Digite o nome da categoria"><br><br>
             
         <label for="inputOrdem" >Ordem:</label><br>
         <input type="number" name="inputOrdem" id="inputOrdem" value="{{data[0][2]}}" class="form-control" required placeholder="Digite a posição que o item irá aparecer no menu..." ><br><br>

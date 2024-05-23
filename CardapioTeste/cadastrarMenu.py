@@ -1,4 +1,8 @@
 '''
+Create schema if not exists julio;
+
+use julio;
+
 CREATE TABLE IF NOT EXISTS tbl_cardapio
 ( 
     item_id     BIGINT       NOT NULL   AUTO_INCREMENT, 
@@ -11,6 +15,14 @@ CREATE TABLE IF NOT EXISTS tbl_cardapio
     PRIMARY KEY (item_id)
 );
 
+CREATE TABLE IF NOT EXISTS tbl_categoria
+(
+    categoria_id      BIGINT       NOT NULL AUTO_INCREMENT,
+    categoria_nome   VARCHAR(45)  NOT NULL,
+    categoria_ordem  BIGINT       NOT NULL, 
+    PRIMARY KEY (CategoriaId)
+
+);
 '''
 
 
@@ -25,7 +37,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'Impacta2024'
-app.config['MYSQL_DB'] = 'restaurante'
+app.config['MYSQL_DB'] = 'julio'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['UPLOAD_FILES'] = r'static/data'
 mysql.init_app(app)

@@ -42,24 +42,48 @@ mysql.init_app(app)
 
 @app.route('/')
 def main():
-    return render_template('formularioItemMenu.html')
+    conn = mysql.connection 
+    cursor = conn.cursor() 
+    cursor.execute("SELECT NomeCategoria FROM tbl_categoria")
+    categorias=cursor.fetchall()
+    return render_template('formularioItemMenu.html',categorias=categorias)
+
+@app.route('/categoria')
+def categoria():
+    conn = mysql.connection
+    cursor = conn.cursor()
+    cursor.execute ('select * from tbl_categoria ORDER BY OrdemCategoria')
+    dados = cursor.fetchall()
+    
+    return render_template('categoria.html', dados=dados)
 
 @app.route('/cadastrar_categoria',methods=['POST','GET'])
 def cadastrar_categoria():
-    nome_categoria = request.form['inputCategoria'].upper()
-    ordem_categoria = request.form['inputOrdem']
-   
-    conn = mysql.connection
-    cursor = conn.cursor()
-    cursor.execute('insert into tbl_categoria(NomeCategoria, OrdemCategoria) VALUES (%s, %s)', ( nome_categoria, ordem_categoria))
-    conn.commit()
+    try:
+        nome_categoria = request.form['inputNomeCategoria'].upper()
+        ordem_categoria = request.form['inputOrdem']
 
-    conn = mysql.connection
-    cursor = conn.cursor()
-    cursor.execute ('select * from tbl_categoria')
-    dados = cursor.fetchall()
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT NomeCategoria FROM tbl_categoria WHERE NomeCategoria = %s",(nome_categoria,))
+        resultado = cur.fetchone()
 
-    return render_template('listarCategoria.html',dados=dados)
+        conn = mysql.connection
+        cursor = conn.cursor()
+        cursor.execute ('select * from tbl_categoria')
+        dados = cursor.fetchall()
+
+        if resultado:
+            msg = "Categoria ja cadastrada na base de dados"
+            return render_template('categoria.html',mensagem = msg, dados=dados)
+        else:
+            conn = mysql.connection
+            cursor = conn.cursor()
+            cursor.execute('insert into tbl_categoria(NomeCategoria, OrdemCategoria) VALUES (%s, %s)', ( nome_categoria, ordem_categoria))
+            conn.commit()
+            msg = "Categoria cadastrada com sucesso"
+            return render_template('categoria.html',mensagem = msg, dados=dados)
+    except Exception as e:
+        return json.dumps({'error': str(e)})
 
 @app.route('/cadastrar_item', methods=['POST', 'GET'])
 def cadastro():
@@ -118,15 +142,15 @@ def menu():
 
         return render_template('listarMenuLayout.html',categoria=categoria,tuplas_cardapio=tuplas_cardapio)
 
-@app.route('/list_categoria')
-def categoria():
+# @app.route('/list_categoria', methods=['GET'])
+# def categoria():
 
-    conn = mysql.connection
-    cursor = conn.cursor()
-    cursor.execute ('select * from tbl_categoria  ORDER BY OrdemCategoria')
-    dados = cursor.fetchall()
+#     conn = mysql.connection
+#     cursor = conn.cursor()
+#     cursor.execute ('select * from tbl_categoria ORDER BY OrdemCategoria')
+#     dados = cursor.fetchall()
     
-    return render_template('listarCategoria.html', dados=dados)
+#     return render_template('categoria.html', dados=dados)
 
 @app.route('/list_produto',methods=['GET'])
 def list():
@@ -172,6 +196,7 @@ def categoria_atualizar(id):
         cursor = conn.cursor()
         cursor.execute('UPDATE tbl_categoria SET NomeCategoria = %s, OrdemCategoria = %s WHERE CategoriaId = %s ',(nome_categoria, ordem_categoria, Id))
         conn.commit()
+        return render_template('categoria.html',data=data)
 
     return render_template("editarCategoria.html", data=data)
 
@@ -184,7 +209,7 @@ def categoria_excluir(id):
     cursor = conn.cursor()
     cursor.execute('DELETE FROM tbl_categoria WHERE CategoriaId = %s', (id,))
     conn.commit()
-    return render_template("listarCategoria.html") 
+    return render_template("categoria.html") 
    
 @app.route('/produto/<id>',methods=['GET'])    
 def editProd(id):
@@ -213,21 +238,24 @@ def editarProduto(id):
         imagem = request.files['imagem']
 
 
+        if request.method == 'POST':
 
-        if nome and ordem and categoria and preco:
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute('UPDATE tbl_menu SET NomeDoItem = %s, Categoria = %s, OrdemDoItem = %s, Descricao = %s, Preco = %s, Imagem = %s, WHERE ItemId = %s ', ( nome, categoria, ordem, descricao, preco, imagem, id_pro))
-            conn.commit()
-            msg = "Edição realizada com sucesso"
-            
-            cursor.execute ('select * from tbl_menu WHERE ItemId = %s ', (id_pro,))
-            data = cursor.fetchall()
-            
-            return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)
-        else:
-            return json.dumps({'html':'<span>Enter the required fields</span>'})
+            if nome and ordem and categoria and preco:
+                conn = mysql.connection
+                cursor = conn.cursor()
+                cursor.execute('UPDATE tbl_menu SET NomeDoItem = %s, Categoria = %s, OrdemDoItem = %s, Descricao = %s, Preco = %s, Imagem = %s, WHERE ItemId = %s ', ( nome, categoria, ordem, descricao, preco, imagem, id_pro))
+                conn.commit()
+                msg = "Edição realizada com sucesso"
+                
+                cursor.execute ('select * from tbl_menu WHERE ItemId = %s ', (id_pro,))
+                data = cursor.fetchall()
 
+                
+                return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)
+            else:
+                return json.dumps({'html':'<span>Enter the required fields</span>'})
+
+    
     except Exception as e:
         return json.dumps({'error':str(e)})
 
