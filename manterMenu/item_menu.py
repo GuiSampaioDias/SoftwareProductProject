@@ -80,6 +80,7 @@ def list():
 
     except Exception as e:
         return json.dumps({'error':str(e)})
+       
 @app.route('/produto/<id>',methods=['GET'])    
 def editProd(id):
     try:
@@ -89,6 +90,7 @@ def editProd(id):
             cursor = conn.cursor()
             cursor.execute('select * from tbl_menu where item_menu_id = %s', (id,))
             data = cursor.fetchall()
+            print(data)
             return render_template('editarItemMenu.html', datas=data)
     
     except Exception as e:
@@ -98,7 +100,7 @@ def editProd(id):
 def editarProduto(id):
     
     try:
-        id_pro = int(request.form['id_prod'])
+        id_item = int(request.form['id_item_menu'])
         nome = request.form['inputNome']
         categoria = request.form['inputCategoria']
         descricao = request.form['inputDescricao']
@@ -109,12 +111,13 @@ def editarProduto(id):
         if nome and categoria and preco:
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute('UPDATE tbl_menu SET NomeDoItem = %s, Categoria = %s, Descricao = %s, Preco = %s WHERE item_menu_id = %s ', ( nome,categoria,descricao, preco, id_pro))
+            cursor.execute('UPDATE tbl_menu SET NomeDoItem = %s, Categoria = %s, Descricao = %s, Preco = %s WHERE item_menu_id = %s ', ( nome,categoria,descricao, preco, id_item))
             conn.commit()
             msg = "Edição realizada com sucesso"
             
-            cursor.execute ('select * from tbl_menu WHERE item_menu_id = %s ', (id_pro,))
+            cursor.execute ('select * from tbl_menu WHERE item_menu_id = %s ', (id_item,))
             data = cursor.fetchall()
+            print(data)
             
             return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)
         else:
@@ -133,7 +136,7 @@ def delete(id):
         conn.commit()
         msg = "Excluido com sucesso"
         
-        cursor.execute ('select * from tbl_menu')
+        cursor.execute ('select * from tbl_menu WHERE item_menu_id = %s ', (id,))
         data = cursor.fetchall()
 
         return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)
