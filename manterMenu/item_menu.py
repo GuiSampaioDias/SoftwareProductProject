@@ -176,41 +176,7 @@ def list():
             return render_template('listarMenu.html', datas1=dataBebida, datas2=dataDrink,datas3 = dataPizza, datas4 = dataPrato,datas5 = dataSobremesa)
 
     except Exception as e:
-        return json.dumps({'error':str(e)})   
-    
-@app.route("/atualizar_categoria/<int:id>", methods=['GET', 'POST'])
-def categoria_atualizar(id):
-    
-    id = id
-    conn = mysql.connection
-    cursor = conn.cursor()
-    cursor.execute('select * from tbl_categoria where CategoriaId = %s', (id,))
-    data = cursor.fetchall()
-
-    if request.method == 'POST':
-        Id = request.form['inputCategoriaId']
-        nome_categoria = request.form['inputCategoria'].upper()
-        ordem_categoria = request.form['inputOrdem']
-
-        conn = mysql.connection   
-        cursor = conn.cursor()
-        cursor.execute('UPDATE tbl_categoria SET NomeCategoria = %s, OrdemCategoria = %s WHERE CategoriaId = %s ',(nome_categoria, ordem_categoria, Id))
-        conn.commit()
-        return render_template('categoria.html',data=data)
-
-    return render_template("editarCategoria.html", data=data)
-
-
-@app.route("/excluir_categoria/<int:id>")
-def categoria_excluir(id):
-    
-    id = id
-    conn = mysql.connection
-    cursor = conn.cursor()
-    cursor.execute('DELETE FROM tbl_categoria WHERE CategoriaId = %s', (id,))
-    conn.commit()
-    return render_template("categoria.html") 
-   
+        return json.dumps({'error':str(e)})
 @app.route('/produto/<id>',methods=['GET'])    
 def editProd(id):
     try:
@@ -220,6 +186,7 @@ def editProd(id):
             cursor = conn.cursor()
             cursor.execute('select * from tbl_menu where ItemId = %s', (id,))
             data = cursor.fetchall()
+            print(data)
             return render_template('editarItemMenu.html', datas=data)
     
     except Exception as e:
@@ -229,7 +196,7 @@ def editProd(id):
 def editarProduto(id):
     
     try:
-        id_pro = int(request.form['ItemId'])
+        id_pro = int(request.form['id_prod'])
         nome = request.form['inputNome']
         categoria = request.form['inputCategoria']
         ordem = request.form['inputOrdem']
@@ -240,22 +207,20 @@ def editarProduto(id):
 
         if request.method == 'POST':
 
-            if nome and ordem and categoria and preco:
-                conn = mysql.connection
-                cursor = conn.cursor()
-                cursor.execute('UPDATE tbl_menu SET NomeDoItem = %s, Categoria = %s, OrdemDoItem = %s, Descricao = %s, Preco = %s, Imagem = %s, WHERE ItemId = %s ', ( nome, categoria, ordem, descricao, preco, imagem, id_pro))
-                conn.commit()
-                msg = "Edição realizada com sucesso"
-                
-                cursor.execute ('select * from tbl_menu WHERE ItemId = %s ', (id_pro,))
-                data = cursor.fetchall()
+        if nome and categoria and preco:
+            conn = mysql.connection
+            cursor = conn.cursor()
+            cursor.execute('UPDATE tbl_menu SET NomeDoItem = %s, Categoria = %s, Descricao = %s, Preco = %s WHERE item_menu_id = %s ', ( nome,categoria,descricao, preco, id_pro))
+            conn.commit()
+            msg = "Edição realizada com sucesso"
+            
+            cursor.execute ('select * from tbl_menu WHERE item_menu_id = %s ', (id_pro,))
+            data = cursor.fetchall()
+            
+            return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)
+        else:
+            return json.dumps({'html':'<span>Enter the required fields</span>'})
 
-                
-                return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)
-            else:
-                return json.dumps({'html':'<span>Enter the required fields</span>'})
-
-    
     except Exception as e:
         return json.dumps({'error':str(e)})
 
@@ -269,7 +234,7 @@ def deleteProduto(id):
         conn.commit()
         msg = "Excluido com sucesso"
         
-        cursor.execute ('select * from tbl_menu')
+        cursor.execute ('select * from tbl_menu WHERE item_menu_id = %s ', (id,))
         data = cursor.fetchall()
 
         return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)

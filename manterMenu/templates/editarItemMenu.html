@@ -15,11 +15,21 @@
         <a href="http://localhost:5001"><img src="{{url_for('static', filename='/img/Logo.png')}}" class="logo"/></a>
             <nav class="menu">
             <ul>
+<<<<<<< HEAD
                 <li><a href="http://localhost:5001/">Cadastrar Produtos</a></li>
                 <li><a href="http://localhost:5001/categoria">Cadastrar Categoria</a></li>
                 <li><a href="http://localhost:5001/list_produto">Lista de Produtos</a></li>
                 <li><a href="http://localhost:5001/list_categoria">Lista de Categorias</a></li>
                 <li><a href="http://localhost:5001/menu">Menu Cardápio</a></li>
+=======
+                <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
+                <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
+                <li><a href="http://localhost:5002/">Cadastrar Item Ordem</a></li>
+                <li><a href="http://localhost:5002/list">Lista de Itens Ordem</a></li>
+                <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+                <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+
+>>>>>>> 709298c71b4ed5010b5a2ac875b37e532d9c027d
             </ul>
         </nav>
     </header>
@@ -49,7 +59,7 @@
              
             <input type="submit" value="Upload">         
         <button id="cadastrar" class="" type="submit" >Salvar</button>
-        <input type="hidden" id="id_prod" name="id_prod" value="{{datas[0][0]}}">
+        <input type="hidden" id="id_item_menu" name="id_item_menu" value="{{datas[0][0]}}">
     </form> 
     <p class="mensagem">{{mensagem}}</p>
     </div>

@@ -154,6 +154,7 @@ def editarProduto(id):
             
             cursor.execute ('select * from tbl_produto WHERE produto_id = %s ', (id_pro,))
             data = cursor.fetchall()
+            print (data)
             
             return render_template('listar.html', mensagem = msg, datas=data)
         else:
