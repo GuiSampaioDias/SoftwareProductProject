@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="class container">
+
+    <div class="class container">
+        {% include 'navCardapio.html' %}
+        <hr>
+    </div>
+
+    <div class="row mt-4" >
+        <h4>Novo Item Do Cardápio</h4>
+    </div>
+
+
+    <div class="container">
+        <form action="/novoItem" method="post" class="row  mb-4 p-4 rounded border shadow" enctype="multipart/form-data">
+            <label for="inputItem"  style="font-weight: bold" >Nome do item: </label><br>    
+            <input type="text" name="inputItem" id="inputItem" class="form-control"  required autofocus placeholder="Digite o nome do item">
+
+            <label for="inputCategoria" style="font-weight: bold">Categoria: </label><br>
+            
+            <select name="inputCategoria" id="inputCategoria" class="form-control" required>
+                <option value="" disabled selected>Selecione uma Categoria...</option>
+                {% for categoria in categorias %}
+                <option value="{{categoria[0]}}">{{categoria[0]}}</option>
+                {%endfor%}
+            </select>
+          
+            <label for="inputOrdem" style="font-weight: bold">Ordem:</label><br>
+            <input type="number" name="inputOrdem" id="inputOrdem" class="form-control" required placeholder="Digite a posição da ordem onde vai aparcer no menu..." ><br>
+            
+            <label for="inputDescricao" style="font-weight: bold">Descrição:</label><br>
+            <textarea name="inputDescricao" default= "Não há" id="inputDescricao" class="form-control" placeholder="Digite a descrição" maxlength="100" ></textarea><br>
+
+            <label for="inputPreco" style="font-weight: bold">Preço:</label><br>
+            <input type="number" name="inputPreco" id="inputPreco" class="form-control" default= 0 placeholder="Digite o preço (ex: 10.99)" step="0.01" min="0" required><br>
+            
+            <label for="imagem" style="font-weight: bold">Selecione uma imagem:</label>
+            <input type="file" id="imagem" name="imagem" ><br><br>
+             
+
+            <input type="submit" value="Upload">
+            
+
+        </form>
+    </div>
+    
+</div>
+
+
+
+{% endblock %}

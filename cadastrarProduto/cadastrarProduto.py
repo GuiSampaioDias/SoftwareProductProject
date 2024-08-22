@@ -20,13 +20,14 @@ CREATE TABLE IF NOT EXISTS tbl_produto
 );
 
 
-SELECT * FROM tbl_produto
+SELECT * FROM tbl_produto;
 
 '''
 
 import os
 from flask import Flask, render_template, json, request,jsonify
 from flask_mysqldb import MySQL
+
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -43,11 +44,13 @@ mysql.init_app(app)
 def main():
     return render_template('formulario_produto.html')
 
-@app.route('/cadastrar',methods=['POST','GET'])
+
+
+@app.route('/cadastrar', methods=['GET','POST'])
 def cadastro():
     try:
         nome = request.form['inputNome'].title().strip()
-        #title pega o comeco das palavras. Strip tira os espacoes
+        #title pega o comeco das palavras e transforma em maiusculo. Strip tira os espacos
         categoria = request.form['inputCategoria']
         quantidade = request.form['inputQuantidade']
         litros = request.form['inputLitros']
@@ -151,6 +154,7 @@ def editarProduto(id):
             
             cursor.execute ('select * from tbl_produto WHERE produto_id = %s ', (id_pro,))
             data = cursor.fetchall()
+            print (data)
             
             return render_template('listar.html', mensagem = msg, datas=data)
         else:
@@ -167,6 +171,7 @@ def delete(id):
         cursor = conn.cursor()
         cursor.execute('DELETE FROM tbl_produto WHERE produto_id = %s', (id,))
         conn.commit()
+        print(id)
         msg = "Excluido com sucesso"
         
         cursor.execute ('select * from tbl_produto')

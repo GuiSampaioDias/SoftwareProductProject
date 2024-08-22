@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <link rel="stylesheet" href="/static/styleList.css">
+    <title>Menu</title>
+</head>
+<body>
+<hr>
+<p class="titulo">Menu</p>
+
+{% for linha in categoria %} 
+<section id="pratos" class="container">
+<hr>
+<p class="titulo">{{linha[1]}}</p>
+
+    {% for tc in tuplas_cardapio %} 
+    {% if tc[3] == linha[1] %}
+    <div class="container">
+        <div class="img">
+            <img src="{{ url_for('static', filename='data/cardapio/{}'.format(tc[6]) ) }}" 
+            width="200" height="317" class="img-cardapio" loading="lazy">
+        </div>
+        <div class="container">
+            <span class="title">1</span>
+             - {{tc[1]}}
+        </div>
+        <p class="receita">
+            {{tc[4]}}
+        </p>
+        <div class="preco">
+            R$ 
+            <span class="title"> {{tc[5]}}</span>
+        </div>
+    </div>
+    {%endif%}
+    {% endfor %}
+{% endfor %}
+</div>
+<p class="mensagem">{{mensagem}}</p>
+</body>
+</html>
