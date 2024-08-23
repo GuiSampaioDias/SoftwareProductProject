@@ -18,8 +18,8 @@
             <ul>
                 <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
                 <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
-                <li><a href="http://localhost:5002/">Cadastrar Item</a></li>
-                <li><a href="http://localhost:5002/list">Lista de Itens</a></li>
+                <li><a href="http://localhost:5002/">Cadastrar Item Ordem</a></li>
+                <li><a href="http://localhost:5002/list">Lista de Itens Ordem</a></li>
                 <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
                 <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
             </ul>
@@ -31,13 +31,12 @@
     <table>
         {% for item in datas %}
         <tr><td colspan="4" class="title">{{item[2]}}</td></tr>
-        <tr><td> Nome </td><td>Tipo</td><td>Ordem</td><td class="desc">Descrição</td><td>Preço</td></tr>
+        <tr><td> Nome </td><td>Tipo</td><td class="desc">Descrição</td><td>Preço</td></tr>
         <tr>
             <th>{{item[1]}}</th>
             <th>{{item[2]}}</th>
             <th>{{item[3]}}</th>
             <th class="desc">{{item[4]}}</th>
-            <th>{{item[5]}}</th>
             <th><a href="/produto/{{item[0]}}"><button>Atualizar</button></a></th>
             <th><button onclick="funcao2('{{item[0]}}')">Deletar</button></th>
         </tr>

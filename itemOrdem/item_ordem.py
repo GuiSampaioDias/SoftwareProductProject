@@ -22,7 +22,7 @@ SELECT * FROM tbl_item_ordem
 '''
 
 import os
-from flask import Flask, render_template, json, request,jsonify
+from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 
 mysql = MySQL()
@@ -43,7 +43,6 @@ def main():
         cursor = conn.cursor()
         cursor.execute('select NomeDoProduto from tbl_produto')
         prods = cursor.fetchall()
-        print (prods)
 
         return render_template('formulario_item.html',produtos=prods)
     
@@ -115,8 +114,6 @@ def editProd(id):
             cursor = conn.cursor()
             cursor.execute('select NomeDoProduto from tbl_produto order by produto_id')
             prods = cursor.fetchall()
-            print(data)
-            print(prods)
 
             return render_template('editarItem.html', datas=data, produtos=prods)
     
@@ -145,7 +142,6 @@ def editarProduto(id):
             
             cursor.execute ('select * from tbl_item_ordem WHERE ItemOrdem_id = %s', (id_pro,))
             data = cursor.fetchall()
-            print (data)
             
             return render_template('listar.html', mensagem = msg, datas=data)
         else:

@@ -24,7 +24,7 @@ SELECT * FROM tbl_produto;
 '''
 
 import os
-from flask import Flask, render_template, json, request,jsonify
+from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 
 
@@ -134,15 +134,13 @@ def editarProduto(id):
             
             conn = mysql.connection
             cursor = conn.cursor()
-            print("antes do cursor execute")
             cursor.execute('UPDATE tbl_produto SET NomeDoProduto = %s, Categoria = %s, ml = %s,Peso_kg = %s, Preço = %s, Descrição = %s WHERE produto_id = %s ', ( nome,categoria,ml,peso,preco,descricao,id_pro))
             conn.commit()
             msg = "Edição realizada com sucesso"
-            
+    
             cursor.execute ('select * from tbl_produto WHERE produto_id = %s ', (id_pro,))
-            data = cursor.fetchall()
-            print (data)
-            
+            data = cursor.fetchall()  
+                  
             return render_template('listar.html', mensagem = msg, datas=data)
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
