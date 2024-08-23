@@ -207,19 +207,19 @@ def editarProduto(id):
 
         if request.method == 'POST':
 
-        if nome and categoria and preco:
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute('UPDATE tbl_menu SET NomeDoItem = %s, Categoria = %s, Descricao = %s, Preco = %s WHERE item_menu_id = %s ', ( nome,categoria,descricao, preco, id_pro))
-            conn.commit()
-            msg = "Edição realizada com sucesso"
-            
-            cursor.execute ('select * from tbl_menu WHERE item_menu_id = %s ', (id_pro,))
-            data = cursor.fetchall()
-            
-            return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)
-        else:
-            return json.dumps({'html':'<span>Enter the required fields</span>'})
+            if nome and categoria and preco:
+                conn = mysql.connection
+                cursor = conn.cursor()
+                cursor.execute('UPDATE tbl_menu SET NomeDoItem = %s, Categoria = %s, Descricao = %s, Preco = %s WHERE item_menu_id = %s ', ( nome,categoria,descricao, preco, id_pro))
+                conn.commit()
+                msg = "Edição realizada com sucesso"
+
+                cursor.execute ('select * from tbl_menu WHERE item_menu_id = %s ', (id_pro,))
+                data = cursor.fetchall()
+
+                return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)
+            else:
+                return json.dumps({'html':'<span>Enter the required fields</span>'})
 
     except Exception as e:
         return json.dumps({'error':str(e)})
