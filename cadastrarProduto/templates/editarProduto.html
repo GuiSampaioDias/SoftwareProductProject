@@ -42,18 +42,14 @@
         </select><br>
    
 
-        <label for="inputQuantidade">Quantidade:</label><br>
-        <input type="number" name="inputQuantidade" value="{{datas[0][3]}}" id="inputQuantidade" class="form-control" placeholder="Digite a quantidade do produto" min="0" ><br>
-        <label for="inputLitros">Litros:</label><br>
-        <input type="number" name="inputLitros" id="inputLitros" value="{{datas[0][4]}}" class="form-control" step="0.01" placeholder="Digite a quantidade de litros" ><br>
+        <label for="inputML">ML:</label><br>
+        <input type="number" name="inputML" id="inputML" value="{{datas[0][3]}}" class="form-control" step="0.01" placeholder="Digite a quantidade de litros" ><br>
         <label for="inputPeso">Kilograma:</label><br>
-        <input type="number" name="inputPeso" id="inputLitros" value="{{datas[0][5]}}" class="form-control" step="0.001" placeholder="Digite a quantidade de Kilos" ><br>
+        <input type="number" name="inputPeso" id="inputPeso" value="{{datas[0][4]}}" class="form-control" step="0.001" placeholder="Digite a quantidade de Kilos" ><br>
         <label for="inputPreco">Preço:</label><br>
-        <input type="number" name="inputPreco" id="inputPreco" value="{{datas[0][6]}}" class="form-control" placeholder="Digite o preço (ex: 10.99)" step="0.01" min="0" required><br>
+        <input type="number" name="inputPreco" id="inputPreco" value="{{datas[0][5]}}" class="form-control" placeholder="Digite o preço (ex: 10.99)" step="0.01" min="0" required><br>
         <label for="inputDescricao">Descrição:</label><br>
-        <textarea name="inputDescricao" id="inputDescricao" value="{{datas[0][7]}}" class="form-control" placeholder="Digite a descrição" maxlength="45" >{{datas[0][7]}}</textarea><br>
-        <label for="inputIngredientes">Ingredientes:</label><br>
-        <textarea name="inputIngredientes" id="inputIngredientes" value="{{datas[0][8]}}" class="form-control" placeholder="Digite os ingredientes" maxlength="1000">{{datas[0][8]}}</textarea><br>
+        <textarea name="inputDescricao" id="inputDescricao" value="{{datas[0][6]}}" class="form-control" placeholder="Digite a descrição" maxlength="45" >{{datas[0][6]}}</textarea><br>
         <button id="cadastrar" class="" type="submit" >Salvar</button>
         <input type="hidden" id="id_prod" name="id_prod" value="{{datas[0][0]}}">
     </form> 
