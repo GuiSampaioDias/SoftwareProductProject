@@ -4,10 +4,8 @@ CREATE TABLE IF NOT EXISTS tbl_menu
     ItemId      BIGINT       NOT NULL AUTO_INCREMENT,
     NomeDoItem   VARCHAR(45)  NOT NULL,
     Categoria      VARCHAR(15)  NOT NULL,
-    OrdemDoItem  BIGINT       NOT NULL,
     Descricao      VARCHAR(85)  NULL,
     Preco          FLOAT(6,2),
-    ImagemItem     VARCHAR(45)  NOT NULL, 
     PRIMARY KEY (ItemId)
 
 );

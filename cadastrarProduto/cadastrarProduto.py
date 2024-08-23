@@ -10,8 +10,7 @@ CREATE TABLE IF NOT EXISTS tbl_produto
     produto_id     BIGINT       NOT NULL   AUTO_INCREMENT, 
     NomeDoProduto  VARCHAR(45)  NOT NULL,
     Categoria      VARCHAR(15)  NOT NULL, 
-    Quantidade 	   INT          NOT NULL,
-    litros         FLOAT(5,2)       NULL, 
+    ml         FLOAT(5,2)       NULL, 
     Peso_kg        FLOAT(6,2)       NULL,
     Preço          FLOAT(5,2)   NOT NULL, 
     Descrição      VARCHAR(45),
@@ -135,7 +134,8 @@ def editarProduto(id):
             
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute('UPDATE tbl_produto SET NomeDoProduto = %s, Categoria = %s, ml = %s,Peso_kg = %s, Preço = %s, Descrição = %s, WHERE produto_id = %s ', ( nome,categoria,ml,peso,preco,descricao,id_pro))
+            print("antes do cursor execute")
+            cursor.execute('UPDATE tbl_produto SET NomeDoProduto = %s, Categoria = %s, ml = %s,Peso_kg = %s, Preço = %s, Descrição = %s WHERE produto_id = %s ', ( nome,categoria,ml,peso,preco,descricao,id_pro))
             conn.commit()
             msg = "Edição realizada com sucesso"
             
