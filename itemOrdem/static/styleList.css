@@ -22,7 +22,6 @@ li {
 th, td{
     border: 1px solid white;
     padding: 8px;
-    width: 100px;
 }
 
 a{
@@ -31,17 +30,19 @@ a{
 }
 
 a:hover{
-    animation:2s linear all ease;
+    animation: ease-in 2s linear;
     color: rgb(236, 70, 70);
     transition: 400ms linear;
 }
-.container
+  .container
 {
 display: flex;
-flex-direction: column;
+flex-direction: row;
 justify-content: center;
 align-items: center;
 }
+
+
 
 header {
     display: flex;
@@ -88,39 +89,3 @@ p{
     opacity: 1; /* Define a opacidade inicial */
 }
 
-.title{
-    text-align: center;
-    background-color: blueviolet;
-    border-radius: 15px;
-}
-
-.desc{
-    width:350px ;
-    text-transform: capitalize;
-}
-
-.nomeProduto {
-    text-transform: capitalize;
-}
-
-.btn-atualizar {
-    background-color: rgb(0, 255, 0);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-atualizar:hover {
-    background-color: rgb(170, 255, 170);
-}
-
-.btn-deletar {
-    background-color: rgb(255, 8, 0);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-deletar:hover {
-    background-color: rgb(255, 170, 170);
-}
