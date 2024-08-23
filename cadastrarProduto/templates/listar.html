@@ -9,33 +9,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/static/styleList.css" />
     <title>Listar Produtos</title>
-  </head>
-  <body>
-    <header>
-      <nav class="menu">
-        <ul>
-          <li>
-            <a href="http://localhost:5000/">Cadastrar Produtos</a>
-          </li>
-          <li>
-            <a href="http://localhost:5000/list">Listar Todos Produtos</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <hr />
-    <div class="container">
-      <table>
+</head>
+<body>
+<header>
+    <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+    <nav class="menu">
+    <ul>
+        <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
+        <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
+        <li><a href="http://localhost:5002/">Cadastrar Item Ordem</a></li>
+        <li><a href="http://localhost:5002/list">Lista de Itens Ordem</a></li>
+        <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+
+    </ul>
+</nav>
+</header>
+<hr>
+<p class="titulo">Lista de produtos</p>
+<div class="container">
+    <table>
+        <tr><td> Nomes </td><td>Tipo</td><td>ML</td><td>KG</td><td>Preço</td><td>Descrição</td></tr>
+        {% for item in datas %}
         <tr>
-          <td>produto_id</td>
-          <td>Nomes</td>
-          <td>Tipo</td>
-          <td>Quantidade</td>
-          <td>Litros</td>
-          <td>KG</td>
-          <td>Preço</td>
-          <td>Descrição</td>
-          <td>Ingredientes</td>
+            <th>{{item[1]}}</th>
+            <th>{{item[2]}}</th>
+            <th>{{item[3]}}</th>
+            <th>{{item[4]}}</th>
+            <th>{{item[5]}}</th>
+            <th>{{item[6]}}</th>
+            <th><a href="/produto/{{item[0]}}"><button>Atualizar</button></a></th>
+            <th><button onclick="funcao1('{{item[0]}}')">Deletar</button></th>
         </tr>
         {% for item in datas %}
           <tr>
