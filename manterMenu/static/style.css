@@ -14,6 +14,11 @@ body{
     color: white;
 }
 
+p{
+    text-align: center;
+    font-size: 25px;
+}
+
 input, textarea, select{
     border:none;
     width:500px;
@@ -37,16 +42,40 @@ input:focus, textarea:focus, select:focus{
     box-shadow: 0 0 0 2px rgb(236, 70, 70); 
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+li {
+    display: inline;
+    margin-right: 20px;
+  }
+
+th,td{
+    border: 1px solid white;
+    padding: 8px;
 }
 
-
-input[type=number] {
-    -moz-appearance: textfield; /* Firefox */
+a{
+    text-decoration: none;
+    color: white;
 }
+
+a:hover{
+    animation: ease-in 2s linear;
+    color: rgb(236, 70, 70);
+    transition: 400ms linear;
+}
+.container
+{
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 
 @keyframes fadeOut {
     0% { opacity: 1; }
@@ -68,16 +97,55 @@ input[type=number] {
     animation-delay: 2s; /* Define o atraso antes de começar a animação */
     opacity: 1; /* Define a opacidade inicial */
 }
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.logo {
+    width: 80px; /* Defina o tamanho desejado para a imagem */
+    height: auto;
+}
+
 .titulo{
-    text-align: center;
     font-size: 35px;
 }
 
-.container
-{
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
 }
 
+#inputPreco {
+    margin-bottom: 20px;
+}
+
+form input,
+form select {
+    margin-bottom: 20px;
+}
+
+#cadastrar {
+    border-radius: 10px;
+    /* background-color: yellow; */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#cadastrar:hover {
+    /* background-color: rgb(230, 230, 158); */
+}
