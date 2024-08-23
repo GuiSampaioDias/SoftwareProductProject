@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS tbl_categoria
 (
     CategoriaId      BIGINT       NOT NULL AUTO_INCREMENT,
     NomeCategoria   VARCHAR(45)  NOT NULL,
-    OrdemCategoria  BIGINT       NOT NULL, 
     PRIMARY KEY (CategoriaId)
 
 );
