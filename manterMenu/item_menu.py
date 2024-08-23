@@ -97,7 +97,7 @@ def cadastro():
         nome = request.form['inputNome'].title().strip()
         #title pega o comeco das palavras. Strip tira os espacoes
         categoria = request.form['inputCategoria']
-        descricao = request.form['inputDescricao'].lower()
+        descricao = request.form['inputDescricao']
         preco = request.form['inputPreco']
 
 
