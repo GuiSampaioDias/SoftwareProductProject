@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/static/list.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,23 +13,23 @@
 </head>
 <body>
 <header>
-    <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+    <a href="http://localhost:5002"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
     <nav class="menu">
     <ul>
         <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
         <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
         <li><a href="http://localhost:5002/">Cadastrar Item Ordem</a></li>
-        <li><a href="http://localhost:5002/list">Lista de Itens Ordem</a></li>
         <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+        <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
 
     </ul>
 </nav>
 </header>
 <hr>
-<p class="titulo">Lista de produtos</p>
+<p class="titulo">Lista de Itens Ordem</p>
 <div class="container">
     <table>
-        <tr><td> Nomes </td><td>Tipo</td><td>ML</td><td>KG</td><td>Preço</td><td>Descrição</td></tr>
+        <tr><td> Nomes </td><td>Quantidade</td><td>Preço</td><td>Preço Total</td><td>Descrição</td></tr>
         {% for item in datas %}
         <tr>
             <th>{{item[1]}}</th>
@@ -37,28 +37,9 @@
             <th>{{item[3]}}</th>
             <th>{{item[4]}}</th>
             <th>{{item[5]}}</th>
-            <th>{{item[6]}}</th>
             <th><a href="/produto/{{item[0]}}"><button>Atualizar</button></a></th>
             <th><button onclick="funcao1('{{item[0]}}')">Deletar</button></th>
         </tr>
-        {% for item in datas %}
-          <tr>
-            <th>{{ item[0] }}</th>
-            <th>{{ item[1] }}</th>
-            <th>{{ item[2] }}</th>
-            <th>{{ item[3] }}</th>
-            <th>{{ item[4] }}</th>
-            <th>{{ item[5] }}</th>
-            <th>{{ item[6] }}</th>
-            <th>{{ item[7] }}</th>
-            <th>{{ item[8] }}</th>
-            <th>
-              <a href="/produto/{{ item[0] }}"><button>Atualizar</button></a>
-            </th>
-            <th>
-              <button onclick="funcao1('{{ item[0] }}')">Deletar</button>
-            </th>
-          </tr>
         {% endfor %}
     </table>
     </div>

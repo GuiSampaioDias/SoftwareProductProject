@@ -9,46 +9,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
     <title>Cadastrar produto</title>
-  </head>
-  <body>
+</head>
+<body>
     <header>
-            <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+            <a href="http://localhost:5002"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
             <nav class="menu">
             <ul>
                 <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
                 <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
-                <li><a href="http://localhost:5002/">Cadastrar Item Ordem</a></li>
                 <li><a href="http://localhost:5002/list">Lista de Itens Ordem</a></li>
-                <li><a href="http://localhost:5000/list">Lista de Produtos</a></li
+                <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+                <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+                
             </ul>
         </nav>
     </header>
     <hr>
-    <p class="titulo">Cadastre um produto</p>
+    <p class="titulo">Cadastre um Item Ordem</p>
     <div class="container">
-      <form action="cadastrar" method="post">
-        <label for="inputNome" class="sr-only">Nome do produto:</label><br />
-        <input type="text" name="inputNome" id="inputNome" class="form-control" required autofocus placeholder="Digite o nome do produto" /><br />
-        <label for="inputCategoria">Categoria:</label><br />
-        <select name="inputCategoria" id="inputCategoria" class="form-control" required>
-          <option value="" disabled selected>Selecione uma Categoria...</option>
-          <option value="Bebida">Bebida</option>
-          <option value="Alimento">Alimento</option>
-          <option value="Sobremesa">Sobremesa</option>
-        </select><br />
+    <form action="cadastrar" method="post">
+        <label for="inputNome">Nome do Item Ordem: </label><br>
+        <select name="inputNome" id="inputNome"
+         class="form-control" required autofocus>
+            <option value="" disabled selected>Selecione um produto...</option>
+            {% for produto in produtos %}
+            <option value="{{produto[0]}}">{{produto[0]}}</option>
+            {%endfor%}
+        </select><br>
 
 
-        <label for="inputML">ML:</label><br>
-        <input type="number" name="inputML" id="inputML" class="form-control" step="0.01" placeholder="Digite a quantidade de ML" ><br>
-        <label for="inputPeso">Kilograma:</label><br>
-        <input type="number" name="inputPeso" id="inputPeso" class="form-control" step="0.001" placeholder="Digite a quantidade de Kilos" ><br>
+        <label for="inputQuantidade">Quantidade:</label><br>
+        <input type="number" name="inputQuantidade" id="inputQuantidade" class="form-control" placeholder="Digite a quantidade do Item Ordem" min="0" required><br>
         <label for="inputPreco">Preço:</label><br>
         <input type="number" name="inputPreco" id="inputPreco" class="form-control" placeholder="Digite o preço (ex: 10.99)" step="0.01" min="0" required><br>
         <label for="inputDescricao">Descrição:</label><br>
         <textarea name="inputDescricao" id="inputDescricao" class="form-control" placeholder="Digite a descrição" maxlength="45" ></textarea><br>
         <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
-      </form>
-    </div>
-    <p class="mensagem">{{ mensagem }}</p>
-  </body>
+    </form>
+</div>
+<p class="mensagem">{{mensagem}}</p>
+</body>
 </html>
