@@ -15,19 +15,13 @@
         <a href="http://localhost:5001"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
         <nav class="menu">
         <ul>
-<<<<<<< HEAD:manterMenu/templates/formularioItemMenu.html
-            <li><a href="http://localhost:5001/categoria">Cadastrar Categoria</a></li>
-            <li><a href="http://localhost:5001/list_produto">Lista de Produtos</a></li>
-            <li><a href="http://localhost:5001/list_categoria">Lista de Categorias</a></li>
-            <li><a href="http://localhost:5001/menu">Menu Cardápio</a></li>
-=======
-            <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
+            <li><a href="http://localhost:5001/list_produto">Lista de Item Menu</a></li>
             <li><a href="http://localhost:5002/">Cadastrar Item Ordem</a></li>
-                <li><a href="http://localhost:5002/list">Lista de Itens Ordem</a></li>
+            <li><a href="http://localhost:5002/list">Lista de Itens Ordem</a></li>
             <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
             <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+            <!-- <li><a href="http://localhost:5001/categoria">Cadastrar Categoria</a></li> -->
 
->>>>>>> 709298c71b4ed5010b5a2ac875b37e532d9c027d:manterMenu/templates/formulario_item_menu.html
         </ul>
     </nav>
     </header>
@@ -41,22 +35,25 @@
             
             <select name="inputCategoria" id="inputCategoria" class="form-control" required>
                 <option value="" disabled selected>Selecione uma Categoria...</option>
-                {% for categoria in categorias %}
+                <!-- {% for categoria in categorias %}
                 <option value="{{categoria[0]}}">{{categoria[0]}}</option>
-                {%endfor%}
+                {%endfor%} -->
+                <option value="Bebida">Bebida</option>
+                <option value="Drink">Drink</option>
+                <option value="Pizza">Pizza</option>
+                <option value="Prato">Prato</option>
+                <option value="Sobremesa">Sobremesa</option>
             </select><br>
-            
-        <label for="inputOrdem" class="sr-only">Ordem do Item:</label><br>
-        <input type="number" name="inputOrdem" id="inputOrdem" class="form-control" required autofocus placeholder="Digite a posição que o item irá aparecer no menu..."><br>    
+        
         <label for="inputDescricao">Descrição:</label><br>
         <input type="text" name="inputDescricao" id="inputDescricao" class="form-control" default= "Não há" required autofocus placeholder="Descrição do item"><br>
         <label for="inputPreco">Preço: </label><br>
         <input type="number" name="inputPreco" id="inputPreco" class="form-control" required autofocus placeholder="Preço do item"><br>
-        <label for="imagem" style="font-weight: bold">Selecione uma imagem:</label><br>
+        <!-- <label for="imagem" style="font-weight: bold">Selecione uma imagem:</label><br>
             <input type="file" id="imagem" name="imagem" ><br>
              
 
-            <input type="submit" value="Upload"><br>
+            <input type="submit" value="Upload"><br> -->
 
         <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button><br>
         <p class="mensagem">{{mensagem}}</p>
