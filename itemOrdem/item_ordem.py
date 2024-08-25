@@ -1,28 +1,5 @@
-'''
-Lembrando ... quem digita .... erra
-
-CREATE SCHEMA IF NOT EXISTS restaurante;
-
-USE restaurante;
-
-CREATE TABLE IF NOT EXISTS tbl_item_ordem 
-( 
-    ItemOrdem_id               BIGINT       NOT NULL   AUTO_INCREMENT, 
-    NomeItem                   VARCHAR(45)  NOT NULL,
-    Quantidade 	               INT          NOT NULL,
-    PreçoProduto               FLOAT(5,2)   NOT NULL,
-    PreçoTotalPorProduto       FLOAT(9,2)   NOT NULL,
-    Descrição                  VARCHAR(45), 
-    PRIMARY KEY (ItemOrdem_id)
-);
-
-
-SELECT * FROM tbl_item_ordem
-
-'''
-
 import os
-from flask import Flask, render_template, json, request
+from flask import Flask, render_template, json, request, redirect
 from flask_mysqldb import MySQL
 
 mysql = MySQL()
@@ -57,7 +34,7 @@ def cadastro():
         #title pega o comeco das palavras. Strip tira os espacoes
         quantidade = request.form['inputQuantidade']
         preco = request.form['inputPreco']
-        preco_total = int(preco) * int(quantidade)
+        preco_total = float(preco) * float(quantidade)
         descricao = request.form['inputDescricao'].lower()
         #lower deixa tudo minusculo
 
@@ -80,6 +57,7 @@ def cadastro():
             cursor.execute('insert into tbl_item_ordem (NomeItem,Quantidade,PreçoProduto, PreçoTotalPorProduto, Descrição) VALUES (%s, %s, %s, %s, %s)', ( nome,quantidade,preco,preco_total,descricao))
             conn.commit()
             msg = "Item ordem cadastrados com sucesso"
+            
             return render_template('formulario_item.html', mensagem = msg)
 
     except Exception as e:
@@ -166,7 +144,48 @@ def delete(id):
         return render_template('listar.html', mensagem = msg, datas=data)
     
     except Exception as e:
-        return json.dumps({'error': str(e)})   
+        return json.dumps({'error': str(e)})  
+
+# @app.route('/estoque/<id>', methods=['POST','GET'])
+# def sobe_estoque(id):
+#     try:
+#         print("ESTou aqui\n\n\n\n\n\n")
+#         id_prod = id
+#         nome = request.form['inputNome']
+#         print(f'\n\n\n\n\n\n\n\nome = {nome}')
+#         #title pega o comeco das palavras. Strip tira os espacoes
+#         quantidade = float(request.form['inputQuantidade'])
+#         print(f'quantidade = {quantidade}')
+#         conn = mysql.connection
+#         cursor = conn.cursor()
+#         cursor.execute('select * from tbl_produto where NomeDoProduto = %s', (nome,))
+#         data = cursor.fetchall()
+#         print(data)
+#         if not descricao:
+#             descricao = "Não Há"
+    
+#         cur = mysql.connection.cursor()
+
+#         cur.execute("SELECT NomeItem FROM tbl_item_ordem WHERE NomeItem = %s", (nome,))
+
+#         resultado = cur.fetchone()
+
+#         if resultado:
+#             msg = "Item ordem ja cadastrados na base de dados"
+#             return render_template('formulario_item.html', mensagem = msg)
+#         else:
+                       
+#             conn = mysql.connection
+#             cursor = conn.cursor()
+#             cursor.execute('insert into tbl_item_ordem (NomeItem,Quantidade,PreçoProduto, PreçoTotalPorProduto, Descrição) VALUES (%s, %s, %s, %s, %s)', ( nome,quantidade,preco,preco_total,descricao))
+#             conn.commit()
+#             msg = "Item ordem cadastrados com sucesso"
+#             return render_template('formulario_item.html', mensagem = msg)
+
+#     except Exception as e:
+#         print(data)
+#         return json.dumps({'error':str(e)})
+     
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5002))
