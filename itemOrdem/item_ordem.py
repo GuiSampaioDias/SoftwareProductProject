@@ -146,45 +146,25 @@ def delete(id):
     except Exception as e:
         return json.dumps({'error': str(e)})  
 
-# @app.route('/estoque/<id>', methods=['POST','GET'])
-# def sobe_estoque(id):
-#     try:
-#         print("ESTou aqui\n\n\n\n\n\n")
-#         id_prod = id
-#         nome = request.form['inputNome']
-#         print(f'\n\n\n\n\n\n\n\nome = {nome}')
-#         #title pega o comeco das palavras. Strip tira os espacoes
-#         quantidade = float(request.form['inputQuantidade'])
-#         print(f'quantidade = {quantidade}')
-#         conn = mysql.connection
-#         cursor = conn.cursor()
-#         cursor.execute('select * from tbl_produto where NomeDoProduto = %s', (nome,))
-#         data = cursor.fetchall()
-#         print(data)
-#         if not descricao:
-#             descricao = "Não Há"
-    
-#         cur = mysql.connection.cursor()
+@app.route('/estoque/<id>', methods=['POST','GET'])
+def sobe_estoque(id):
+    try:
+        conn = mysql.connection
+        cursor = conn.cursor()
+        cursor.execute('select * from tbl_item_ordem where ItemOrdem_id = %s', (id,))
+        data = cursor.fetchall()
+        nome = data[0][1] 
+        quantidade = float(data[0][2])
+        cursor.execute('select * from tbl_produto where NomeDoProduto = %s', (nome,))
+        data = cursor.fetchall()
+        id_prod = data[0][0]
+        cursor.execute('INSERT INTO tbl_estoque (Produto_id, NomeDoProduto,quantidade) VALUES (%s,%s,%s)',(id_prod, nome, quantidade))
+        conn.commit()
+        return render_template('listar.html')
 
-#         cur.execute("SELECT NomeItem FROM tbl_item_ordem WHERE NomeItem = %s", (nome,))
-
-#         resultado = cur.fetchone()
-
-#         if resultado:
-#             msg = "Item ordem ja cadastrados na base de dados"
-#             return render_template('formulario_item.html', mensagem = msg)
-#         else:
-                       
-#             conn = mysql.connection
-#             cursor = conn.cursor()
-#             cursor.execute('insert into tbl_item_ordem (NomeItem,Quantidade,PreçoProduto, PreçoTotalPorProduto, Descrição) VALUES (%s, %s, %s, %s, %s)', ( nome,quantidade,preco,preco_total,descricao))
-#             conn.commit()
-#             msg = "Item ordem cadastrados com sucesso"
-#             return render_template('formulario_item.html', mensagem = msg)
-
-#     except Exception as e:
-#         print(data)
-#         return json.dumps({'error':str(e)})
+    except Exception as e:
+        print("except ")
+        return json.dumps({'error':str(e)})
      
 
 if __name__ == "__main__":
