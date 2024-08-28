@@ -16,11 +16,11 @@
     <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
     <nav class="menu">
     <ul>
-        <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
-        <li><a href="http://localhost:5002/">Cadastrar Item Ordem</a></li>
-        <li><a href="http://localhost:5002/list">Lista de Itens Ordem</a></li>
         <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
         <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
+        <li><a href="http://localhost:5002/">Cadastrar Item Ordem</a></li>
+        <li><a href="http://localhost:5002/list">Lista de Itens Ordem</a></li>
+        <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
 
     </ul>
 </nav>
@@ -29,7 +29,7 @@
 <p class="titulo">Lista de produtos</p>
 <div class="container">
     <table>
-        <tr><td> Nomes </td><td>Tipo</td><td>Quantidade</td><td>Litros</td><td>KG</td><td>Preço</td><td>Descrição</td><td>Ingredientes</td></tr>
+        <tr><td> Nomes </td><td>Tipo</td><td>ML</td><td>KG</td><td>Preço</td><td>Descrição</td></tr>
         {% for item in datas %}
         <tr>
             <th>{{item[1]}}</th>
@@ -38,8 +38,6 @@
             <th>{{item[4]}}</th>
             <th>{{item[5]}}</th>
             <th>{{item[6]}}</th>
-            <th>{{item[7]}}</th>
-            <th>{{item[8]}}</th>
             <th><a href="/produto/{{item[0]}}"><button>Atualizar</button></a></th>
             <th><button onclick="funcao1('{{item[0]}}')">Deletar</button></th>
         </tr>
