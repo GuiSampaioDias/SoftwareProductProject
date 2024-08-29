@@ -139,13 +139,17 @@ form select {
     margin-bottom: 20px;
 }
 
-#cadastrar {
+.btn {
     border-radius: 10px;
     /* background-color: yellow; */
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-#cadastrar:hover {
-    /* background-color: rgb(230, 230, 158); */
+.btn#cadastrar:hover{
+    background-color: rgb(91, 231, 91);
+}
+
+.btn#resetar:hover{
+    background-color: rgb(224, 62, 62);
 }
