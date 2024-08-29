@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, json, request, redirect, url_for
+from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 
 mysql = MySQL()
@@ -157,8 +157,7 @@ def sobe_estoque(id):
         conn.commit()
         list()
         delete(id)
-        return redirect(url_for('list'))
-        #return render_template('listar.html')
+        return render_template('listar.html')
 
     except Exception as e:
         print("except ")
