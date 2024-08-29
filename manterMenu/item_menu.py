@@ -1,26 +1,3 @@
-'''
-CREATE TABLE IF NOT EXISTS tbl_menu
-(
-    ItemId      BIGINT       NOT NULL AUTO_INCREMENT,
-    NomeDoItem   VARCHAR(45)  NOT NULL,
-    Categoria      VARCHAR(15)  NOT NULL,
-    Descricao      VARCHAR(85)  NULL,
-    Preco          FLOAT(6,2),
-    PRIMARY KEY (ItemId)
-
-);
-
-CREATE TABLE IF NOT EXISTS tbl_categoria
-(
-    CategoriaId      BIGINT       NOT NULL AUTO_INCREMENT,
-    NomeCategoria   VARCHAR(45)  NOT NULL,
-    OrdemCategoria  BIGINT       NOT NULL, 
-    PRIMARY KEY (CategoriaId)
-
-);
-
-'''
-
 import os
 from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
