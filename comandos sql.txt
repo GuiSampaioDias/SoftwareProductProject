@@ -75,9 +75,12 @@ CREATE TABLE IF NOT EXISTS tbl_estoque
 ( 
     Produto_id     BIGINT       NOT NULL, 
     NomeDoProduto  VARCHAR(45)  NOT NULL, 
-    Ml             FLOAT(15,2)       NULL, 
-    Peso_gramas    FLOAT(15,2)       NULL,
-    quantidade     FLOAT(15,2)       NULL, 
+    Ml             FLOAT(9,2)       NULL, 
+    Peso_gramas    FLOAT(9,2)       NULL,
+    quantidade     FLOAT(15,2)      NULL,
     
+    PRIMARY KEY (Produto_id),
     FOREIGN KEY (Produto_id) REFERENCES tbl_produto (Produto_id)
+    ON DELETE CASCADE 
+    ON UPDATE CASCADE
 );

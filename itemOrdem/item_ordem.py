@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, json, request, redirect
+from flask import Flask, render_template, json, request, redirect, url_for
 from flask_mysqldb import MySQL
 
 mysql = MySQL()
@@ -58,7 +58,8 @@ def cadastro():
             conn.commit()
             msg = "Item ordem cadastrados com sucesso"
             
-            return render_template('formulario_item.html', mensagem = msg)
+            return redirect(url_for('main'))
+            #return render_template('formulario_item.html', mensagem = msg)
 
     except Exception as e:
         return json.dumps({'error':str(e)})
@@ -158,9 +159,14 @@ def sobe_estoque(id):
         cursor.execute('select * from tbl_produto where NomeDoProduto = %s', (nome,))
         data = cursor.fetchall()
         id_prod = data[0][0]
-        cursor.execute('INSERT INTO tbl_estoque (Produto_id, NomeDoProduto,quantidade) VALUES (%s,%s,%s)',(id_prod, nome, quantidade))
+        ml_total = data[0][3] * quantidade
+        gramas_total = data[0][4]
+        cursor.execute('INSERT INTO tbl_estoque (Produto_id, NomeDoProduto, Ml, Peso_gramas, quantidade) VALUES (%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE quantidade = quantidade + VALUES(quantidade), Ml = Ml + VALUES(Ml), Peso_gramas = Peso_gramas + VALUES(Peso_gramas)',(id_prod, nome,ml_total,gramas_total, quantidade))
         conn.commit()
-        return render_template('listar.html')
+        list()
+        delete(id)
+        return redirect(url_for('list'))
+        #return render_template('listar.html')
 
     except Exception as e:
         print("except ")
