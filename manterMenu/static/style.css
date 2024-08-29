@@ -146,3 +146,11 @@ form select {
     transition: background-color 0.3s ease;
 }
 
+.btn#cadastrar:hover{
+    background-color: rgb(91, 231, 91);
+}
+
+.btn#resetar:hover{
+    background-color: rgb(224, 62, 62);
+}
+
