@@ -1,0 +1,83 @@
+
+Lembrando ... quem digita .... erra
+
+CREATE SCHEMA IF NOT EXISTS restaurante;
+
+USE restaurante;
+
+CREATE TABLE IF NOT EXISTS tbl_produto 
+( 
+    Produto_id     BIGINT       NOT NULL   AUTO_INCREMENT, 
+    NomeDoProduto  VARCHAR(45)  NOT NULL,
+    Categoria      VARCHAR(15)  NOT NULL, 
+    Ml             FLOAT(15,2)       NULL, 
+    Peso_gramas       FLOAT(15,2)       NULL,
+    Preço          FLOAT(15,2)   NOT NULL, 
+    Descrição      VARCHAR(45),
+    PRIMARY KEY (produto_id)
+);
+
+
+SELECT * FROM tbl_produto;
+
+
+CREATE SCHEMA IF NOT EXISTS restaurante;
+
+USE restaurante;
+
+CREATE TABLE IF NOT EXISTS tbl_item_ordem 
+( 
+    ItemOrdem_id               BIGINT       NOT NULL   AUTO_INCREMENT, 
+    NomeItem                   VARCHAR(45)  NOT NULL,
+    Quantidade 	               INT          NOT NULL,
+    PreçoProduto               FLOAT(15,2)   NOT NULL,
+    PreçoTotalPorProduto       FLOAT(15,2)   NOT NULL,
+    Descrição                  VARCHAR(45), 
+    PRIMARY KEY (ItemOrdem_id)
+);
+
+
+SELECT * FROM tbl_item_ordem;
+
+CREATE SCHEMA IF NOT EXISTS restaurante;
+
+USE restaurante;
+
+CREATE TABLE IF NOT EXISTS tbl_menu
+(
+    ItemId      BIGINT       NOT NULL AUTO_INCREMENT,
+    NomeDoItem   VARCHAR(45)  NOT NULL,
+    Categoria      VARCHAR(15)  NOT NULL,
+    Descricao      VARCHAR(85)  NULL,
+    Preco          FLOAT(6,2),
+    PRIMARY KEY (ItemId)
+
+);
+
+SELECT * FROM tbl_menu;
+
+CREATE SCHEMA IF NOT EXISTS restaurante;
+
+USE restaurante;
+
+CREATE TABLE IF NOT EXISTS tbl_categoria
+(
+    CategoriaId      BIGINT       NOT NULL AUTO_INCREMENT,
+    NomeCategoria   VARCHAR(45)  NOT NULL,
+    PRIMARY KEY (CategoriaId)
+
+);
+
+SELECT * FROM tbl_categoria;
+
+
+CREATE TABLE IF NOT EXISTS tbl_estoque 
+( 
+    Produto_id     BIGINT       NOT NULL, 
+    NomeDoProduto  VARCHAR(45)  NOT NULL, 
+    Ml             FLOAT(15,2)       NULL, 
+    Peso_gramas    FLOAT(15,2)       NULL,
+    quantidade     FLOAT(15,2)       NULL, 
+    
+    FOREIGN KEY (Produto_id) REFERENCES tbl_produto (Produto_id)
+);
