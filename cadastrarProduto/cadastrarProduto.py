@@ -1,27 +1,3 @@
-'''
-Lembrando ... quem digita .... erra
-
-CREATE SCHEMA IF NOT EXISTS restaurante;
-
-USE restaurante;
-
-CREATE TABLE IF NOT EXISTS tbl_produto 
-( 
-    produto_id     BIGINT       NOT NULL   AUTO_INCREMENT, 
-    NomeDoProduto  VARCHAR(45)  NOT NULL,
-    Categoria      VARCHAR(15)  NOT NULL, 
-    ml             FLOAT(5,2)       NULL, 
-    Peso_kg        FLOAT(6,2)       NULL,
-    Preço          FLOAT(5,2)   NOT NULL, 
-    Descrição      VARCHAR(45),
-    PRIMARY KEY (produto_id)
-);
-
-
-SELECT * FROM tbl_produto;
-
-'''
-
 import os
 from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
@@ -76,7 +52,7 @@ def cadastro():
                        
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute('insert into tbl_produto (NomeDoProduto, Categoria, ml,Peso_kg, Preço, Descrição) VALUES (%s, %s, %s, %s, %s, %s)', ( nome,categoria,ml,peso,preco,descricao))
+            cursor.execute('insert into tbl_produto (NomeDoProduto, Categoria, ml,Peso_gramas, Preço, Descrição) VALUES (%s, %s, %s, %s, %s, %s)', ( nome,categoria,ml,peso,preco,descricao))
             conn.commit()
             msg = "Produtos cadastrados com sucesso"
             return render_template('formulario_produto.html', mensagem = msg)
@@ -133,7 +109,7 @@ def editarProduto(id):
             
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute('UPDATE tbl_produto SET NomeDoProduto = %s, Categoria = %s, ml = %s,Peso_kg = %s, Preço = %s, Descrição = %s WHERE produto_id = %s ', ( nome,categoria,ml,peso,preco,descricao,id_pro))
+            cursor.execute('UPDATE tbl_produto SET NomeDoProduto = %s, Categoria = %s, ml = %s,Peso_gramas = %s, Preço = %s, Descrição = %s WHERE produto_id = %s ', ( nome,categoria,ml,peso,preco,descricao,id_pro))
             conn.commit()
             msg = "Edição realizada com sucesso"
     

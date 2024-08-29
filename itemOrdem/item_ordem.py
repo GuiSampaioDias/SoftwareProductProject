@@ -1,28 +1,5 @@
-'''
-Lembrando ... quem digita .... erra
-
-CREATE SCHEMA IF NOT EXISTS restaurante;
-
-USE restaurante;
-
-CREATE TABLE IF NOT EXISTS tbl_item_ordem 
-( 
-    ItemOrdem_id               BIGINT       NOT NULL   AUTO_INCREMENT, 
-    NomeItem                   VARCHAR(45)  NOT NULL,
-    Quantidade 	               INT          NOT NULL,
-    PreçoProduto               FLOAT(5,2)   NOT NULL,
-    PreçoTotalPorProduto       FLOAT(9,2)   NOT NULL,
-    Descrição                  VARCHAR(45), 
-    PRIMARY KEY (ItemOrdem_id)
-);
-
-
-SELECT * FROM tbl_item_ordem
-
-'''
-
 import os
-from flask import Flask, render_template, json, request
+from flask import Flask, render_template, json, request, redirect, url_for
 from flask_mysqldb import MySQL
 
 mysql = MySQL()
@@ -57,7 +34,7 @@ def cadastro():
         #title pega o comeco das palavras. Strip tira os espacoes
         quantidade = request.form['inputQuantidade']
         preco = request.form['inputPreco']
-        preco_total = int(preco) * int(quantidade)
+        preco_total = float(preco) * float(quantidade)
         descricao = request.form['inputDescricao'].lower()
         #lower deixa tudo minusculo
 
@@ -80,7 +57,9 @@ def cadastro():
             cursor.execute('insert into tbl_item_ordem (NomeItem,Quantidade,PreçoProduto, PreçoTotalPorProduto, Descrição) VALUES (%s, %s, %s, %s, %s)', ( nome,quantidade,preco,preco_total,descricao))
             conn.commit()
             msg = "Item ordem cadastrados com sucesso"
-            return render_template('formulario_item.html', mensagem = msg)
+            
+            return redirect(url_for('main'))
+            #return render_template('formulario_item.html', mensagem = msg)
 
     except Exception as e:
         return json.dumps({'error':str(e)})
@@ -166,7 +145,33 @@ def delete(id):
         return render_template('listar.html', mensagem = msg, datas=data)
     
     except Exception as e:
-        return json.dumps({'error': str(e)})   
+        return json.dumps({'error': str(e)})  
+
+@app.route('/estoque/<id>', methods=['POST','GET'])
+def sobe_estoque(id):
+    try:
+        conn = mysql.connection
+        cursor = conn.cursor()
+        cursor.execute('select * from tbl_item_ordem where ItemOrdem_id = %s', (id,))
+        data = cursor.fetchall()
+        nome = data[0][1] 
+        quantidade = float(data[0][2])
+        cursor.execute('select * from tbl_produto where NomeDoProduto = %s', (nome,))
+        data = cursor.fetchall()
+        id_prod = data[0][0]
+        ml_total = data[0][3] * quantidade
+        gramas_total = data[0][4]
+        cursor.execute('INSERT INTO tbl_estoque (Produto_id, NomeDoProduto, Ml, Peso_gramas, quantidade) VALUES (%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE quantidade = quantidade + VALUES(quantidade), Ml = Ml + VALUES(Ml), Peso_gramas = Peso_gramas + VALUES(Peso_gramas)',(id_prod, nome,ml_total,gramas_total, quantidade))
+        conn.commit()
+        list()
+        delete(id)
+        return redirect(url_for('list'))
+        #return render_template('listar.html')
+
+    except Exception as e:
+        print("except ")
+        return json.dumps({'error':str(e)})
+     
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5002))
