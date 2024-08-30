@@ -10,7 +10,7 @@
 }
 
 body{
-    background: linear-gradient(to right,#ff6f00, #a14600, #000000);
+    background: linear-gradient(to right,#000000, #a15113, #fd913e);
     color: white;
 }
 
@@ -40,6 +40,7 @@ input::placeholder, textarea::placeholder, select::placeholder{
 input:focus, textarea:focus, select:focus{
     outline: none;      /* Remove default outline and use border or box-shadow */
     box-shadow: 0 0 0 2px rgb(236, 70, 70); 
+    background-color: #f7bc8f;
 }
 
 li {
@@ -120,10 +121,18 @@ input[type=number] {
 }
 
 .btn {
+    margin: 0;
+    padding: 2px;
+    border: none;
     border-radius: 10px;
-    /* background-color: yellow; */
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 10px;
+    color: rgb(0, 0, 0);
+}
+
+#cadastrar {
+    margin-right: 15px;
 }
 
 .btn#cadastrar:hover{
