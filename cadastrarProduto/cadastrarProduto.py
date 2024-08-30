@@ -16,7 +16,7 @@ mysql.init_app(app)
 
 @app.route('/')
 def main():
-    return render_template('formulario_produto.html')
+    return render_template('formularioProduto.html')
 
 
 
@@ -41,7 +41,7 @@ def cadastro():
     
         cur = mysql.connection.cursor()
 
-        cur.execute("SELECT NomeDoProduto FROM tbl_produto WHERE NomeDoProduto = %s", (nome,))
+        cur.execute("SELECT nomeDoProduto FROM tblProduto WHERE nomeDoProduto = %s", (nome,))
 
         resultado = cur.fetchone()
 
@@ -52,10 +52,10 @@ def cadastro():
                        
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute('insert into tbl_produto (NomeDoProduto, Categoria, ml,Peso_gramas, Preço, Descrição) VALUES (%s, %s, %s, %s, %s, %s)', ( nome,categoria,ml,peso,preco,descricao))
+            cursor.execute('INSERT INTO tblProduto (nomeDoProduto, categoria, ml,pesoGramas, preco, descricao) VALUES (%s, %s, %s, %s, %s, %s)', ( nome,categoria,ml,peso,preco,descricao))
             conn.commit()
             msg = "Produtos cadastrados com sucesso"
-            return render_template('formulario_produto.html', mensagem = msg)
+            return render_template('formularioProduto.html', mensagem = msg)
 
     except Exception as e:
         return json.dumps({'error':str(e)})
@@ -68,7 +68,7 @@ def list():
     try:
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute ('select * from tbl_produto')
+            cursor.execute ('SELECT * FROM tblProduto')
             data = cursor.fetchall()
             return render_template('listar.html', datas=data)
 
@@ -81,7 +81,7 @@ def editProd(id):
             id = int(id)
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute('select * from tbl_produto where produto_id = %s', (id,))
+            cursor.execute('SELECT * FROM tblProduto WHERE produtoId = %s', (id,))
             data = cursor.fetchall()
             return render_template('editarProduto.html', datas=data)
     
@@ -92,7 +92,7 @@ def editProd(id):
 def editarProduto(id):
     
     try:
-        id_pro = int(request.form['id_prod'])
+        idProd = int(request.form['idProd'])
         nome = request.form['inputNome']
         categoria = request.form['inputCategoria']
         ml = request.form['inputML']
@@ -109,11 +109,11 @@ def editarProduto(id):
             
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute('UPDATE tbl_produto SET NomeDoProduto = %s, Categoria = %s, ml = %s,Peso_gramas = %s, Preço = %s, Descrição = %s WHERE produto_id = %s ', ( nome,categoria,ml,peso,preco,descricao,id_pro))
+            cursor.execute('UPDATE tblProduto SET nomeDoProduto = %s, categoria = %s, ml = %s,pesoGramas = %s, preco = %s, descricao = %s WHERE produtoId = %s ', ( nome,categoria,ml,peso,preco,descricao,idProd))
             conn.commit()
             msg = "Edição realizada com sucesso"
     
-            cursor.execute ('select * from tbl_produto WHERE produto_id = %s ', (id_pro,))
+            cursor.execute ('SELECT * FROM tblProduto WHERE produtoId = %s ', (idProd,))
             data = cursor.fetchall()  
                   
             return render_template('listar.html', mensagem = msg, datas=data)
@@ -129,11 +129,11 @@ def delete(id):
         id = int(id)
         conn = mysql.connection
         cursor = conn.cursor()
-        cursor.execute('DELETE FROM tbl_produto WHERE produto_id = %s', (id,))
+        cursor.execute('DELETE FROM tblProduto WHERE produtoId = %s', (id,))
         conn.commit()
         msg = "Excluido com sucesso"
         
-        cursor.execute ('select * from tbl_produto')
+        cursor.execute ('SELECT * FROM tblProduto')
         data = cursor.fetchall()
 
         return render_template('listar.html', mensagem = msg, datas=data)

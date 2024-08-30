@@ -17,7 +17,7 @@ mysql.init_app(app)
 def main():
     conn = mysql.connection 
     cursor = conn.cursor() 
-    cursor.execute("SELECT NomeCategoria FROM tbl_categoria")
+    cursor.execute("SELECT nomeCategoria FROM tblCategoria")
     categorias=cursor.fetchall()
     return render_template('formularioItemMenu.html',categorias=categorias)
 
@@ -28,7 +28,7 @@ def main():
 def categoria():
     conn = mysql.connection
     cursor = conn.cursor()
-    cursor.execute ('select * from tbl_categoria')
+    cursor.execute ('SELECT * FROM tblCategoria')
     dados = cursor.fetchall()
     
     return render_template('categoria.html', dados=dados)
@@ -68,7 +68,7 @@ def categoria():
 
 
 
-@app.route('/cadastrar_item', methods=['POST', 'GET'])
+@app.route('/cadastrarItem', methods=['POST', 'GET'])
 def cadastro():
     try:
         nome = request.form['inputNome'].title().strip()
@@ -79,7 +79,7 @@ def cadastro():
 
 
         cur = mysql.connection.cursor()
-        cur.execute("SELECT NomeDoItem FROM tbl_menu WHERE NomeDoItem = %s",(nome,))
+        cur.execute("SELECT nomeDoItem FROM tblMenu WHERE nomeDoItem = %s",(nome,))
 
         resultado = cur.fetchone()
         if resultado:
@@ -88,7 +88,7 @@ def cadastro():
         else:
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute('insert into tbl_menu (NomeDoItem, Categoria, Descricao, Preco) VALUES(%s, %s, %s, %s)',(nome, categoria,  descricao, preco))
+            cursor.execute('INSERT INTO tblMenu (nomeDoItem, categoria, descricao, preco) VALUES(%s, %s, %s, %s)',(nome, categoria,  descricao, preco))
             conn.commit()
             msg = "Item cadastrado com sucesso"
             return render_template('formularioItemMenu.html', mensagem = msg)
@@ -105,19 +105,19 @@ def list():
             conn = mysql.connection
             cursor = conn.cursor()
             
-            cursor.execute ('select * from tbl_menu where Categoria = "Bebida"')
+            cursor.execute ('SELECT * FROM tblMenu WHERE Categoria = "Bebida"')
             dataBebida = cursor.fetchall()
 
-            cursor.execute ('select * from tbl_menu where Categoria = "Drink"')
+            cursor.execute ('select * from tblMenu WHERE Categoria = "Drink"')
             dataDrink = cursor.fetchall()
 
-            cursor.execute ('select * from tbl_menu where Categoria = "Pizza"')
+            cursor.execute ('select * from tblMenu WHERE Categoria = "Pizza"')
             dataPizza = cursor.fetchall()
             
-            cursor.execute ('select * from tbl_menu where Categoria = "Prato"')
+            cursor.execute ('select * from tblMenu WHERE Categoria = "Prato"')
             dataPrato = cursor.fetchall()
 
-            cursor.execute ('select * from tbl_menu where Categoria = "Sobremesa"')
+            cursor.execute ('select * from tblMenu WHERE Categoria = "Sobremesa"')
             dataSobremesa = cursor.fetchall()
             
             return render_template('listarMenu.html', datas1=dataBebida, datas2=dataDrink,datas3 = dataPizza, datas4 = dataPrato,datas5 = dataSobremesa)
@@ -132,7 +132,7 @@ def editProd(id):
             id = int(id)
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute('select * from tbl_menu where ItemId = %s', (id,))
+            cursor.execute('SELECT * FROM tblMenu WHERE itemId = %s', (id,))
             print("antes do try edit prod")
             data = cursor.fetchall()
             return render_template('editarItemMenu.html', datas=data)
@@ -144,7 +144,7 @@ def editProd(id):
 def editarProduto(id):
     
     try:
-        id_pro = int(request.form['id_prod'])
+        idProd = int(request.form['idProd'])
         nome = request.form['inputNome']
         categoria = request.form['inputCategoria']
         descricao = request.form['inputDescricao']
@@ -157,11 +157,11 @@ def editarProduto(id):
                 conn = mysql.connection
                 cursor = conn.cursor()
                 print("Oi")
-                cursor.execute('UPDATE tbl_menu SET NomeDoItem = %s, Categoria = %s, Descricao = %s, Preco = %s WHERE ItemId = %s ', ( nome,categoria,descricao, preco, id_pro))
+                cursor.execute('UPDATE tblMenu SET nomeDoItem = %s, categoria = %s, descricao = %s, preco = %s WHERE ItemId = %s ', ( nome,categoria,descricao, preco, idProd))
                 conn.commit()
                 msg = "Edição realizada com sucesso"
             
-            cursor.execute ('select * from tbl_menu WHERE ItemId = %s', (id_pro,))
+            cursor.execute ('SELECT * FROM tblMenu WHERE itemId = %s', (idProd,))
             data = cursor.fetchall()
             
             return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)
@@ -177,11 +177,11 @@ def deleteProduto(id):
         id = int(id)
         conn = mysql.connection
         cursor = conn.cursor()
-        cursor.execute('DELETE FROM tbl_menu WHERE ItemId = %s', (id,))
+        cursor.execute('DELETE FROM tblMenu WHERE itemId = %s', (id,))
         conn.commit()
         msg = "Excluido com sucesso"
         
-        cursor.execute ('select * from tbl_menu WHERE ItemId = %s ', (id,))
+        cursor.execute ('SELECT * FROM tblMenu WHERE itemId = %s ', (id,))
         data = cursor.fetchall()
 
         return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)

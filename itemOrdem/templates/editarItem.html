@@ -21,6 +21,7 @@
                 <li><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></li>  
                 <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
                 <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+                <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
 
             </ul>
         </nav>
@@ -45,7 +46,7 @@
         <label for="inputDescricao">Descrição:</label><br>
         <textarea name="inputDescricao" id="inputDescricao" value="{{datas[0][5]}}" class="form-control" placeholder="Digite a descrição" maxlength="45" >{{datas[0][5]}}</textarea><br>
         <button id="cadastrar" class="" type="submit" >Salvar</button>
-        <input type="hidden" id="id_prod" name="id_prod" value="{{datas[0][0]}}">
+        <input type="hidden" id="idProd" name="idProd" value="{{datas[0][0]}}">
     </form> 
     <p class="mensagem">{{mensagem}}</p>
     </div>
