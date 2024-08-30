@@ -5,82 +5,69 @@ CREATE SCHEMA IF NOT EXISTS restaurante;
 
 USE restaurante;
 
-CREATE TABLE IF NOT EXISTS tbl_produto 
+CREATE TABLE IF NOT EXISTS tblProduto 
 ( 
-    Produto_id     BIGINT       NOT NULL   AUTO_INCREMENT, 
-    NomeDoProduto  VARCHAR(45)  NOT NULL,
-    Categoria      VARCHAR(15)  NOT NULL, 
-    Ml             FLOAT(15,2)       NULL, 
-    Peso_gramas       FLOAT(15,2)       NULL,
-    Preço          FLOAT(15,2)   NOT NULL, 
-    Descrição      VARCHAR(45),
-    PRIMARY KEY (produto_id)
+    produtoId     BIGINT       NOT NULL   AUTO_INCREMENT, 
+    nomeDoProduto  VARCHAR(45)  NOT NULL,
+    categoria      VARCHAR(15)  NOT NULL, 
+    ml             FLOAT(15,2)       NULL, 
+    pesoGramas       FLOAT(15,2)       NULL,
+    preco          FLOAT(15,2)   NOT NULL, 
+    descricao      VARCHAR(45),
+    PRIMARY KEY (produtoId)
+);
+
+SELECT * FROM tblProduto;
+
+
+CREATE TABLE IF NOT EXISTS tblItemOrdem 
+( 
+    itemOrdemId               BIGINT       NOT NULL   AUTO_INCREMENT, 
+    nomeItem                   VARCHAR(45)  NOT NULL,
+    quantidade 	               INT          NOT NULL,
+    precoProduto               FLOAT(15,2)   NOT NULL,
+    precoTotalPorProduto       FLOAT(15,2)   NOT NULL,
+    descricao                  VARCHAR(45), 
+    PRIMARY KEY (itemOrdemId)
 );
 
 
-SELECT * FROM tbl_produto;
+SELECT * FROM tblItemOrdem;
 
 
-CREATE SCHEMA IF NOT EXISTS restaurante;
-
-USE restaurante;
-
-CREATE TABLE IF NOT EXISTS tbl_item_ordem 
-( 
-    ItemOrdem_id               BIGINT       NOT NULL   AUTO_INCREMENT, 
-    NomeItem                   VARCHAR(45)  NOT NULL,
-    Quantidade 	               INT          NOT NULL,
-    PreçoProduto               FLOAT(15,2)   NOT NULL,
-    PreçoTotalPorProduto       FLOAT(15,2)   NOT NULL,
-    Descrição                  VARCHAR(45), 
-    PRIMARY KEY (ItemOrdem_id)
-);
-
-
-SELECT * FROM tbl_item_ordem;
-
-CREATE SCHEMA IF NOT EXISTS restaurante;
-
-USE restaurante;
-
-CREATE TABLE IF NOT EXISTS tbl_menu
+CREATE TABLE IF NOT EXISTS tblMenu
 (
-    ItemId      BIGINT       NOT NULL AUTO_INCREMENT,
-    NomeDoItem   VARCHAR(45)  NOT NULL,
-    Categoria      VARCHAR(15)  NOT NULL,
-    Descricao      VARCHAR(85)  NULL,
-    Preco          FLOAT(6,2),
-    PRIMARY KEY (ItemId)
+    itemId      BIGINT       NOT NULL AUTO_INCREMENT,
+    nomeDoItem   VARCHAR(45)  NOT NULL,
+    categoria      VARCHAR(15)  NOT NULL,
+    descricao      VARCHAR(85)  NULL,
+    preco          FLOAT(6,2),
+    PRIMARY KEY (itemId)
 
 );
 
-SELECT * FROM tbl_menu;
+SELECT * FROM tblMenu;
 
-CREATE SCHEMA IF NOT EXISTS restaurante;
 
-USE restaurante;
-
-CREATE TABLE IF NOT EXISTS tbl_categoria
+CREATE TABLE IF NOT EXISTS tblCategoria
 (
-    CategoriaId      BIGINT       NOT NULL AUTO_INCREMENT,
-    NomeCategoria   VARCHAR(45)  NOT NULL,
-    PRIMARY KEY (CategoriaId)
+    categoriaId      BIGINT       NOT NULL AUTO_INCREMENT,
+    nomeCategoria   VARCHAR(45)  NOT NULL,
+    PRIMARY KEY (categoriaId)
 
 );
 
-SELECT * FROM tbl_categoria;
+SELECT * FROM tblCategoria;
 
 
-CREATE TABLE IF NOT EXISTS tbl_estoque 
+CREATE TABLE IF NOT EXISTS tblEstoque 
 ( 
-    Produto_id     BIGINT       NOT NULL, 
-    NomeDoProduto  VARCHAR(45)  NOT NULL, 
-    Ml             FLOAT(9,2)       NULL, 
-    Peso_gramas    FLOAT(9,2)       NULL,
-    quantidade     FLOAT(15,2)      NULL,
+    produtoId     BIGINT       NOT NULL, 
+    nomeDoProduto  VARCHAR(45)  NOT NULL, 
+    ml             FLOAT(15,2)       NULL, 
+    pesoGramas    FLOAT(15,2)       NULL,
+    quantidade     FLOAT(15,2)       NULL, 
     
-    PRIMARY KEY (Produto_id),
-    FOREIGN KEY (Produto_id) REFERENCES tbl_produto (Produto_id)
-    ON DELETE CASCADE 
-    ON UPDATE CASCADE
+    FOREIGN KEY (produtoId) REFERENCES tblProduto (produtoId)
 );
+SELECT * FROM tblEstoque
