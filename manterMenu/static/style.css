@@ -39,7 +39,7 @@ input::placeholder, textarea::placeholder, select::placeholder{
 
 input:focus, textarea:focus, select:focus{
     outline: none;      /* Remove default outline and use border or box-shadow */
-    box-shadow: 0 0 0 2px rgb(236, 70, 70); 
+    box-shadow: 0 0 0 2px rgb(236, 70, 70);  
 }
 
 li {
