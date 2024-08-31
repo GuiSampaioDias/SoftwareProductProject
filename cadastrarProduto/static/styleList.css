@@ -43,6 +43,12 @@ a:hover{
     text-align: center;
 }
 
+td {
+    width: auto;
+    height: auto;
+    background-color:  #ff8800;
+}
+
 td, th {
     border-radius: 5px;
 }

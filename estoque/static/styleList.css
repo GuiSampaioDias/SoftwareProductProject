@@ -19,10 +19,15 @@ li {
     margin-right: 20px;
 }
 
+td {
+    background-color: #ff8800;
+}
+
 th, td{
     border: 1px solid white;
     padding: 8px;
-    width: 100px;
+    width: auto;
+    height: auto;
     border-radius: 10px;
 }
 
