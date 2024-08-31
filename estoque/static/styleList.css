@@ -17,12 +17,13 @@ body{
 li {
     display: inline;
     margin-right: 20px;
-  }
+}
 
 th, td{
     border: 1px solid white;
     padding: 8px;
     width: 100px;
+    border-radius: 10px;
 }
 
 a{
