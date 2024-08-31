@@ -10,7 +10,7 @@
 }
 
 body{
-    background-color: rgb(34, 22, 41);
+    background: linear-gradient(to right,#000000, #a15113, #fd913e);
     color: white;
 }
 
@@ -19,9 +19,22 @@ li {
     margin-right: 20px;
   }
 
+.tituloPrincipal {
+    background-color: #ff8800;
+
+}
+
+td {
+    background-color: #ffb055;
+}
+
 th, td{
     border: 1px solid white;
     padding: 8px;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    text-align: center;
 }
 
 a{
@@ -36,10 +49,11 @@ a:hover{
 }
   .container
 {
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 
