@@ -46,11 +46,18 @@ input:focus, textarea:focus, select:focus{
 li {
     display: inline;
     margin-right: 20px;
-  }
+}
+
+td {
+    background-color: #ffb055;
+}
 
 th,td{
     border: 1px solid white;
     padding: 8px;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
 }
 
 a{
@@ -69,6 +76,16 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
+}
+
+.salvar-botao {
+    border-radius: 15px;
+    box-shadow: none;
+    border: none;
+}
+
+.salvar-botao:hover {
+    background-color: rgb(255, 255, 111);
 }
 
 header {
