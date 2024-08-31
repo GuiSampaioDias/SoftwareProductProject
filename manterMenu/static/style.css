@@ -10,7 +10,7 @@
 }
 
 body{
-    background-color: rgb(34, 22, 41);
+    background: linear-gradient(to right,#000000, #a15113, #fd913e);
     color: white;
 }
 
@@ -39,7 +39,8 @@ input::placeholder, textarea::placeholder, select::placeholder{
 
 input:focus, textarea:focus, select:focus{
     outline: none;      /* Remove default outline and use border or box-shadow */
-    box-shadow: 0 0 0 2px rgb(236, 70, 70);  
+    box-shadow: 0 0 0 2px rgb(236, 70, 70); 
+    background-color: #f7bc8f; 
 }
 
 li {
@@ -141,9 +142,11 @@ form select {
 
 .btn {
     border-radius: 10px;
-    /* background-color: yellow; */
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 5px;
+    border: none;
+    box-shadow: none;
 }
 
 .btn#cadastrar:hover{
