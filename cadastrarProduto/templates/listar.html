@@ -21,6 +21,7 @@
         <li><a href="http://localhost:5002/">Cadastrar Ordem de Compra</a></li>
         <li><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></li>
         <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+        <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
 
     </ul>
 </nav>
@@ -38,8 +39,8 @@
             <th>{{item[4]}}</th>
             <th>{{item[5]}}</th>
             <th>{{item[6]}}</th>
-            <th><a href="/produto/{{item[0]}}"><button>Atualizar</button></a></th>
-            <th><button onclick="funcao1('{{item[0]}}')">Deletar</button></th>
+            <th><a href="/produto/{{item[0]}}"><button class="botao-lista" id="atualizar-lista">Atualizar</button></a></th>
+            <th><button onclick="funcao1('{{item[0]}}')" class="botao-lista" id="deletar-lista">Deletar</button></th>
         </tr>
         {% endfor %}
     </table>
