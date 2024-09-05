@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
-
+from datetime import datetime, timezone
 mysql = MySQL()
 app = Flask(__name__)
 
@@ -47,7 +47,7 @@ def cadastro():
 
         conn = mysql.connection
         cursor = conn.cursor()
-        cursor.execute('INSERT into tblItemOrdem (nomeItem,quantidade,precoProduto, precoTotalPorProduto, descricao) VALUES (%s, %s, %s, %s, %s)', ( nome,quantidade,preco,precoTotal,descricao))
+        cursor.execute('INSERT into tblItemOrdem (nomeItem,quantidade,precoProduto, precoTotalPorProduto, descricao) VALUES (%s, %s, %s, %s, %s)', (nome,quantidade,preco,precoTotal,descricao))
         conn.commit()
         msg = "Item ordem cadastrados com sucesso"
             
@@ -146,6 +146,9 @@ def sobe_estoque(id):
         data = cursor.fetchall()
         nome = data[0][1] 
         quantidade = float(data[0][2])
+        precoUnitario = data[0][3] 
+        precoTotal = quantidade * precoUnitario
+        dia = datetime.now()
         cursor.execute('SELECT * FROM tblProduto WHERE nomeDoProduto = %s', (nome,))
         data = cursor.fetchall()
         idProd = data[0][0]
@@ -153,8 +156,11 @@ def sobe_estoque(id):
         gramasTotal = data[0][4] * quantidade
         cursor.execute('INSERT INTO tblEstoque (produtoId, nomeDoProduto, ml, pesoGramas, quantidade) VALUES (%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE quantidade = quantidade + VALUES(quantidade), ml = ml + VALUES(ml), pesoGramas = pesoGramas + VALUES(pesoGramas)',(idProd, nome,mlTotal,gramasTotal, quantidade))
         conn.commit()
+        tipo = 'compra'
+        cursor.execute('INSERT INTO tblHistorico (produtoId, nomeDoProduto, quantidade, precoUnitario, precoTotal, data, tipo) VALUES (%s,%s,%s,%s,%s,%s,%s)',(idProd, nome,quantidade, precoUnitario, precoTotal, dia, tipo))
         delete(id)
         return render_template('listar.html')
+        
 
     except Exception as e:
         print("except ")
