@@ -70,4 +70,18 @@ CREATE TABLE IF NOT EXISTS tblEstoque
     
     FOREIGN KEY (produtoId) REFERENCES tblProduto (produtoId)
 );
+
 SELECT * FROM tblEstoque
+
+CREATE TABLE IF NOT EXISTS tblHistorico
+( 
+    produtoId       BIGINT       NOT NULL, 
+    nomeDoProduto   VARCHAR(45)  NOT NULL, 
+    quantidade      INT          NOT NULL,
+    precoUnitario   FLOAT(15,2)  NOT NULL,
+    precoTotal      FLOAT(15,2)  NOT NULL,
+    data            DATE             NULL, 
+    tipo            VARCHAR(15)      NULL,
+    
+    FOREIGN KEY (produtoId) REFERENCES tblProduto (produtoId)
+);

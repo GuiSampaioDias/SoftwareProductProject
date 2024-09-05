@@ -38,8 +38,8 @@
             <th>{{item[2]}}</th>
             <th>{{item[3]}}</th>
             <th class="desc">{{item[4]}}</th>
-            <th><a href="/produto/{{item[0]}}"><button>Atualizar</button></a></th>
-            <th><button onclick="funcao2('{{item[0]}}')">Deletar</button></th>
+            <th><a href="/produto/{{item[0]}}"><button class="btn" id="btn-atualizar">Atualizar</button></a></th>
+            <th><button onclick="funcao2('{{item[0]}}')" class="btn" id="btn-deletar">Deletar</button></th>
         </tr>
         {% endfor %}
     </table>
