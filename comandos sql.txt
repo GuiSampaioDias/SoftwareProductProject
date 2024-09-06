@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS tblHistorico
     quantidade      INT          NOT NULL,
     precoUnitario   FLOAT(15,2)  NOT NULL,
     precoTotal      FLOAT(15,2)  NOT NULL,
-    data            DATETIME         NULL, 
+    data            DATETIME            NULL, 
     tipo            VARCHAR(15)      NULL,
     
     FOREIGN KEY (produtoId) REFERENCES tblProduto (produtoId)
