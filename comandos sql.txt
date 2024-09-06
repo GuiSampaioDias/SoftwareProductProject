@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS tblEstoque
     pesoGramas    FLOAT(15,2)       NULL,
     quantidade     FLOAT(15,2)       NULL, 
     
-    FOREIGN KEY (produtoId) REFERENCES tblProduto (produtoId)
+    PRIMARY KEY (produtoId)
 );
 
 SELECT * FROM tblEstoque
