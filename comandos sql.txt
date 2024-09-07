@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS tblHistorico
 
 CREATE TABLE IF NOT EXISTS tblItemXProd 
 ( 
+    idTbl      BIGINT       NOT NULL   AUTO_INCREMENT,
     ItemMenuId     BIGINT       NOT NULL,
     nomeItemMenu   VARCHAR(45)  NOT NULL,
     produtoId      BIGINT       NOT NULL, 
@@ -96,6 +97,21 @@ CREATE TABLE IF NOT EXISTS tblItemXProd
     pesoGramas     FLOAT(15,2)       NULL,
     quantidade     FLOAT (15,2)      NULL,
     
+    PRIMARY KEY (idTbl),
     FOREIGN KEY (ItemMenuId) REFERENCES tblMenu (itemId),
     FOREIGN KEY (produtoId) REFERENCES tblProduto (produtoId)
+);
+
+CREATE TABLE IF NOT EXISTS tblPedido 
+( 
+    numeroMesa     BIGINT       NOT NULL,
+    itemMenuId     BIGINT       NOT NULL,
+    nomeItemMenu   VARCHAR(45)  NOT NULL,
+    quantidade     FLOAT (15,2)     NULL,
+    preco          FLOAT (15,2)     NULL,
+    total          FLOAT (15,2) NOT NULL,
+    status         VARCHAR(45)  NOT NULL,  
+    
+    PRIMARY KEY (itemMenuId)
+    
 );

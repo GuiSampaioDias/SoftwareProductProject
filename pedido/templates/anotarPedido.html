@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/static/list.js"></script>
+    <link rel="stylesheet" href="/static/styleList.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <title>Cadastrar produto no prato</title>
+</head>
+<body>
+    <header>
+            <a href="http://localhost:5002"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+            <nav class="menu">
+            <ul>
+                <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
+                <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
+                <li><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></li>
+                <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+                <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+                <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
+            </ul>
+        </nav>
+    </header
+    <hr>
+    <p class="titulo">Faça o seu pedido na mesa N° tal</p>
+    <div class="container">
+    <form action="#####rota pedido###" method="post">
+        <!-- Select Pizza-->
+        <label for="inputPizza">Pizza: </label><br>
+        <select name="inputPizza" id="inputPizza"
+         class="form-control" required autofocus>
+            <option value="" disabled selected>Escolha a sua Pizza</option>
+            {% for pizza in  pizzas %}
+            <option value="{{pizza[1]}}">{{pizza[1]}}</option>
+            {%endfor%}
+        </select><br>
+
+
+        <!-- Select Prato-->
+        <label for="inputPrato">Prato: </label><br>
+        <select name="inputPrato" id="inputPrato"
+         class="form-control" required autofocus>
+            <option value="" disabled selected>Escolha o seu Prato</option>
+            {% for prato in  pratos %}
+            <option value="{{prato[1]}}">{{prato[1]}}</option>
+            {%endfor%}
+        </select><br>
+
+
+        <!-- Select Bebida-->
+        <label for="inputBebida">Bebida: </label><br>
+        <select name="inputBebida" id="inputBebida"
+         class="form-control" required autofocus>
+            <option value="" disabled selected>Escolha a sua bebida</option>
+            {% for bebida in  bebidas %}
+            <option value="{{bebida[1]}}">{{bebida[1]}}</option>
+            {%endfor%}
+        </select><br>
+
+        <!-- Select Sobremesa-->
+        <label for="inputSobremesa">Sobremesa: </label><br>
+        <select name="inputSobremesa" id="inputSobremesa"
+         class="form-control" required autofocus>
+            <option value="" disabled selected>Escolha a sua Sobremesa</option>
+            {% for sobremesa in  sobremesas %}
+            <option value="{{sobremesa[1]}}">{{sobremesa[1]}}</option>
+            {%endfor%}
+        </select><br>
+
+        <!-- Select Drink-->
+        <label for="inputDrink">Drink: </label><br>
+        <select name="inputDrink" id="inputDrink"
+         class="form-control" required autofocus>
+            <option value="" disabled selected>Escolha a sua Drink</option>
+            {% for drink in  drinks %}
+            <option value="{{drink[1]}}">{{drink[1]}}</option>
+            {%endfor%}
+        </select><br>
+
+
+        <label for="inputMlGram">Quantidade: </label><br>
+        <input type="number" name="inputQuantidade" id="inputQuantidade" class="form-control" placeholder="Digite a quantidade em Ml ou Gramas" min="0" required><br>
+        
+        <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
+        <button id="resetar" class="btn btn-lg btn-primary btn-block" type="reset">Limpar</button>
+    </form>
+</div>
+<p class="mensagem">{{mensagem}}</p>
+<hr>
+<p class="titulo">Lista de produtos</p>
+<div class="container">
+    <table>
+        <tr><td> Item </td>Quantidade<td>Preço Unitário</td><td>Total</td><td>Status</td></tr>
+        {% for item in prodMenu %}
+        <tr>
+            <th>{{item[2]}}</th>
+            <th>{{item[3]}}</th>
+            <th>{{item[4]}}</th>
+            <th>{{item[5]}}</th>
+            <th>{{item[6]}}</th>
+            
+            <th><a href="/produto/{{item[0]}}/{{prato[0][0]}}"><button class="botao-lista" id="atualizar-lista">Atualizar</button></a></th>
+            <th><button onclick="funcao3('{{item[0]}}','{{prato[0][0]}}')" class="botao-lista" id="deletar-lista">Deletar</button></th>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    <p class="mensagem">{{mensagem}}</p>
+</hr>
+</body>
+</html>
