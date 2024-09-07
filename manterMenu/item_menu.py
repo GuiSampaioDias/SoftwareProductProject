@@ -188,7 +188,85 @@ def deleteProduto(id):
     
     except Exception as e:
         return json.dumps({'error': str(e)})   
+    
 
+@app.route('/addprod/<id>',methods=['POST','GET'])
+def listaIngredienteNoPrato(id):
+    conn = mysql.connection
+    cursor = conn.cursor()
+    #pegando todos os produtos que fazem cadastrados no prato        
+    cursor.execute ('SELECT * FROM tblItemXProd WHERE ItemMenuId = %s',(id,))
+    listaProdMenu = cursor.fetchall()
+
+    #pegando todos os produtos cadastrados
+    cursor.execute ('SELECT * FROM tblProduto ')
+    todosProdutos = cursor.fetchall()
+    #pegando o nome do item do menu
+    cursor.execute ('SELECT * FROM tblMenu WHERE ItemId = %s',(id,))
+    itemMenu = cursor.fetchall()
+    
+
+    return render_template('produtoMenu.html', prodMenu = listaProdMenu,totalProd = todosProdutos, prato = itemMenu )
+
+@app.route('/igrediente/delete/<int:idProduto>/<int:idPrato>')
+def deleteingredientedoPrato(idProduto,idPrato):
+    print(f"\n\n\n\n\n##########\n\n\npassei aqui\n\n\n")
+    try:
+        idProduto = int(idProduto)
+        idPrato = int(idPrato)
+        print(f'id prod: {idProduto}')
+        print(f'id prato: {idPrato}')
+        conn = mysql.connection
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM tblItemXProd') #WHERE produtoId = %s and ItemMenuId = %s', (idProduto, idPrato))
+        conn.commit()
+        msg = "Excluido com sucesso"
+         
+       # cursor.execute ('SELECT * FROM tblMenu WHERE itemId = %s ', (id,))datas=data
+        #data = cursor.fetchall()
+
+        return render_template('listarUnicoMenu.html', mensagem = msg )
+    
+    except Exception as e:
+        return json.dumps({'error': str(e)})   
+@app.route('/addprod/addigrediente', methods=['POST', 'GET'])
+def addIgredienteNoPrato():
+    
+    nomeProd = request.form['inputNome']    
+    nomePrato = request.form['pratoNome']
+    idPrato = request.form['idPrato']
+    
+    conn = mysql.connection
+    cursor = conn.cursor()
+    #pegando os valores do produto selecionado
+    cursor.execute ('SELECT * FROM tblProduto WHERE  nomeDoProduto = %s',(nomeProd,))
+    prodSelecionado = cursor.fetchall()
+    idProd = prodSelecionado[0][0]
+    #criando duas variáveis para ver para saber se estamos lhe dando com um produto em mL ou em gramas
+    
+    mlProd = prodSelecionado[0][3]
+    pesoProd = prodSelecionado[0][4]
+    
+    if mlProd == 0:
+        peso = request.form['inputMlGram']
+        quantidade = float(peso) /pesoProd
+        ml = 0
+
+    else:
+        ml = request.form['inputMlGram']
+        quantidade = float(ml)/mlProd
+        peso = 0
+    cursor.execute("SELECT * FROM tblItemXProd WHERE ItemMenuId = %s AND produtoId = %s",(idPrato,idProd))
+    resultado = cursor.fetchone()
+    vitoria = listaIngredienteNoPrato(idPrato)
+    if resultado:
+        msg = "Produto ja cadastrados na base de dados"
+        return vitoria
+    else:
+        cursor.execute('INSERT INTO tblItemXProd (ItemMenuId, nomeItemMenu, produtoId, nomeDoProduto, ml, pesoGramas, quantidade) VALUES(%s, %s, %s, %s, %s, %s, %s)',(idPrato, nomePrato, idProd, nomeProd, ml,peso, quantidade))
+        conn.commit()
+        msg = "Item cadastrado com sucesso"
+        return vitoria 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001))

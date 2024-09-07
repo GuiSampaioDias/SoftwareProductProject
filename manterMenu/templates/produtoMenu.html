@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/static/list.js"></script>
+    <link rel="stylesheet" href="/static/styleList.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <title>Cadastrar produto no prato</title>
+</head>
+<body>
+    <header>
+            <a href="http://localhost:5002"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+            <nav class="menu">
+            <ul>
+                <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
+                <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
+                <li><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></li>
+                <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+                <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+                <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
+            </ul>
+        </nav>
+    </header
+    <hr>
+    <p class="titulo">Cadastre um ingrediente no {{prato[0][1]}}</p>
+    <div class="container">
+    <form action="/addprod/addigrediente" method="post">
+        <!-- Campo oculto para enviar o nome do prato (escondido)-->
+        <input type="hidden" name="pratoNome" value="{{prato[0][1]}}">
+        
+        <!-- Campo oculto para enviar o ID do prato (escondido)-->
+        <input type="hidden" name="idPrato" value="{{prato[0][0]}}">
+        
+        <label for="inputNome">Ingrediente: </label><br>
+        <select name="inputNome" id="inputNome"
+         class="form-control" required autofocus>
+            <option value="" disabled selected>Selecione um produto...</option>
+            {% for produto in  totalProd %}
+            <option value="{{produto[1]}}">{{produto[1]}}</option>
+            {%endfor%}
+        </select><br>
+
+
+        <label for="inputMlGram">Mililitros / Gramas:</label><br>
+        <input type="number" name="inputMlGram" id="inputMlGram" class="form-control" placeholder="Digite a quantidade em Ml ou Gramas" min="0" required><br>
+        
+        <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
+        <button id="resetar" class="btn btn-lg btn-primary btn-block" type="reset">Limpar</button>
+    </form>
+</div>
+<p class="mensagem">{{mensagem}}</p>
+<hr>
+<p class="titulo">Lista de produtos</p>
+<div class="container">
+    <table>
+        <tr><td> Nomes </td><td>Ml</td><td>Gramas</td><td>Quantidade</td></tr>
+        {% for item in prodMenu %}
+        <tr>
+            <th>{{item[3]}}</th>
+            <th>{{item[4]}}</th>
+            <th>{{item[5]}}</th>
+            <th>{{item[6]}}</th>
+            
+            <th><a href="/produto/{{item[0]}}/{{prato[0][0]}}"><button class="botao-lista" id="atualizar-lista">Atualizar</button></a></th>
+            <th><button onclick="funcao3('{{item[0]}}','{{prato[0][0]}}')" class="botao-lista" id="deletar-lista">Deletar</button></th>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    <p class="mensagem">{{mensagem}}</p>
+</hr>
+</body>
+</html>
