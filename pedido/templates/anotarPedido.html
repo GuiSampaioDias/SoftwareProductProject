@@ -26,7 +26,7 @@
         </nav>
     </header
     <hr>
-    <p class="titulo">Faça o seu pedido na mesa N° tal</p>
+    <p class="titulo">Faça o seu pedido na mesa N° {{mesa}}</p>
     <div class="container">
     <form action="#####rota pedido###" method="post">
         <!-- Select Pizza-->
@@ -87,14 +87,15 @@
         
         <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
         <button id="resetar" class="btn btn-lg btn-primary btn-block" type="reset">Limpar</button>
+        <button type="button" onclick="history.back()">Voltar</button>
     </form>
 </div>
 <p class="mensagem">{{mensagem}}</p>
 <hr>
-<p class="titulo">Lista de produtos</p>
+<p class="titulo">Itens Pedido</p>
 <div class="container">
     <table>
-        <tr><td> Item </td>Quantidade<td>Preço Unitário</td><td>Total</td><td>Status</td></tr>
+        <tr><td> Item </td><td>Quantidade</td><td>Preço Unitário</td><td>Total</td><td>Status</td></tr>
         {% for item in prodMenu %}
         <tr>
             <th>{{item[2]}}</th>
@@ -105,6 +106,7 @@
             
             <th><a href="/produto/{{item[0]}}/{{prato[0][0]}}"><button class="botao-lista" id="atualizar-lista">Atualizar</button></a></th>
             <th><button onclick="funcao3('{{item[0]}}','{{prato[0][0]}}')" class="botao-lista" id="deletar-lista">Deletar</button></th>
+            <th><a href="/produto/{{item[0]}}/{{prato[0][0]}}"><button class="botao-lista" id="atualizar-lista"></button></a></th>
         </tr>
         {% endfor %}
     </table>
