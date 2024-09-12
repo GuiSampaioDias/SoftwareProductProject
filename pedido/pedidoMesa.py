@@ -29,7 +29,7 @@ def processar_selecao():
     sobremesa = extrai__tudo_com_where('tblMenu','categoria','Sobremesa')
 
     
-    return render_template('anotarPedido.html', pizzas = pizza, bebidas = bebida, pratos = prato, drinks = drink, sobremesas = sobremesa,mesa = numeroMesa)
+    return render_template('teste.html', pizzas = pizza, bebidas = bebida, pratos = prato, drinks = drink, sobremesas = sobremesa,mesa = numeroMesa)
 
 # @app.route('/')
 # def main():
