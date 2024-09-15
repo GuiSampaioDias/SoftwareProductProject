@@ -208,27 +208,36 @@ def listaIngredienteNoPrato(id):
 
     return render_template('produtoMenu.html', prodMenu = listaProdMenu,totalProd = todosProdutos, prato = itemMenu )
 
-@app.route('/igrediente/delete/<int:idProduto>/<int:idPrato>')
-def deleteingredientedoPrato(idProduto,idPrato):
+@app.route('/igrediente/delete/<int:idItemXProd>')
+def deleteingredientedoPrato(idItemXProd):
     print(f"\n\n\n\n\n##########\n\n\npassei aqui\n\n\n")
     try:
-        idProduto = int(idProduto)
-        idPrato = int(idPrato)
-        print(f'id prod: {idProduto}')
-        print(f'id prato: {idPrato}')
+        idItemXProd = int(idItemXProd)   
+        print(f'id_item_x_prod: {idItemXProd}')
         conn = mysql.connection
         cursor = conn.cursor()
-        cursor.execute('DELETE FROM tblItemXProd') #WHERE produtoId = %s and ItemMenuId = %s', (idProduto, idPrato))
+        
+        #pegando o id do prato que vai ter o produto deletado         
+        cursor.execute ('SELECT ItemMenuId FROM tblItemXProd WHERE idItemXProd = %s',(idItemXProd,))
+        idPrato = cursor.fetchall()
+        print(f'antes do delete {idPrato}')
+        cursor.execute('DELETE FROM tblItemXProd WHERE idItemXProd = %s ', (idItemXProd,))
         conn.commit()
         msg = "Excluido com sucesso"
+        print(f'depois do delete {idPrato}')
+        
          
        # cursor.execute ('SELECT * FROM tblMenu WHERE itemId = %s ', (id,))datas=data
         #data = cursor.fetchall()
 
-        return render_template('listarUnicoMenu.html', mensagem = msg )
+        #return render_template('listarUnicoMenu.html', mensagem = msg )
+        renderizar = listaIngredienteNoPrato(idPrato)
+        return renderizar
     
     except Exception as e:
         return json.dumps({'error': str(e)})   
+    
+
 @app.route('/addprod/addigrediente', methods=['POST', 'GET'])
 def addIgredienteNoPrato():
     

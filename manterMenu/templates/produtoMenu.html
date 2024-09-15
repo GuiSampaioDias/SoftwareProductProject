@@ -60,13 +60,13 @@
         <tr><td> Nomes </td><td>Ml</td><td>Gramas</td><td>Quantidade</td></tr>
         {% for item in prodMenu %}
         <tr>
-            <th>{{item[3]}}</th>
             <th>{{item[4]}}</th>
             <th>{{item[5]}}</th>
             <th>{{item[6]}}</th>
+            <th>{{item[7]}}</th>
             
             <th><a href="/produto/{{item[0]}}/{{prato[0][0]}}"><button class="botao-lista" id="atualizar-lista">Atualizar</button></a></th>
-            <th><button onclick="funcao3('{{item[0]}}','{{prato[0][0]}}')" class="botao-lista" id="deletar-lista">Deletar</button></th>
+            <th><button onclick="funcao3('{{item[0]}}')" class="botao-lista" id="deletar-lista">Deletar</button></th>
         </tr>
         {% endfor %}
     </table>

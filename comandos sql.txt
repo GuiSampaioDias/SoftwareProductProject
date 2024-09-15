@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS tblHistorico
 
 CREATE TABLE IF NOT EXISTS tblItemXProd 
 ( 
-    idTbl      BIGINT       NOT NULL   AUTO_INCREMENT,
+    idItemXProd    BIGINT       NOT NULL AUTO_INCREMENT,
     ItemMenuId     BIGINT       NOT NULL,
     nomeItemMenu   VARCHAR(45)  NOT NULL,
     produtoId      BIGINT       NOT NULL, 
