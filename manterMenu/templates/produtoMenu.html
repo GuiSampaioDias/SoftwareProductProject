@@ -46,7 +46,7 @@
 
 
         <label for="inputMlGram">Mililitros / Gramas:</label><br>
-        <input type="number" name="inputMlGram" id="inputMlGram" class="form-control" placeholder="Digite a quantidade em Ml ou Gramas" min="0" required><br>
+        <input type="number" name="inputMlGram" id="inputMlGram" class="form-control" placeholder="Digite a quantidade em Ml ou Gramas" min="1" required><br>
         
         <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
         <button id="resetar" class="btn btn-lg btn-primary btn-block" type="reset">Limpar</button>
@@ -65,7 +65,7 @@
             <th>{{item[6]}}</th>
             <th>{{item[7]}}</th>
             
-            <th><a href="/produto/{{item[0]}}/{{prato[0][0]}}"><button class="botao-lista" id="atualizar-lista">Atualizar</button></a></th>
+            <th><a href="/produto2/{{item[0]}}"><button class="botao-lista" id="atualizar-lista">Atualizar</button></a></th>
             <th><button onclick="funcao3('{{item[0]}}')" class="botao-lista" id="deletar-lista">Deletar</button></th>
         </tr>
         {% endfor %}

@@ -124,6 +124,7 @@ def list():
 
     except Exception as e:
         return json.dumps({'error':str(e)})
+    
 @app.route('/produto/<id>',methods=['GET'])    
 def editProd(id):
 
@@ -136,6 +137,22 @@ def editProd(id):
             print("antes do try edit prod")
             data = cursor.fetchall()
             return render_template('editarItemMenu.html', datas=data)
+    
+    except Exception as e:
+        return json.dumps({'error':str(e)})
+    
+@app.route('/produto2/<id>',methods=['GET'])    
+def editProdNoPrato(id):
+
+    try:
+
+            id = int(id)
+            conn = mysql.connection
+            cursor = conn.cursor()
+            cursor.execute('SELECT * FROM tblItemXProd WHERE IdItemXProd = %s', (id,))
+            print("antes do try edit prod")
+            data = cursor.fetchall()
+            return render_template('editarProdutoNoPrato.html', datas=data)
     
     except Exception as e:
         return json.dumps({'error':str(e)})
@@ -168,6 +185,47 @@ def editarProduto(id):
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
 
+    except Exception as e:
+        return json.dumps({'error':str(e)})
+    
+@app.route('/produto2/<id>',methods=['POST','GET'])
+def editarProduto2(id):
+    
+    try:
+        idItemXProd = int(id)
+        peso = request.form['inputPeso']
+        
+        if request.method == 'POST':
+            if peso and idItemXProd :
+                conn = mysql.connection
+                cursor = conn.cursor()
+
+                cursor.execute ('SELECT * FROM tblItemXProd WHERE idItemXProd = %s',(idItemXProd,))
+                produtoNoPrato = cursor.fetchall()
+                #pegando os valores do produto selecionado
+                cursor.execute ('SELECT * FROM tblProduto WHERE  produtoId = %s',(produtoNoPrato[0][3],))
+                prodSelecionado = cursor.fetchall()
+                print(prodSelecionado)
+
+                if produtoNoPrato[0][5] == 0:
+                    gramas = peso
+                    quantidade = float(gramas) /prodSelecionado[0][4]
+                    ml = 0
+                else:
+                    ml = peso
+                    quantidade = float(ml) /prodSelecionado[0][3]
+                    gramas = 0
+                cursor.execute('UPDATE tblItemXProd SET ml = %s, pesoGramas = %s, quantidade = %s WHERE idItemXProd = %s ', ( ml,gramas, quantidade, idItemXProd))
+                conn.commit()
+                msg = "Edição realizada com sucesso"
+            
+            renderizar = listaIngredienteNoPrato(produtoNoPrato[0][1])
+            return renderizar
+            #return render_template('listarUnicoMenu.html', mensagem = msg, )
+           
+        else:
+            return json.dumps({'html':'<span>Enter the required fields</span>'})
+        
     except Exception as e:
         return json.dumps({'error':str(e)})
 
@@ -210,7 +268,6 @@ def listaIngredienteNoPrato(id):
 
 @app.route('/igrediente/delete/<int:idItemXProd>')
 def deleteingredientedoPrato(idItemXProd):
-    print(f"\n\n\n\n\n##########\n\n\npassei aqui\n\n\n")
     try:
         idItemXProd = int(idItemXProd)   
         print(f'id_item_x_prod: {idItemXProd}')
@@ -220,11 +277,11 @@ def deleteingredientedoPrato(idItemXProd):
         #pegando o id do prato que vai ter o produto deletado         
         cursor.execute ('SELECT ItemMenuId FROM tblItemXProd WHERE idItemXProd = %s',(idItemXProd,))
         idPrato = cursor.fetchall()
-        print(f'antes do delete {idPrato}')
+        
         cursor.execute('DELETE FROM tblItemXProd WHERE idItemXProd = %s ', (idItemXProd,))
         conn.commit()
         msg = "Excluido com sucesso"
-        print(f'depois do delete {idPrato}')
+        
         
          
        # cursor.execute ('SELECT * FROM tblMenu WHERE itemId = %s ', (id,))datas=data
