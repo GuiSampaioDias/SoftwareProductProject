@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{url_for('static', filename='/static/img/Logo.png')}}">
+    <title>Editar produto</title>
+</head>
+<body>
+    <header>
+        <a href="http://localhost:5001"><img src="{{url_for('static', filename='/img/Logo.png')}}" class="logo"/></a>
+            <nav class="menu">
+            <ul>
+                <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
+                <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
+                <li><a href="http://localhost:5002/">Cadastrar Ordem de Compra</a></li>
+                <li><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></li>
+                <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+                <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+                <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
+            </ul>
+        </nav>
+    </header>
+    <hr>
+    <p class="titulo">Edite o(a) {{datas[0][4]}} do(a) {{datas[0][2]}}</p>
+    <div class="container">
+
+    <form action="/produto2/{{datas[0][0]}}" method="post">
+          
+        <label for="inputPeso">Peso: mg/mililitros</label><br>
+        <input type="number" name="inputPeso" id="inputPeso" value="{{datas[0][5] + datas[0][6]}}" class="form-control" placeholder="Digite o preço (ex: 10.99)" step="0.01" min="1" required><br>
+        <!-- <label for="imagem" style="font-weight: bold">Selecione uma imagem:</label><br>
+            <input type="file" id="imagem" name="imagem" ><br><br>
+             
+            <input type="submit" value="Upload">          -->
+        <button id="cadastrar" class="salvar-botao" type="submit">Salvar</button>
+    </form> 
+    <p class="mensagem">{{mensagem}}</p>
+    </div>
+</body>
+</html>

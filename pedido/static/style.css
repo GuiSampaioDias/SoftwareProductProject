@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500&display=swap');
+
+* {
+    font-family: "Be Vietnam Pro", sans-serif;
+}
+
+body {
+    background: linear-gradient(to right,#000000, #a15113, #fd913e);
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+}
+
+.menu a:hover {
+    color: rgb(236, 70, 70);
+    transition: 400ms linear;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.categoria {
+    margin-bottom: 20px;
+}
+
+.title {
+    text-align: center;
+    background-color: #ff8800;
+    border-radius: 15px;
+    padding: 5px 15px;
+    margin-bottom: 10px;
+}
+
+.itens {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.item {
+    background-color: #ffb055;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid white;
+    text-align: center;
+    min-width: 150px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(236, 70, 70);
+    transition: 400ms linear;
+}
