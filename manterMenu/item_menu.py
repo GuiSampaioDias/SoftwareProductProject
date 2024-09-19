@@ -263,7 +263,6 @@ def listaIngredienteNoPrato(id):
     cursor.execute ('SELECT * FROM tblMenu WHERE ItemId = %s',(id,))
     itemMenu = cursor.fetchall()
     
-
     return render_template('produtoMenu.html', prodMenu = listaProdMenu,totalProd = todosProdutos, prato = itemMenu )
 
 @app.route('/igrediente/delete/<int:idItemXProd>')
@@ -310,6 +309,10 @@ def addIgredienteNoPrato():
     idProd = prodSelecionado[0][0]
     #criando duas variáveis para ver para saber se estamos lhe dando com um produto em mL ou em gramas
     
+    
+    cursor.execute ('SELECT * FROM tblMenu WHERE ItemId = %s',(idPrato,))
+    itemMenu = cursor.fetchall()
+
     mlProd = prodSelecionado[0][3]
     pesoProd = prodSelecionado[0][4]
     
@@ -324,13 +327,16 @@ def addIgredienteNoPrato():
         peso = 0
     cursor.execute("SELECT * FROM tblItemXProd WHERE ItemMenuId = %s AND produtoId = %s",(idPrato,idProd))
     resultado = cursor.fetchone()
-    vitoria = listaIngredienteNoPrato(idPrato)
+    
     if resultado:
         msg = "Produto ja cadastrados na base de dados"
+        listaIngredienteNoPrato(idPrato)
+        vitoria = listaIngredienteNoPrato(idPrato)
         return vitoria
     else:
         cursor.execute('INSERT INTO tblItemXProd (ItemMenuId, nomeItemMenu, produtoId, nomeDoProduto, ml, pesoGramas, quantidade) VALUES(%s, %s, %s, %s, %s, %s, %s)',(idPrato, nomePrato, idProd, nomeProd, ml,peso, quantidade))
         conn.commit()
+        vitoria = listaIngredienteNoPrato(idPrato)
         msg = "Item cadastrado com sucesso"
         return vitoria 
 
