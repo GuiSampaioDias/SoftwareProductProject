@@ -17,11 +17,11 @@
             <ul>
                 <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
                 <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
-                <li><a href="http://localhost:5002/">Cadastrar Item Ordem</a></li>
-                <li><a href="http://localhost:5002/list">Lista de Itens Ordem</a></li>
+                <li><a href="http://localhost:5002/">Cadastrar Ordem de Compra</a></li>
+                <li><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></li>
                 <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
                 <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
-
+                <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
             </ul>
         </nav>
     </header>
@@ -53,8 +53,8 @@
             <input type="file" id="imagem" name="imagem" ><br><br>
              
             <input type="submit" value="Upload">          -->
-        <button id="cadastrar" class="" type="submit" >Salvar</button>
-        <input type="hidden" id="id_item_menu" name="id_prod" value="{{datas[0][0]}}">
+        <button id="cadastrar" class="salvar-botao" type="submit">Salvar</button>
+        <input type="hidden" id="id_item_menu" name="idProd" value="{{datas[0][0]}}">
     </form> 
     <p class="mensagem">{{mensagem}}</p>
     </div>

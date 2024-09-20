@@ -13,39 +13,48 @@
 </head>
 <body>
 <header>
-    <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+    <a href="http://localhost:5004"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
     <nav class="menu">
     <ul>
         <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
         <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
         <li><a href="http://localhost:5002/">Cadastrar Ordem de Compra</a></li>
-        <li><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></li>
         <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
-        <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
+        <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
 
     </ul>
 </nav>
 </header>
 <hr>
-<p class="titulo">Lista de produtos</p>
+<p class="titulo">Lista de Historico de Compras</p>
 <div class="container">
     <table>
-        <tr><td> Nomes </td><td>Tipo</td><td>ML</td><td>Gramas</td><td>Preço</td><td>Descrição</td></tr>
-        {% for item in datas %}
+        <td colspan="5" align="center" class="tituloPrincipal">Compras</td>
+        <tr><td> Nome do Produto </td><td>Quantidade</td><td>Preço unitário</td><td>Preço Total</td><td>Data</td></tr>
+        {% for item in datasCompra %}
         <tr>
             <th>{{item[1]}}</th>
             <th>{{item[2]}}</th>
             <th>{{item[3]}}</th>
             <th>{{item[4]}}</th>
             <th>{{item[5]}}</th>
-            <th>{{item[6]}}</th>
-            <th><a href="/produto/{{item[0]}}"><button class="botao-lista" id="atualizar-lista">Atualizar</button></a></th>
-            <th><button onclick="funcao1('{{item[0]}}')" class="botao-lista" id="deletar-lista">Deletar</button></th>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <table>
+        <td colspan="5" align="center" class="tituloPrincipal">Vendas</td>
+        <tr><td> Nome do Produto </td><td>Quantidade</td><td>Preço unitário</td><td>Preço Total</td><td>Data</td></tr>
+        {% for item in datasVenda %}
+        <tr>
+            <th>{{item[1]}}</th>
+            <th>{{item[2]}}</th>
+            <th>{{item[3]}}</th>
+            <th>{{item[3]}}</th>
         </tr>
         {% endfor %}
     </table>
     </div>
     <p class="mensagem">{{mensagem}}</p>
-</hr>
 </body>
 </html>

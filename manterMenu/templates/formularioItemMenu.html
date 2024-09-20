@@ -16,19 +16,19 @@
         <nav class="menu">
         <ul>
             <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
-            <li><a href="http://localhost:5002/">Cadastrar Item Ordem</a></li>
-            <li><a href="http://localhost:5002/list">Lista de Itens Ordem</a></li>
+            <li><a href="http://localhost:5002/">Cadastrar Ordem de Compra</a></li>
+            <li><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></li>
             <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
             <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
             <!-- <li><a href="http://localhost:5001/categoria">Cadastrar Categoria</a></li> -->
-
+            <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
         </ul>
     </nav>
     </header>
     <hr>
     <p class="titulo">Cadastrar um item do menu</p>
     <div class="container">
-    <form action="cadastrar_item" method="post">
+    <form action="cadastrarItem" method="post">
         <label for="inputNome" class="sr-only">Nome do Item:</label><br>
         <input type="text" name="inputNome" id="inputNome" class="form-control" required autofocus placeholder="Digite o nome do item"><br>
         <label for="inputCategoria">Categoria: </label><br>
@@ -55,7 +55,8 @@
 
             <input type="submit" value="Upload"><br> -->
 
-        <button id="cadastrar" class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button><br>
+        <button id="cadastrar" class="btn" type="submit">Cadastrar</button>
+        <button id="resetar" class="btn" type="reset">Limpar</button><br>
         <p class="mensagem">{{mensagem}}</p>
     </form>
 </div>

@@ -10,7 +10,7 @@
 }
 
 body{
-    background-color: rgb(34, 22, 41);
+    background: linear-gradient(to right,#000000, #a15113, #fd913e);
     color: white;
 }
 
@@ -36,10 +36,21 @@ a:hover{
 }
   .container
 {
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+td {
+    width: auto;
+    height: auto;
+    background-color:  #ff8800;
+}
+
+td, th {
+    border-radius: 5px;
 }
 
 
@@ -80,6 +91,20 @@ p{
     80%{opacity: 0.2;}
     90% {opacity:0.1;}
     100% { opacity: 0; }
+}
+
+.botao-lista {
+    border-radius: 15px;
+    box-shadow: none;
+    border: none;
+}
+
+#atualizar-lista:hover {
+    background-color: rgb(91, 231, 91);
+}
+
+#deletar-lista:hover {
+    background-color: rgb(224, 62, 62);
 }
 
 /* Aplica a animação ao elemento */
