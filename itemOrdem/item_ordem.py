@@ -154,7 +154,7 @@ def sobe_estoque(id):
         idProd = data[0][0]
         mlTotal = data[0][3] * quantidade
         gramasTotal = data[0][4] * quantidade
-        cursor.execute('INSERT INTO tblEstoque (produtoId, nomeDoProduto, ml, pesoGramas, quantidade) VALUES (%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE quantidade = quantidade + VALUES(quantidade), ml = ml + VALUES(ml), pesoGramas = pesoGramas + VALUES(pesoGramas)',(idProd, nome,mlTotal,gramasTotal, quantidade))
+        cursor.execute('INSERT INTO tblEstoque (produtoId, nomeDoProduto, ml, pesoGramas, quantidade, min, sugerido) VALUES (%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE quantidade = quantidade + VALUES(quantidade), ml = ml + VALUES(ml), pesoGramas = pesoGramas + VALUES(pesoGramas)',(idProd, nome,mlTotal,gramasTotal, quantidade, 0, 0))
         conn.commit()
         tipo = 'compra'
         cursor.execute('INSERT INTO tblHistorico (produtoId, nomeDoProduto, quantidade, precoUnitario, precoTotal, data, tipo) VALUES (%s,%s,%s,%s,%s,%s,%s)',(idProd, nome,quantidade, precoUnitario, precoTotal, dia, tipo))
