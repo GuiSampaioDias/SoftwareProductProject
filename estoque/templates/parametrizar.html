@@ -21,6 +21,10 @@
         button:hover {
             background-color: rgb(255, 255, 111);
         }
+
+        .form-control {
+            margin-bottom: 20px; 
+        }
     </style>
 </head>
 <body>
@@ -44,7 +48,7 @@
 
     <form action="/parametrizar/" method="post">
         <label for="inputMin">Minimo:</label><br>
-        <input type="number" name="inputMin" id="inputMin" value="{{datas[0][5]}}" class="form-control" step="0.01" placeholder="Digite a quantidade minima esperada" ><br>
+        <input type="number" name="inputMin" id="inputMin" value="{{datas[0][5]}}" class="form-control" step="0.01" placeholder="Digite a quantidade minima esperada"><br>
         <label for="inputMaximo">Máximo:</label><br>
         <input type="number" name="inputMaximo" id="inputMaximo" value="{{datas[0][6]}}" class="form-control" step="0.001" placeholder="Digite a máxima esperada" ><br>
         <button id="cadastrar" class="" type="submit">Salvar</button>
