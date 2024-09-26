@@ -28,6 +28,16 @@
 </header>
 <hr>
 <p class="titulo">Lista de produtos</p>
+
+<form method="get" class="row">
+    <div class="col-9">
+        <input type="text" name="pesquisa" class="form-control">
+    </div>
+    <div class="col-3">
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+    </div>                    
+</form>
+
 <div class="container">
     <table>
         <tr><td> Nomes </td><td>Tipo</td><td>ML</td><td>Gramas</td><td>Preço</td><td>Descrição</td></tr>
@@ -46,5 +56,6 @@
     </table>
     </div>
     <p class="mensagem">{{mensagem}}</p>
+</hr>
 </body>
 </html>
