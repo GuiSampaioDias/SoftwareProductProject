@@ -3,17 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styleForm.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <script src="/static/list.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
-    <link rel="stylesheet" href="/static/styleList.css">
-    <title>Lista Unica</title>
+    <title>Editar produto</title>
+
+    <style>
+        button {
+            border-radius: 15px;
+            box-shadow: none; 
+            border: none; 
+            margin-top: 5px;
+        }
+
+        button:hover {
+            background-color: rgb(255, 255, 111);
+        }
+    </style>
 </head>
 <body>
     <header>
-        <a href="http://localhost:5001"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+        <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
             <nav class="menu">
             <ul>
                 <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
@@ -27,23 +39,18 @@
         </nav>
     </header>
     <hr>
-    <p class="titulo">Lista Unica</p>
+    <p class="titulo">Definir os limites esperados do produto {{datas[0][1]}} no estoque</p>
     <div class="container">
-    <table>
-        {% for item in datas %}
-        <tr><td colspan="4" class="title">{{item[2]}}</td></tr>
-        <tr><td> Nome </td><td>Tipo</td><td class="desc">Descrição</td><td>Preço</td></tr>
-        <tr>
-            <th>{{item[1]}}</th>
-            <th>{{item[2]}}</th>
-            <th>{{item[3]}}</th>
-            <th class="desc">{{item[4]}}</th>
-            <th><a href="/produto/{{item[0]}}"><button class="btn" id="btn-atualizar">Atualizar</button></a></th>
-            <th><button onclick="funcao2('{{item[0]}}')" class="btn" id="btn-deletar">Deletar</button></th>
-        </tr>
-        {% endfor %}
-    </table>
-    </div>
+
+    <form action="/parametrizar/" method="post">
+        <label for="inputMin">Minimo:</label><br>
+        <input type="number" name="inputMin" id="inputMin" value="{{datas[0][5]}}" class="form-control" step="0.01" placeholder="Digite a quantidade minima esperada" ><br>
+        <label for="inputMaximo">Máximo:</label><br>
+        <input type="number" name="inputMaximo" id="inputMaximo" value="{{datas[0][6]}}" class="form-control" step="0.001" placeholder="Digite a máxima esperada" ><br>
+        <button id="cadastrar" class="" type="submit">Salvar</button>
+        <input type="hidden" id="idProd" name="idProd" value="{{datas[0][0]}}">
+    </form> 
     <p class="mensagem">{{mensagem}}</p>
+    </div>
 </body>
 </html>

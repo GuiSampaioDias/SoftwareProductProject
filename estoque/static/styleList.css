@@ -20,7 +20,7 @@ li {
 }
 
 td {
-    background-color: #ffb055;
+    background-color: #ff8800;
 }
 
 th, td{
@@ -47,43 +47,6 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-}
-
-.btn {
-    border-radius: 10px;
-    /* background-color: yellow; */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-} 
-
-#btn-atualizar {
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: none;
-    border: none;
-    background: none;
-    color: white;
-}
-
-#btn-atualizar:hover {
-    background-color: rgb(91, 231, 91);
-    transform: scale(1.05);
-}
-
-#btn-deletar {
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: none;
-    border: none;
-    background: none;
-    color: white;
-}
-
-#btn-deletar:hover {
-    background-color: rgb(224, 62, 62);
-    transform: scale(1.05);
 }
 
 header {
@@ -133,7 +96,7 @@ p{
 
 .title{
     text-align: center;
-    background-color: #ff8800;
+    background-color: blueviolet;
     border-radius: 15px;
 }
 
@@ -146,42 +109,24 @@ p{
     text-transform: capitalize;
 }
 
-.btn {
-    border-radius: 10px;
-    /* background-color: yellow; */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-} 
-
-#btn-atualizar {
+.btn-atualizar {
+    background-color: rgb(0, 255, 0);
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    box-shadow: none;
-    border: none;
-    background: none;
-    color: white;
 }
 
-#btn-atualizar:hover {
-    background-color: rgb(91, 231, 91);
-    transform: scale(1.05);
+.btn-atualizar:hover {
+    background-color: rgb(170, 255, 170);
 }
 
-#btn-deletar {
+.btn-deletar {
+    background-color: rgb(255, 8, 0);
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    box-shadow: none;
-    border: none;
-    background: none;
-    color: white;
 }
 
-#btn-deletar:hover {
-    background-color: rgb(224, 62, 62);
-    transform: scale(1.05);
+.btn-deletar:hover {
+    background-color: rgb(255, 170, 170);
 }
-
-
-
