@@ -18,10 +18,10 @@
     <ul>
         <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
         <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
-        <li><a href="http://localhost:5002/">Cadastrar Item Ordem</a></li>
+        <li><a href="http://localhost:5002/">Cadastrar Ordem de Compra</a></li>
         <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
         <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
-
+        <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
     </ul>
 </nav>
 </header>
@@ -37,9 +37,9 @@
             <th>{{item[3]}}</th>
             <th>{{item[4]}}</th>
             <th>{{item[5]}}</th>
-            <th><a href="/produto/{{item[0]}}"><button>Atualizar</button></a></th>
-            <th><button onclick="funcao1('{{item[0]}}')">Deletar</button></th>
-            <th><a href="/estoque/{{item[0]}}"><button>Subir</button></a></th>
+            <th><a href="/produto/{{item[0]}}"><button class="botao-lista" id="atualizar-lista">Atualizar</button></a></th>
+            <th><button onclick="funcao1('{{item[0]}}')" class="botao-lista" id="deletar-lista">Deletar</button></th>
+            <th><a href="/estoque/{{item[0]}}"><button class="botao-lista" id="subirItem-lista">Subir</button></a></th>
         </tr>
         {% endfor %}
     </table>

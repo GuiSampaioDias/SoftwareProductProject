@@ -39,31 +39,14 @@
         </nav>
     </header>
     <hr>
-    <p class="titulo">Edite um produto</p>
+    <p class="titulo">Definir os limites esperados do produto {{datas[0][1]}} no estoque</p>
     <div class="container">
 
-    <form action="editar" method="post">
-        <label for="inputNome" class="sr-only">Nome do produto: </label><br>
-        <input type="text" name="inputNome" id="inputNome" value="{{datas[0][1]}}"
-        class="form-control" required autofocus ><br>
-        <label for="inputCategoria">Categoria: </label><br>
-        <select name="inputCategoria" id="inputCategoria"
-         class="form-control" required>
-            <option value="{{datas[0][2]}}">{{datas[0][2]}}</option>
-            <option value="bebida">Bebida</option>
-            <option value="alimento">Alimento</option>
-            <option value="sobremesa">Sobremesa</option>
-        </select><br>
-   
-
-        <label for="inputML">ML:</label><br>
-        <input type="number" name="inputML" id="inputML" value="{{datas[0][3]}}" class="form-control" step="0.01" placeholder="Digite a quantidade de litros" ><br>
-        <label for="inputPeso">Gramas:</label><br>
-        <input type="number" name="inputPeso" id="inputPeso" value="{{datas[0][4]}}" class="form-control" step="0.001" placeholder="Digite a quantidade de Gramas" ><br>
-        <label for="inputPreco">Preço:</label><br>
-        <input type="number" name="inputPreco" id="inputPreco" value="{{datas[0][5]}}" class="form-control" placeholder="Digite o preço (ex: 10.99)" step="0.01" min="0" required><br>
-        <label for="inputDescricao">Descrição:</label><br>
-        <textarea name="inputDescricao" id="inputDescricao" value="{{datas[0][6]}}" class="form-control" placeholder="Digite a descrição" maxlength="45" >{{datas[0][6]}}</textarea><br>
+    <form action="/parametrizar/" method="post">
+        <label for="inputMin">Minimo:</label><br>
+        <input type="number" name="inputMin" id="inputMin" value="{{datas[0][5]}}" class="form-control" step="0.01" placeholder="Digite a quantidade minima esperada" ><br>
+        <label for="inputMaximo">Máximo:</label><br>
+        <input type="number" name="inputMaximo" id="inputMaximo" value="{{datas[0][6]}}" class="form-control" step="0.001" placeholder="Digite a máxima esperada" ><br>
         <button id="cadastrar" class="" type="submit">Salvar</button>
         <input type="hidden" id="idProd" name="idProd" value="{{datas[0][0]}}">
     </form> 
