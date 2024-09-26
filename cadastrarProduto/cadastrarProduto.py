@@ -66,11 +66,20 @@ def cadastro():
 @app.route('/list',methods=['GET'])
 def list():
     try:
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute ('SELECT * FROM tblProduto')
-            data = cursor.fetchall()
-            return render_template('listar.html', datas=data)
+            pesquisa = request.args.get('pesquisa', '')
+            if pesquisa:
+                
+                conn = mysql.connection
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM tblProduto WHERE nomeDoProduto LIKE %s ORDER BY nomeDoProduto", (f"%{pesquisa}%",))
+                data = cursor.fetchall()
+                return render_template('listar.html', datas=data)
+            else:
+                conn = mysql.connection
+                cursor = conn.cursor()
+                cursor.execute ('SELECT * FROM tblProduto')
+                data = cursor.fetchall()
+                return render_template('listar.html', datas=data)
 
     except Exception as e:
         return json.dumps({'error':str(e)})
