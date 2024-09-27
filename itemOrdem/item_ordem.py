@@ -159,8 +159,8 @@ def sobe_estoque(id):
         tipo = 'compra'
         cursor.execute('INSERT INTO tblHistorico (produtoId, nomeDoProduto, quantidade, precoUnitario, precoTotal, data, tipo) VALUES (%s,%s,%s,%s,%s,%s,%s)',(idProd, nome,quantidade, precoUnitario, precoTotal, dia, tipo))
         delete(id)
-        return render_template('listar.html')
-        
+        retorno = list()
+        return retorno
 
     except Exception as e:
         print("except ")

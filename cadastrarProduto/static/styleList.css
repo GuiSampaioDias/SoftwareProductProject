@@ -24,12 +24,11 @@ th, td{
     padding: 8px;
 }
 
-a{
-    text-decoration: none;
+nav a{
     color: white;
 }
 
-a:hover{
+nav a:hover{
     animation: ease-in 2s linear;
     color: rgb(236, 70, 70);
     transition: 400ms linear;
@@ -92,11 +91,14 @@ p{
     90% {opacity:0.1;}
     100% { opacity: 0; }
 }
-
+a{
+    text-decoration: none;
+}
 .botao-lista {
     border-radius: 15px;
     box-shadow: none;
     border: none;
+
 }
 
 #atualizar-lista:hover {
@@ -112,4 +114,10 @@ p{
     animation: fadeOut 2s ease forwards;
     animation-delay: 2s; /* Define o atraso antes de começar a animação */
     opacity: 1; /* Define a opacidade inicial */
+}
+
+.botao-lista:hover{
+    background-color: #dbeb51;
+    animation: ease-in 2s linear;
+    transition: 400ms linear;
 }
