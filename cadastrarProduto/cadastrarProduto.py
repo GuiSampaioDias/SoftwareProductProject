@@ -47,7 +47,7 @@ def cadastro():
 
         if resultado:
             msg = "Produto ja cadastrados na base de dados"
-            return render_template('formulario_produto.html', mensagem = msg)
+            return render_template('formularioProduto.html', mensagem = msg)
         else:
                        
             conn = mysql.connection
@@ -136,16 +136,34 @@ def editarProduto(id):
 def delete(id):
     try:
         id = int(id)
+
         conn = mysql.connection
-        cursor = conn.cursor()
-        cursor.execute('DELETE FROM tblProduto WHERE produtoId = %s', (id,))
-        conn.commit()
-        msg = "Excluido com sucesso"
+        cursor = conn.cursor()  
+
+        cursor.execute('SELECT nomeDoProduto FROM tblProduto WHERE produtoId = %s', (id,))
+        nome = cursor.fetchall()  
+        cursor.execute('SELECT * FROM tblHistorico WHERE produtoId = %s', (id,))
+        tabelaHistorico = cursor.fetchall()
+        cursor.execute('SELECT * FROM tblItemXProd WHERE produtoId = %s', (id,))
+        tabelaItemXProd = cursor.fetchall()
+
+        cursor.execute('SELECT * FROM tblItemOrdem WHERE nomeItem = %s', (nome,))
+        tabelaOrdem = cursor.fetchall()
+
+
+
+        if tabelaHistorico == () and tabelaItemXProd == () and tabelaOrdem == ():
+            cursor.execute('DELETE FROM tblProduto WHERE produtoId = %s', (id,))
+            conn.commit()
+            msg = "Excluido com sucesso"
+
+        else:
+            msg = "Item não pode ser excluido pois está associado a outra tabela"
         
         cursor.execute ('SELECT * FROM tblProduto')
         data = cursor.fetchall()
 
-        return render_template('listar.html', mensagem = msg, datas=data)
+        return render_template('delete.html', mensagem = msg, datas=data)
     
     except Exception as e:
         return json.dumps({'error': str(e)})   
