@@ -6,3 +6,6 @@ function funcao1(itemIndex) {
         document.getElementById("demo").innerHTML = "Você pressionou Cancelar!";
     }
 }
+
+
+
