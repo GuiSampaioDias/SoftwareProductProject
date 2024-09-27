@@ -30,7 +30,7 @@
 <div class="container">
     <table>
         <tr><td colspan="7" class="title"><b>Bebida</b></td></tr>
-        <tr></tr><td align="center" class="nomeProduto"> Nome </td><td align="center">Tipo</td><td class="desc" align="center">Descrição</td><td colspan="3" style="padding-left: 35px;">Preço</td></tr>
+        <tr><td align="center" class="nomeProduto"> Nome </td><td align="center">Tipo</td><td class="desc" align="center">Descrição</td><td colspan="1" class="preco">Preço</td><td colspan="3" class="options">Opções</td></tr>
         {% for item in datas1 %}
         <tr>
             <th>{{item[1]}}</th>
@@ -39,13 +39,13 @@
             <th>{{item[4]}}</th>
             <th><a href="/produto/{{item[0]}}"><button class="btn" id="btn-atualizar">Atualizar</button></a></th>
             <th><button onclick="funcao1('{{item[0]}}')" class="btn" id="btn-deletar">Deletar</button></th>
-            <th><a href="/addprod/{{item[0]}}"><button class="btn" id="btn-atualizar">Produto</button></a></th>
+            <th><a href="/addprod/{{item[0]}}"><button class="btn" id="btn-produto">Produto</button></a></th>
         </tr>
         {% endfor %}
     </table><br>
     <table>
-        <tr><td colspan="6" class="title"><b>Drink</b></td></tr>
-        <tr></tr><td align="center"> Nome </td><td align="center">Tipo</td><td class="desc" align="center">Descrição</td><td colspan="3" style="padding-left: 35px;">Preço</td></tr>
+        <tr><td colspan="7" class="title"><b>Drink</b></td></tr>
+        <tr><td align="center"> Nome </td><td align="center">Tipo</td><td class="desc" align="center">Descrição</td><td colspan="1" class="preco">Preço</td><td colspan="3" class="options">Opções</td></tr>
         {% for item in datas2 %}
         <tr>
             <th>{{item[1]}}</th>
@@ -54,13 +54,13 @@
             <th>{{item[4]}}</th>
             <th><a href="/produto/{{item[0]}}"><button class="btn" id="btn-atualizar">Atualizar</button></a></th>
             <th><button onclick="funcao1('{{item[0]}}')" class="btn" id="btn-deletar">Deletar</button></th>
-            <th><a href="/addprod/{{item[0]}}"><button class="btn" id="btn-atualizar">Produto</button></a></th>
+            <th><a href="/addprod/{{item[0]}}"><button class="btn" id="btn-produto">Produto</button></a></th>
         </tr>
         {% endfor %}
     </table><br>
     <table>
         <tr><td colspan="6" class="title"><b>Pizza</b></td></tr>
-        <tr></tr><td align="center"> Nome </td><td align="center">Tipo</td><td class="desc" align="center">Descrição</td><td colspan="3" style="padding-left: 35px;">Preço</td></tr>
+        <tr></tr><td align="center"> Nome </td><td align="center">Tipo</td><td class="desc" align="center">Descrição</td><td colspan="1" class="preco">Preço</td><td colspan="3" class="options">Opções</td></tr>
         {% for item in datas3 %}
         <tr>
             <th>{{item[1]}}</th>
@@ -69,13 +69,13 @@
             <th>{{item[4]}}</th>
             <th><a href="/produto/{{item[0]}}"><button class="btn" id="btn-atualizar">Atualizar</button></a></th>
             <th><button onclick="funcao1('{{item[0]}}')" class="btn" id="btn-deletar">Deletar</button></th>
-            <th><a href="/addprod/{{item[0]}}"><button class="btn" id="btn-atualizar">Produto</button></a></th>
+            <th><a href="/addprod/{{item[0]}}"><button class="btn" id="btn-produto">Produto</button></a></th>
         </tr>
         {% endfor %}
     </table><br>
     <table>
         <tr><td colspan="6" class="title"><b>Prato</b></td></tr>
-        <tr></tr><td align="center"> Nome </td><td align="center">Tipo</td><td class="desc" align="center">Descrição</td><td colspan="3" style="padding-left: 35px;">Preço</td></tr>
+        <tr></tr><td align="center"> Nome </td><td align="center">Tipo</td><td class="desc" align="center">Descrição</td><td colspan="1" class="preco">Preço</td><td colspan="3" class="options">Opções</td></tr>
         {% for item in datas4 %}
         <tr>
             <th>{{item[1]}}</th>
@@ -84,13 +84,13 @@
             <th>{{item[4]}}</th>
             <th><a href="/produto/{{item[0]}}"><button class="btn" id="btn-atualizar">Atualizar</button></a></th>
             <th><button onclick="funcao1('{{item[0]}}')" class="btn" id="btn-deletar">Deletar</button></th>
-            <th><a href="/addprod/{{item[0]}}"><button class="btn" id="btn-atualizar">Produto</button></a></th>
+            <th><a href="/addprod/{{item[0]}}"><button class="btn" id="btn-produto">Produto</button></a></th>
         </tr>
         {% endfor %}
     </table><br>
     <table>
         <tr><td colspan="6" class="title"><b>Sobremesa</b></td></tr>
-        <tr></tr><td align="center"> Nome </td><td align="center">Tipo</td><td class="desc" align="center">Descrição</td><td colspan="3" style="padding-left: 35px;">Preço</td></tr>
+        <tr></tr><td align="center"> Nome </td><td align="center">Tipo</td><td class="desc" align="center">Descrição</td><td colspan="1" class="preco">Preço</td><td colspan="3" class="options">Opções</td></tr>
         {% for item in datas5 %}
         <tr>
             <th>{{item[1]}}</th>
@@ -99,7 +99,7 @@
             <th>{{item[4]}}</th>
             <th><a href="/produto/{{item[0]}}"><button class="btn" id="btn-atualizar">Atualizar</button></a></th>
             <th><button onclick="funcao1('{{item[0]}}')" class="btn" id="btn-deletar">Deletar</button></th>
-            <th><a href="/addprod/{{item[0]}}"><button class="btn" id="btn-atualizar">Produto</button></a></th>
+            <th><a href="/addprod/{{item[0]}}"><button class="btn" id="btn-produto">Produto</button></a></th>
         </tr>
         {% endfor %}
     </table>

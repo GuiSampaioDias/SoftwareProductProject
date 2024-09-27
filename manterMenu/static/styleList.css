@@ -31,6 +31,14 @@ th, td{
     border-radius: 10px;
 }
 
+.preco {
+    text-align: center;
+}
+
+.options {
+    text-align: center;
+}
+
 a{
     text-decoration: none;
     color: white;
@@ -181,6 +189,20 @@ p{
 #btn-deletar:hover {
     background-color: rgb(224, 62, 62);
     transform: scale(1.05);
+}
+
+#btn-produto {
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: none;
+    border: none;
+    background: none;
+    color: white;
+}
+
+#btn-produto:hover {
+    background-color: rgb(85, 102, 255);
 }
 
 
