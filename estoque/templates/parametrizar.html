@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styleForm.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <title>Editar produto</title>
+
+    <style>
+        button {
+            border-radius: 15px;
+            box-shadow: none; 
+            border: none; 
+            margin-top: 5px;
+        }
+
+        button:hover {
+            background-color: rgb(255, 255, 111);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+            <nav class="menu">
+            <ul>
+                <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
+                <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
+                <li><a href="http://localhost:5002/">Cadastrar Ordem de Compra</a></li>
+                <li><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></li>
+                <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+                <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+                <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
+            </ul>
+        </nav>
+    </header>
+    <hr>
+    <p class="titulo">Definir os limites esperados do produto {{datas[0][1]}} no estoque</p>
+    <div class="container">
+
+    <form action="/parametrizar/" method="post">
+        <label for="inputMin">Minimo:</label><br>
+        <input type="number" name="inputMin" id="inputMin" value="{{datas[0][5]}}" class="form-control" step="0.01" placeholder="Digite a quantidade minima esperada" ><br>
+        <label for="inputMaximo">Máximo:</label><br>
+        <input type="number" name="inputMaximo" id="inputMaximo" value="{{datas[0][6]}}" class="form-control" step="0.001" placeholder="Digite a máxima esperada" ><br>
+        <button id="cadastrar" class="" type="submit">Salvar</button>
+        <input type="hidden" id="idProd" name="idProd" value="{{datas[0][0]}}">
+    </form> 
+    <p class="mensagem">{{mensagem}}</p>
+    </div>
+</body>
+</html>

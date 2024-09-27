@@ -30,13 +30,16 @@
 <p class="titulo">Estoque</p>
 <div class="container">
     <table>
-        <tr><td> Nome do Produto </td><td>Quantidade</td><td>Mililitros Totais</td><td>Peso em gramas Total</td></tr>
+        <tr><td> Nome do Produto </td><td>Quantidade</td><td>Mililitros Totais</td><td>Peso em gramas Total</td><td>minimo recomendado</td><td>máximo recomendado</td></tr>
         {% for item in datas %}
         <tr>
             <th>{{item[1]}}</th>
             <th>{{item[4]}}</th>
             <th>{{item[2]}}</th>
             <th>{{item[3]}}</th>
+            <th>{{item[5]}}</th>
+            <th>{{item[6]}}</th>
+            <th><a href="/item_estoque/{{item[0]}}"><button class="botao-lista" id="atualizar-lista">Parametrizar</button></a></th>
         </tr>
         {% endfor %}
     </table>
