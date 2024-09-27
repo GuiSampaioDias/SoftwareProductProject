@@ -134,7 +134,6 @@ def editProd(id):
             conn = mysql.connection
             cursor = conn.cursor()
             cursor.execute('SELECT * FROM tblMenu WHERE itemId = %s', (id,))
-            print("antes do try edit prod")
             data = cursor.fetchall()
             return render_template('editarItemMenu.html', datas=data)
     
@@ -173,7 +172,6 @@ def editarProduto(id):
             if nome and categoria and preco:
                 conn = mysql.connection
                 cursor = conn.cursor()
-                print("Oi")
                 cursor.execute('UPDATE tblMenu SET nomeDoItem = %s, categoria = %s, descricao = %s, preco = %s WHERE ItemId = %s ', ( nome,categoria,descricao, preco, idProd))
                 conn.commit()
                 msg = "Edição realizada com sucesso"
@@ -235,9 +233,16 @@ def deleteProduto(id):
         id = int(id)
         conn = mysql.connection
         cursor = conn.cursor()
-        cursor.execute('DELETE FROM tblMenu WHERE itemId = %s', (id,))
-        conn.commit()
-        msg = "Excluido com sucesso"
+
+        cursor.execute('SELECT * FROM tblItemXProd WHERE ItemMenuId = %s', (id,))
+        itemXProd = cursor.fetchall()
+
+        if itemXProd == ():
+            cursor.execute('DELETE FROM tblMenu WHERE itemId = %s', (id,))
+            conn.commit()
+            msg = "Excluido com sucesso"
+        else:
+            msg = "Item não pode ser excluido pois está associado a outra tabela"
         
         cursor.execute ('SELECT * FROM tblMenu WHERE itemId = %s ', (id,))
         data = cursor.fetchall()
