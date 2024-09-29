@@ -1,0 +1,6 @@
+div{
+    min-width: 250px;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+}
