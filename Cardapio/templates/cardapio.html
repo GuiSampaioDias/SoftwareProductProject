@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css">
-    <!-- <script src="/static/index.js"></script> -->
     <title>Document</title>
 </head>
 <body>
+  <p style="display: none;" id="lenArquivos" class="lenArquivos">{{ lenArquivos }}</p>
     {% for item in data  %}
     <div id="image-container-{{ loop.index }}">
 
@@ -16,34 +16,6 @@
     <p>{{item[4]}}</p>
 </div>
     {% endfor %}
-
-
-
-    <script>
-        // Caminho base para a pasta de imagens dentro de "static"
-        const imageFolder = '/static/img/';
-    
-        // Número total de imagens (1 a 10)
-        const totalImages = 2;
-    
-        // Seleciona o contêiner onde as imagens serão exibidas
-    
-        // Itera sobre os contêineres de imagem gerados por Jinja
-        for (let i = 1; i <= totalImages; i++) {
-          // Seleciona o contêiner de imagem atual baseado no loop index
-          const imageContainer = document.getElementById(`image-container-${i}`);
-          console.log(i);
-          const imageUrl = `${imageFolder}${i}.jpg`;
-    
-          // Cria um novo elemento <img>
-          const img = document.createElement('img');
-          img.src = imageUrl;  // Define o caminho da imagem
-          img.alt = `Imagem ${i}`;  // Define o texto alternativo
-          img.style.width = '200px';  // Define o tamanho da imagem (opcional)
-    
-          // Adiciona a imagem ao contêiner
-          imageContainer.appendChild(img);
-        }
-      </script>
+    <script src="/static/index.js"></script>
 </body>
 </html>

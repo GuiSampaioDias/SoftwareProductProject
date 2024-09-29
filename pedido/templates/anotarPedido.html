@@ -15,16 +15,18 @@
     <header>
             <a href="http://localhost:5002"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
             <nav class="menu">
-            <ul>
-                <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
-                <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
-                <li><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></li>
-                <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
-                <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
-                <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
+            <details>
+            <ul> <summary>MENU</summary>
+                <p><a href="http://localhost:5001/">Cadastrar Item Menu</a></p>
+                <p><a href="http://localhost:5001/list">Lista de Item Menu</a></p>
+                <p><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></p>
+                <p><a href="http://localhost:5000/">Cadastrar Produtos</a></p>
+                <p><a href="http://localhost:5000/list">Lista de Produtos</a></p>
+                <p><a href="http://localhost:5003/list">Lista do Estoque</a></p>
             </ul>
+            </details>
         </nav>
-    </header
+    </header>
     <hr>
     <p class="titulo">Faça o seu pedido na mesa N° {{mesa}}</p>
     <div class="container">
