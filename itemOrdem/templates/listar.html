@@ -1,3 +1,5 @@
+<!-- LISTAR ORDEM DE COMPRAS -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,18 +17,18 @@
 <header>
     <a href="http://localhost:5002"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
     <nav class="menu">
-    <ul>
-        <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
-        <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
-        <li><a href="http://localhost:5002/">Cadastrar Ordem de Compra</a></li>
-        <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
-        <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
-        <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
-    </ul>
+        <ul>
+            <li><a href="http://localhost:5001/">Cadastrar um Item no Menu</a></li>
+            <li><a href="http://localhost:5001/list">Itens do Menu</a></li>
+            <li><a href="http://localhost:5002/">Cadastrar uma Ordem de Compra</a></li>
+            <li><a href="http://localhost:5000/">Cadastrar um Produto</a></li>
+            <li><a href="http://localhost:5000/list">Produtos cadastrados no sistema</a></li>
+            <li><a href="http://localhost:5003/list">Estoque Disponível</a></li>
+        </ul>
 </nav>
 </header>
 <hr>
-<p class="titulo">Lista de Itens Ordem</p>
+<p class="titulo">Lista de Ordens de Compra</p>
 <div class="container">
     <table>
         <tr><td> Nomes </td><td>Quantidade</td><td>Preço</td><td>Preço Total</td><td>Descrição</td></tr>
