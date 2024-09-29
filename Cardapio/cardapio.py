@@ -26,7 +26,6 @@ def list():
             
             cursor.execute ('SELECT * FROM tblMenu')
             data = cursor.fetchall()
-
             arquivos_contados = [f for f in arquivos if os.path.isfile(os.path.join(upload_folder, f))]
         
             tamanhoArquivos = len(arquivos_contados)
