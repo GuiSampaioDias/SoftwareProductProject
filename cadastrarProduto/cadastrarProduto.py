@@ -106,7 +106,6 @@ def editarProduto(id):
         categoria = request.form['inputCategoria']
         ml = request.form['inputML']
         peso = request.form['inputPeso']
-        preco = request.form['inputPreco']
         descricao = request.form['inputDescricao']
 
         if not ml:
@@ -114,11 +113,11 @@ def editarProduto(id):
         if not peso :
             peso = 0
 
-        if nome and categoria and preco:
+        if nome and categoria:
             
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute('UPDATE tblProduto SET nomeDoProduto = %s, categoria = %s, ml = %s,pesoGramas = %s, preco = %s, descricao = %s WHERE produtoId = %s ', ( nome,categoria,ml,peso,preco,descricao,idProd))
+            cursor.execute('UPDATE tblProduto SET nomeDoProduto = %s, categoria = %s, ml = %s,pesoGramas = %s, descricao = %s WHERE produtoId = %s ', (nome,categoria,ml,peso,descricao,idProd))
             conn.commit()
             msg = "Edição realizada com sucesso"
     
