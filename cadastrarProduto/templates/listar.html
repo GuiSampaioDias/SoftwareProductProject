@@ -9,23 +9,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/static/styleList.css" />
     <title>Listar Produtos</title>
-  </head>
-  <body>
-    <header>
-      <nav class="menu">
-        <ul>
-          <li>
-            <a href="http://localhost:5000/">Cadastrar Produtos</a>
-          </li>
-          <li>
-            <a href="http://localhost:5000/list">Listar Todos Produtos</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <hr />
-    <div class="container">
-      <table>
+</head>
+<body>
+<header>
+    <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+    <nav class="menu">
+    <ul>
+        <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
+        <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
+        <li><a href="http://localhost:5002/">Cadastrar Ordem de Compra</a></li>
+        <li><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></li>
+        <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+        <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
+
+    </ul>
+</nav>
+</header>
+<hr>
+<p class="titulo">Lista de produtos</p>
+
+<form method="get" class="row" id="pesquisa">
+    <div class="col-9">
+        <input type="text" name="pesquisa" class="form-control">
+    </div>
+    <div class="col-3">
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+        <button type="submit">Resetar</button>
+    </div>                    
+</form>
+
+<div class="container">
+    <table>
+        <tr><td> Nomes </td><td>Tipo</td><td>ML</td><td>Gramas</td><td>Preço</td><td>Descrição</td></tr>
+        {% for item in datas %}
         <tr>
           <td>produto_id</td>
           <td>Nomes</td>
@@ -61,5 +77,16 @@
     </div>
     <p class="mensagem">{{mensagem}}</p>
 </hr>
+<script>
+
+    const link = document.URL;
+    console.log(link);
+    form = document.getElementById("pesquisa")
+    if( link == "http://localhost:5000/produto/editar")
+{
+form.style.display = "none"
+
+}
+        </script>
 </body>
 </html>
