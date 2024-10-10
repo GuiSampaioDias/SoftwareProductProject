@@ -5,12 +5,28 @@ from flask_mysqldb import MySQL
 mysql = MySQL()
 app = Flask(__name__)
 
+
+upload_folder = os.path.join(os.path.dirname(__file__), '../Cardapio/static/img')
+
 # MySQL configurations
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'Impacta2024'
 app.config['MYSQL_DB'] = 'restaurante'
 app.config['MYSQL_HOST'] = 'localhost'
 mysql.init_app(app)
+
+def proximo_nome_arquivo():
+    arquivos_existentes = os.listdir(upload_folder)
+    
+    # Filtrar apenas arquivos de imagem
+    imagens_existentes = [f for f in arquivos_existentes if f.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}]
+    
+    # Definir o próximo número da sequência
+    return str(len(imagens_existentes) + 1)
+
+
+
+
 
 
 @app.route('/')
@@ -24,14 +40,14 @@ def main():
 
 
 
-@app.route('/categoria')
-def categoria():
-    conn = mysql.connection
-    cursor = conn.cursor()
-    cursor.execute ('SELECT * FROM tblCategoria')
-    dados = cursor.fetchall()
+# @app.route('/categoria')
+# def categoria():
+#     conn = mysql.connection
+#     cursor = conn.cursor()
+#     cursor.execute ('SELECT * FROM tblCategoria')
+#     dados = cursor.fetchall()
     
-    return render_template('categoria.html', dados=dados)
+#     return render_template('categoria.html', dados=dados)
 
 
 
@@ -76,6 +92,8 @@ def cadastro():
         categoria = request.form['inputCategoria']
         descricao = request.form['inputDescricao']
         preco = request.form['inputPreco']
+        arquivo = request.files['imagem']
+
 
 
         cur = mysql.connection.cursor()
@@ -91,6 +109,19 @@ def cadastro():
             cursor.execute('INSERT INTO tblMenu (nomeDoItem, categoria, descricao, preco) VALUES(%s, %s, %s, %s)',(nome, categoria,  descricao, preco))
             conn.commit()
             msg = "Item cadastrado com sucesso"
+            extensao = arquivo.filename.rsplit('.', 1)[1].lower()
+
+    # Gerar o próximo nome de arquivo (1, 2, 3, etc.)
+            nome_arquivo = proximo_nome_arquivo() + '.' + extensao
+
+    # Caminho completo para salvar o arquivo
+            caminho_arquivo = os.path.join(upload_folder, nome_arquivo)
+
+
+
+
+    # Salvar o arquivo na pasta especificada
+            arquivo.save(caminho_arquivo)
             return render_template('formularioItemMenu.html', mensagem = msg)
     except Exception as e:
         return json.dumps({'error': str(e)})
