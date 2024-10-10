@@ -95,12 +95,37 @@ header {
 }
 
 
-.menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
+
+.tituloMenu {
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+    margin-right: 20px
+    ;
 }
+
+.tituloMenu1 {
+    list-style: circle;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* .tituloMenu:nth-child(-n+3){
+    list-style: circle;
+} */
+
+.tituloMenu:hover, 
+.tituloMenu1:hover{
+    animation: ease-in 2s linear;
+    color: rgb(236, 70, 70);
+    transition: 400ms linear;
+}
+
+.subItemMenu {
+    font-size: 15px;
+    
+}
+
 .logo {
     width: 80px; /* Defina o tamanho desejado para a imagem */
     height: auto;
