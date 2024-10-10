@@ -42,7 +42,7 @@
 
 <div class="container">
     <table>
-        <tr><td> Nomes </td><td>Tipo</td><td>ML</td><td>Gramas</td><td>Preço</td><td>Descrição</td></tr>
+        <tr><td> Nomes </td><td>Tipo</td><td>ML</td><td>Gramas</td><td>Descrição</td></tr>
         {% for item in datas %}
         <tr>
             <th>{{item[1]}}</th>
@@ -50,7 +50,6 @@
             <th>{{item[3]}}</th>
             <th>{{item[4]}}</th>
             <th>{{item[5]}}</th>
-            <th>{{item[6]}}</th>
             <th><a href="/produto/{{item[0]}}"><button class="botao-lista" id="atualizar-lista">Atualizar</button></a></th>
             <th><button onclick="funcao1('{{item[0]}}')" class="botao-lista" id="deletar-lista">Deletar</button></th>
         </tr>
