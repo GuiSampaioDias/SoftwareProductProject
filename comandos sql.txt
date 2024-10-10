@@ -1,5 +1,5 @@
 
-Lembrando ... quem digita .... erra
+-- Lembrando ... quem digita .... erra
 
 CREATE SCHEMA IF NOT EXISTS restaurante;
 
@@ -59,9 +59,9 @@ CREATE TABLE IF NOT EXISTS tblCategoria
 
 SELECT * FROM tblCategoria;
 
-ALTER TABLE tblEstoque
-ADD COLUMN min       INT NULL,
-ADD COLUMN sugerido  INT NULL;
+-- ALTER TABLE tblEstoque
+-- ADD COLUMN min       INT NULL,
+-- COLUMN sugerido  INT NULL;
 
 CREATE TABLE IF NOT EXISTS tblEstoque 
 ( 
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS tblEstoque
     PRIMARY KEY (produtoId)
 );
 
-SELECT * FROM tblEstoque
+SELECT * FROM tblEstoque;
 
 CREATE TABLE IF NOT EXISTS tblHistorico
 ( 
