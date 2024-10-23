@@ -12,12 +12,15 @@ CREATE TABLE IF NOT EXISTS tblProduto
     categoria      VARCHAR(15)  NOT NULL, 
     ml             FLOAT(15,2)       NULL, 
     pesoGramas       FLOAT(15,2)       NULL,
-    preco          FLOAT(15,2)   NOT NULL, 
     descricao      VARCHAR(45),
     PRIMARY KEY (produtoId)
 );
 
 SELECT * FROM tblProduto;
+
+-- ALTER TABLE `restaurante`.`tblproduto` 
+-- DROP COLUMN `preco`;
+
 
 
 CREATE TABLE IF NOT EXISTS tblItemOrdem 
