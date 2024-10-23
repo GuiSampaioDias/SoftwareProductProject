@@ -13,36 +13,18 @@
 </head>
 <body>
     <header>
-            <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
-            <nav class="menu">
-            <details>
-                <summary class="tituloMenu"><i class="bi bi-list">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list tituloMenu" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-                </svg></i>
-                </summary>
+        <a href="http://localhost:5004"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+        <nav class="menu">
+        <ul>
+            <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
+            <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
+            <li><a href="http://localhost:5002/">Cadastrar Ordem de Compra</a></li>
+            <li><a href="http://localhost:5002/list">Cadastrar Produtos</a></li>
+            <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+            <li><a href="http://localhost:5004/list">Historico cmp/vnd</a></li>
     
-                <details>
-                    <summary class="tituloMenu1">Menu</summary>
-                    <p class="subItemMenu"><a href="http://localhost:5001/">Cadastrar um Item no Menu</a></p>
-                    <p class="subItemMenu"><a href="http://localhost:5001/list">Itens do Menu</a></p>
-                </details>
-
-                <details>
-                    <summary class="tituloMenu1">Ordem de compras</summary>
-                    <p class="subItemMenu"><a href="http://localhost:5002/">Cadastrar uma Ordem de Compra</a></p>
-                    <p class="subItemMenu"><a href="http://localhost:5002/list">Ordens de Compra efetuadas</a>
-                </details>
-
-                <details>
-                    <summary class="tituloMenu1">Estoque</summary>
-                    <p class="subItemMenu"><a href="http://localhost:5003/list">Estoque Disponível</a></p>
-                </details>
-                <details>
-                    <summary class="tituloMenu1">Produtos</summary>
-                    <p class="subItemMenu"><a href="http://localhost:5000/list">Produtos cadastrados no sistema</a></p>
-                </details>
-            </details>
+        </ul>
+    </nav>
         </nav>
     </header>
     <hr>
