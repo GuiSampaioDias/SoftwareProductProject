@@ -10,30 +10,175 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styleList.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
     <title>Listar Produtos</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
+        
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        header {
+            color: white;
+            padding: 20px;
+            text-align: right;
+            position: relative;
+        }
+
+        .sidebar {
+            position: fixed;
+            right: -250px; 
+            width: 250px;
+            background-color: #1eff00;
+            height: calc(100vh - 800px); 
+            padding: 20px; 
+            transition: all .5s ease;
+            z-index: 5; 
+            
+        }
+
+        .sidebar ul li {
+            padding-right: 20px;
+        }
+        
+        .sidebar header {
+            font-size: 22px;
+            color: white;
+            line-height: 30px;
+            text-align: center;
+            user-select: none;
+            width: 100%;
+        }
+
+        .sidebar ul a {
+            display: block;
+            height: 100%;
+            width: 100%;
+            line-height: 65px;
+            font-size: 20px;
+            color: white;
+            box-sizing: border-box;
+            border-bottom: 1px solid black;
+            border-top: 1px solid rgba(255,255,255,.1);
+            transition: .4s;
+            text-align: left;
+            padding-left: 5px;
+        }
+
+        
+
+        .sidebar ul a i {
+            margin-right: 16px;
+        }
+
+        .subMenu {
+            text-align: center;
+            padding: 10px;
+        }
+
+        #check {
+            display: none;
+        }
+
+        label #btn,
+        label #cancel {
+            position: absolute;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        label #btn {
+            right: 40px;
+            top: 25px;
+            font-size: 35px;
+            color: white;
+            padding: 6px 12px;
+            transition: all .5s;
+        }
+
+        label #btn:hover {
+            transform: scale(1.5,1.5);
+        }
+
+        label #cancel {
+            z-index: 1111;
+            right: -195px;
+            top: 17px;
+            font-size: 30px;
+            color: white; 
+            padding: 4px 9px;
+            transition: all .5s ease;
+        }
+
+        label #cancel:hover {
+            background-color: red;
+        }
+
+        #check:checked ~ .sidebar {
+            right: 0; 
+        }
+
+        #check:checked ~ label #btn {
+            right: 250px; 
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #check:checked ~ label #cancel {
+            right: 195px; 
+        }
+
+        section {
+            background: url(bg.jpeg) no-repeat;
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+            transition: all .5s;
+        }
+    </style>
+
+    
 </head>
 <body>
 <header>
     <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
-    <nav class="menu">
-        <ul>
-            <li><a href="http://localhost:5001/">Cadastrar um Item no Menu</a></li>
-            <li><a href="http://localhost:5001/list">Itens do Menu</a></li>
-            <li><a href="http://localhost:5002/">Cadastrar uma Ordem de Compra</a></li>
-            <li><a href="http://localhost:5002/list">Ordens de Compra efetuadas</a></li>
-            <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
-            <li><a href="http://localhost:5003/list">Estoque Disponível</a></li>
-            <li><a href="http://localhost:5004/list"><li><a href="http://localhost:5004/list">Historico cmp/vnd</a></li></a></li>
-        </ul>
-</nav>
+    <input type="checkbox" id="check">
+        <label for="check">
+            <i class="fas fa-bars" id="btn"></i>
+            <i class="fas fa-times" id="cancel"></i>
+        </label>
+        <div class="sidebar">
+            <ul>
+                <p class="subMenu">MENU</p>
+                <li><a href="#"><i class="fa-solid fa-bars"></i>Menu</a></li>
+                <li><a href="#"><i class="fa-solid fa-bars"></i>Menu</a></li>
+                <p class="subMenu">COMPRA</p>
+                <li><a href="#"><i class="fa-solid fa-cart-shopping"></i>Ordem de Compra</a></li>
+                <li><a href="#"><i class="fa-solid fa-cart-shopping"></i>Ordem de Compra</a></li>
+                <p class="subMenu">ESTOQUE</p>
+                <li><a href="#"><i class="fa-solid fa-layer-group"></i>Estoque</a></li>
+                <li><a href="#"><i class="fa-solid fa-layer-group"></i>Estoque</a></li>
+                <li><a href="#"><i class="fa-solid fa-layer-group"></i>Estoque</a></li>
+            </ul>
+        </div>
 </header>
 <hr>
 <p class="titulo">Lista de produtos</p>
 
 <form method="get" class="row" id="pesquisa">
     <div class="col-9">
-        <input type="text" name="pesquisa" class="form-control">
+        <input type="text" name="pesquisa" class="form-control" placeholder="Pesquise o produto aqui" id="barraPesquisa">
     </div>
     <div class="col-3">
         <button type="submit" class="btn btn-primary">Pesquisar</button>
@@ -61,6 +206,17 @@
 </hr>
 <script>
 
+function toggleMenu() {
+            const menu = document.querySelector('.menuLateral ul');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Função para mostrar ou ocultar os submenus (dropdowns)
+        function toggleDropdown(event) {
+            const parentLi = event.target.parentElement;
+            parentLi.classList.toggle('active');
+        }
+    
     const link = document.URL;
     console.log(link);
     form = document.getElementById("pesquisa")
@@ -69,6 +225,6 @@
 form.style.display = "none"
 
 }
-        </script>
+</script>
 </body>
 </html>
