@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, json, request
+from flask import Flask, render_template, json, jsonify
 from flask_mysqldb import MySQL
 
 mysql = MySQL()
@@ -15,7 +15,11 @@ app.config['MYSQL_DB'] = 'restaurante'
 app.config['MYSQL_HOST'] = 'localhost'
 mysql.init_app(app)
 
-
+@app.route('/imagens')
+def listar_imagens():
+    # Filtra arquivos apenas com extensões de imagem
+    imagens = [f for f in os.listdir(upload_folder) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+    return jsonify(imagens)
 
 @app.route('/',methods=['GET'])
 def list():
