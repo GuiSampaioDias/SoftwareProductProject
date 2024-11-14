@@ -7,8 +7,6 @@ from funcao import *
 @app.route('/list',methods=['GET'])
 def list():
     try:
-               
-            
             data = extrai__tudo_com_order('tblEstoque', 'nomeDoProduto', 'ASC')
             return render_template('listarEstoque.html', datas = data)
 
@@ -22,7 +20,6 @@ def parametrizar(id):
 
 @app.route('/parametrizar/', methods=['POST','GET'])
 def atualizar_parametros():
-    print('\n\n\noioioi')
     produtoId = int(request.form['idProd'])
     par_min = int(request.form['inputMin'])
     par_max = int(request.form['inputMaximo'])

@@ -1,7 +1,6 @@
 import os, sys
 from flask import Flask, render_template, json, jsonify
 from flask_mysqldb import MySQL
-#import de modulos internos
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 

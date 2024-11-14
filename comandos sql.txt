@@ -62,9 +62,6 @@ CREATE TABLE IF NOT EXISTS tblCategoria
 
 SELECT * FROM tblCategoria;
 
--- ALTER TABLE tblEstoque
--- ADD COLUMN min       INT NULL,
--- COLUMN sugerido  INT NULL;
 
 CREATE TABLE IF NOT EXISTS tblEstoque 
 ( 
