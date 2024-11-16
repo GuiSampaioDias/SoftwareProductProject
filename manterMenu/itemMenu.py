@@ -35,53 +35,6 @@ def main():
     categorias=cursor.fetchall()
     return render_template('formularioItemMenu.html',categorias=categorias)
 
-
-
-
-# @app.route('/categoria')
-# def categoria():
-#     conn = mysql.connection
-#     cursor = conn.cursor()
-#     cursor.execute ('SELECT * FROM tblCategoria')
-#     dados = cursor.fetchall()
-    
-#     return render_template('categoria.html', dados=dados)
-
-
-
-
-
-# @app.route('/cadastrar_categoria',methods=['POST','GET'])
-# def cadastrar_categoria():
-#     try:
-#         nome_categoria = request.form['inputNomeCategoria'].upper()
-
-#         cur = mysql.connection.cursor()
-#         cur.execute("SELECT NomeCategoria FROM tbl_categoria WHERE NomeCategoria = %s",(nome_categoria,))
-#         resultado = cur.fetchone()
-
-#         conn = mysql.connection
-#         cursor = conn.cursor()
-#         cursor.execute ('select * from tbl_categoria')
-#         dados = cursor.fetchall()
-
-#         if resultado:
-#             msg = "Categoria ja cadastrada na base de dados"
-#             return render_template('categoria.html',mensagem = msg, dados=dados)
-#         else:
-#             conn = mysql.connection
-#             cursor = conn.cursor()
-#             cursor.execute('insert into tbl_categoria(NomeCategoria) VALUES (%s)', ( nome_categoria,))
-#             conn.commit()
-#             msg = "Categoria cadastrada com sucesso"
-#             return render_template('categoria.html',mensagem = msg, dados=dados)
-#     except Exception as e:
-#         return json.dumps({'error': str(e)})
-
-
-
-
-
 @app.route('/cadastrarItem', methods=['POST', 'GET'])
 def cadastro():
     try:

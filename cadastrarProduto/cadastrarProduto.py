@@ -3,6 +3,7 @@ from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
+from Sqls import listarVariosSemOrdem
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -41,7 +42,6 @@ def cadastro():
         cur = mysql.connection.cursor()
 
         cur.execute("SELECT nomeDoProduto FROM tblProduto WHERE nomeDoProduto = %s", (nome,))
-
         resultado = cur.fetchone()
 
         if resultado:
@@ -74,10 +74,7 @@ def list():
                 data = cursor.fetchall()
                 return render_template('listar.html', datas=data)
             else:
-                conn = mysql.connection
-                cursor = conn.cursor()
-                cursor.execute ('SELECT * FROM tblProduto')
-                data = cursor.fetchall()
+                data = listarVariosSemOrdem('tblProduto')
                 return render_template('listar.html', datas=data)
 
     except Exception as e:

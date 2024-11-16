@@ -3,7 +3,7 @@ from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 from funcao import *
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import config 
+import config
 
 
 mysql = MySQL()

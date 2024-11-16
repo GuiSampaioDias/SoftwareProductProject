@@ -3,7 +3,8 @@ from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 from datetime import datetime, timezone
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import config 
+import config
+from Sqls import listarVariosSemOrdem
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -59,11 +60,8 @@ def cadastro():
 @app.route('/list',methods=['GET'])
 def list():
     try:
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute ('SELECT * FROM tblItemOrdem')
-            data = cursor.fetchall()
-            return render_template('listar.html', datas=data)
+        data = listarVariosSemOrdem('tblItemOrdem')
+        return render_template('listar.html', datas=data)
 
     except Exception as e:
         return json.dumps({'error':str(e)})
