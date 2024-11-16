@@ -6,8 +6,14 @@ def connCursor():
     cursor = conn.cursor()
     return conn, cursor
 
-def listarVariosSemOrdem(tbl):
+def SelectVariosSemOrdem(tbl):
     conn, cursor = connCursor()
     cursor.execute (f'SELECT * FROM {tbl}')
+    resposta = cursor.fetchall()
+    return resposta
+
+def SelectTudoComWhere(tbl, coluna, valor):
+    conn, cursor = connCursor()
+    cursor.execute (f'SELECT * FROM {tbl} WHERE {coluna} = %s',(valor, ))
     resposta = cursor.fetchall()
     return resposta

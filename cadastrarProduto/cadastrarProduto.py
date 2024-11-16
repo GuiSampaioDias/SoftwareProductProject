@@ -3,7 +3,7 @@ from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
-from Sqls import listarVariosSemOrdem
+from Sqls import SelectVariosSemOrdem, SelectTudoComWhere
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -74,7 +74,7 @@ def list():
                 data = cursor.fetchall()
                 return render_template('listar.html', datas=data)
             else:
-                data = listarVariosSemOrdem('tblProduto')
+                data = SelectVariosSemOrdem('tblProduto')
                 return render_template('listar.html', datas=data)
 
     except Exception as e:
@@ -84,10 +84,7 @@ def list():
 def editProd(id):
     try:
             id = int(id)
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM tblProduto WHERE produtoId = %s', (id,))
-            data = cursor.fetchall()
+            data =  SelectTudoComWhere('tblproduto','produtoId', id)
             return render_template('editarProduto.html', datas=data)
     
     except Exception as e:
@@ -95,7 +92,6 @@ def editProd(id):
     
 @app.route('/produto/<id>',methods=['POST','GET'])
 def editarProduto(id):
-    
     try:
         idProd = int(request.form['idProd'])
         nome = request.form['inputNome']
@@ -117,9 +113,7 @@ def editarProduto(id):
             conn.commit()
             msg = "Edição realizada com sucesso"
     
-            cursor.execute ('SELECT * FROM tblProduto WHERE produtoId = %s ', (idProd,))
-            data = cursor.fetchall()  
-                  
+            data =  SelectTudoComWhere('tblproduto','produtoId', idProd)
             return render_template('listar.html', mensagem = msg, datas=data)
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
@@ -155,8 +149,7 @@ def delete(id):
         else:
             msg = "Item não pode ser excluido pois está associado a outra tabela"
         
-        cursor.execute ('SELECT * FROM tblProduto')
-        data = cursor.fetchall()
+        data = None
 
         return render_template('delete.html', mensagem = msg, datas=data)
     

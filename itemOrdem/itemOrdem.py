@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL
 from datetime import datetime, timezone
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
-from Sqls import listarVariosSemOrdem
+from Sqls import SelectVariosSemOrdem
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -60,7 +60,7 @@ def cadastro():
 @app.route('/list',methods=['GET'])
 def list():
     try:
-        data = listarVariosSemOrdem('tblItemOrdem')
+        data = SelectVariosSemOrdem('tblItemOrdem')
         return render_template('listar.html', datas=data)
 
     except Exception as e:
