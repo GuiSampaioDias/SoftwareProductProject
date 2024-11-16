@@ -1,18 +1,16 @@
-import os
+import os, sys
 from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import config 
+
 
 mysql = MySQL()
 app = Flask(__name__)
 
 
 upload_folder = os.path.join(os.path.dirname(__file__), '../Cardapio/static/img')
-
-# MySQL configurations
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Impacta2024'
-app.config['MYSQL_DB'] = 'restaurante'
-app.config['MYSQL_HOST'] = 'localhost'
+app.config.from_object(config.Config)
 mysql.init_app(app)
 
 def proximo_nome_arquivo():

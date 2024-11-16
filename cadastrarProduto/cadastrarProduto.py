@@ -1,16 +1,13 @@
-import os
+import os, sys
 from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
-
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import config
 
 mysql = MySQL()
 app = Flask(__name__)
 
-# MySQL configurations
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Impacta2024'
-app.config['MYSQL_DB'] = 'restaurante'
-app.config['MYSQL_HOST'] = 'localhost'
+app.config.from_object(config.Config)
 mysql.init_app(app)
 
 
@@ -28,16 +25,18 @@ def cadastro():
         categoria = request.form['inputCategoria']
         ml = request.form['inputML']
         peso = request.form['inputPeso']
-        preco = request.form['inputPreco']
         descricao = request.form['inputDescricao'].lower()
         #lower deixa tudo minusculo
-
         if not ml:
             ml = 0
-        if not peso :
+        else:
             peso = 0
         if not descricao:
             descricao = "Não Há"
+
+        if not ml and not peso:
+            msg = "Cadastre alguma gramatura ou volume"
+            return render_template('formularioProduto.html', mensagem = msg)
     
         cur = mysql.connection.cursor()
 
@@ -52,7 +51,7 @@ def cadastro():
                        
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute('INSERT INTO tblProduto (nomeDoProduto, categoria, ml,pesoGramas, preco, descricao) VALUES (%s, %s, %s, %s, %s, %s)', ( nome,categoria,ml,peso,preco,descricao))
+            cursor.execute('INSERT INTO tblProduto (nomeDoProduto, categoria, ml,pesoGramas, descricao) VALUES (%s, %s, %s, %s, %s)', ( nome,categoria,ml,peso,descricao))
             conn.commit()
             msg = "Produtos cadastrados com sucesso"
             return render_template('formularioProduto.html', mensagem = msg)
