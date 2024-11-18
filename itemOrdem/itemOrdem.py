@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL
 from datetime import datetime, timezone
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
-from Sqls import SelectVariosSemOrdem, DeleteComWhere, SelectTudoComWhere
+from Sqls import SelectSemOrdem, DeleteComWhere, SelectComWhere
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -16,10 +16,7 @@ mysql.init_app(app)
 @app.route('/')
 def main():
     try:
-        conn = mysql.connection
-        cursor = conn.cursor()
-        cursor.execute('SELECT nomeDoProduto FROM tblProduto')
-        prods = cursor.fetchall()
+        prods = SelectSemOrdem('tblProduto', item = 'nomeDoProduto')
 
         return render_template('formularioItem.html',produtos=prods)
     
@@ -30,10 +27,7 @@ def main():
 @app.route('/cadastrar',methods=['POST','GET'])
 def cadastro():
     try:
-        conn = mysql.connection
-        cursor = conn.cursor()
-        cursor.execute('SELECT nomeDoProduto FROM tblProduto')
-        prods = cursor.fetchall()
+        prods = SelectSemOrdem('tblProduto', item = 'nomeDoProduto')
         nome = request.form['inputNome']
         #title pega o comeco das palavras. Strip tira os espacoes
         quantidade = request.form['inputQuantidade']
@@ -60,7 +54,7 @@ def cadastro():
 @app.route('/list',methods=['GET'])
 def list():
     try:
-        data = SelectVariosSemOrdem('tblItemOrdem')
+        data = SelectSemOrdem('tblItemOrdem')
         return render_template('listar.html', datas=data)
 
     except Exception as e:
@@ -70,12 +64,8 @@ def list():
 def editProd(id):
     try:
             id = int(id)
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM tblItemOrdem WHERE itemOrdemId = %s', (id,))
-            data = cursor.fetchall()
+            data = SelectComWhere('tblItemOrdem','itemOrdemId', id)
 
-    
             conn = mysql.connection
             cursor = conn.cursor()
             cursor.execute('SELECT nomeDoProduto FROM tblProduto ORDER BY produtoId')
@@ -123,7 +113,7 @@ def delete(id):
         DeleteComWhere('tblItemOrdem','itemOrdemId', id)
         msg = "Excluido com sucesso"
         
-        data = SelectVariosSemOrdem('tblItemOrdem')
+        data = SelectSemOrdem('tblItemOrdem')
 
         return render_template('listar.html', mensagem = msg, datas=data)
     
@@ -135,13 +125,13 @@ def sobe_estoque(id):
     try:
         conn = mysql.connection
         cursor = conn.cursor()
-        data = SelectTudoComWhere('tblItemOrdem','itemOrdemId', id)
+        data = SelectComWhere('tblItemOrdem','itemOrdemId', id)
         nome = data[0][1] 
         quantidade = float(data[0][2])
         precoUnitario = data[0][3] 
         precoTotal = quantidade * precoUnitario
         dia = datetime.now()
-        data = SelectTudoComWhere('tblProduto','nomeDoProduto', nome)
+        data = SelectComWhere('tblProduto','nomeDoProduto', nome)
         idProd = data[0][0]
         mlTotal = data[0][3] * quantidade
         gramasTotal = data[0][4] * quantidade

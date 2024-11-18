@@ -3,7 +3,7 @@ from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config 
-from Sqls import SelectTudoComWhere, DeleteComWhere
+from Sqls import SelectComWhere, DeleteComWhere,SelectSemOrdem
 
 
 mysql = MySQL()
@@ -30,11 +30,7 @@ def proximo_nome_arquivo():
 
 @app.route('/')
 def main():
-    conn = mysql.connection 
-    cursor = conn.cursor() 
-    cursor.execute("SELECT nomeCategoria FROM tblCategoria")
-    categorias=cursor.fetchall()
-    return render_template('formularioItemMenu.html',categorias=categorias)
+    return render_template('formularioItemMenu.html')
 
 @app.route('/cadastrarItem', methods=['POST', 'GET'])
 def cadastro():
@@ -114,7 +110,7 @@ def editProd(id):
 
     try:
             id = int(id)
-            data = SelectTudoComWhere('tblMenu', 'itemId', id)
+            data = SelectComWhere('tblMenu', 'itemId', id)
             return render_template('editarItemMenu.html', datas=data)
     
     except Exception as e:
@@ -126,7 +122,7 @@ def editProdNoPrato(id):
     try:
 
             id = int(id)
-            data = SelectTudoComWhere('tblItemXProd', 'IdItemXProd', id)
+            data = SelectComWhere('tblItemXProd', 'IdItemXProd', id)
             return render_template('editarProdutoNoPrato.html', datas=data)
     
     except Exception as e:
@@ -151,7 +147,7 @@ def editarProduto(id):
                 cursor.execute('UPDATE tblMenu SET nomeDoItem = %s, categoria = %s, descricao = %s, preco = %s WHERE ItemId = %s ', ( nome,categoria,descricao, preco, idProd))
                 conn.commit()
                 msg = "Edição realizada com sucesso"
-            data = SelectTudoComWhere('tblMenu','itemId',idProd)
+            data = SelectComWhere('tblMenu','itemId',idProd)
             
             return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)
         else:

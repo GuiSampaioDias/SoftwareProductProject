@@ -3,7 +3,7 @@ from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
-from Sqls import SelectVariosSemOrdem, SelectTudoComWhere, DeleteComWhere
+from Sqls import SelectSemOrdem, SelectComWhere, DeleteComWhere
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -39,11 +39,8 @@ def cadastro():
             msg = "Cadastre alguma gramatura ou volume"
             return render_template('formularioProduto.html', mensagem = msg)
     
-        cur = mysql.connection.cursor()
-
-        cur.execute("SELECT nomeDoProduto FROM tblProduto WHERE nomeDoProduto = %s", (nome,))
-        resultado = cur.fetchone()
-
+        resultado = SelectComWhere('tblProduto','nomeDoProduto',nome,'nomeDoProduto')
+        
         if resultado:
             msg = "Produto ja cadastrados na base de dados"
             return render_template('formularioProduto.html', mensagem = msg)
@@ -74,7 +71,7 @@ def list():
                 data = cursor.fetchall()
                 return render_template('listar.html', datas=data)
             else:
-                data = SelectVariosSemOrdem('tblProduto')
+                data = SelectSemOrdem('tblProduto')
                 return render_template('listar.html', datas=data)
 
     except Exception as e:
@@ -84,7 +81,7 @@ def list():
 def editProd(id):
     try:
             id = int(id)
-            data =  SelectTudoComWhere('tblproduto','produtoId', id)
+            data =  SelectComWhere('tblproduto','produtoId', id)
             return render_template('editarProduto.html', datas=data)
     
     except Exception as e:
@@ -113,7 +110,7 @@ def editarProduto(id):
             conn.commit()
             msg = "Edição realizada com sucesso"
     
-            data =  SelectTudoComWhere('tblproduto','produtoId', idProd)
+            data =  SelectComWhere('tblproduto','produtoId', idProd)
             return render_template('listar.html', mensagem = msg, datas=data)
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
