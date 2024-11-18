@@ -23,5 +23,3 @@ def DeleteComWhere(tbl, coluna, valor):
     cursor.execute (f'DELETE FROM {tbl} WHERE {coluna} = %s',(valor, ))
     resposta = conn.commit()
     return resposta
-
-data =SelectComWhere('tblItemOrdem','itemOrdemId',id)

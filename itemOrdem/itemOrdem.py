@@ -95,9 +95,8 @@ def editarProduto(id):
             cursor.execute('UPDATE tblItemOrdem SET nomeItem = %s, quantidade = %s, precoProduto = %s, precoTotalPorProduto = %s, descricao = %s WHERE itemOrdemId = %s', (nome,quantidade,preco,precoTotal,descricao,idProd))
             conn.commit()
             msg = "Edição realizada com sucesso"
-            
-            cursor.execute ('SELECT * FROM tblItemOrdem WHERE itemOrdemId = %s', (idProd,))
-            data = cursor.fetchall()
+        
+            data = SelectComWhere('tblItemOrdem','itemOrdemId',idProd)
             
             return render_template('listar.html', mensagem = msg, datas=data)
         else:

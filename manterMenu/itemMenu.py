@@ -3,7 +3,7 @@ from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config 
-from Sqls import SelectComWhere, DeleteComWhere,SelectSemOrdem
+from Sqls import SelectComWhere, DeleteComWhere,SelectSemOrdem, connCursor
 
 
 mysql = MySQL()
@@ -24,10 +24,6 @@ def proximo_nome_arquivo():
     return str(len(imagens_existentes) + 1)
 
 
-
-
-
-
 @app.route('/')
 def main():
     return render_template('formularioItemMenu.html')
@@ -43,11 +39,7 @@ def cadastro():
         arquivo = request.files['imagem']
 
 
-
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT nomeDoItem FROM tblMenu WHERE nomeDoItem = %s",(nome,))
-
-        resultado = cur.fetchone()
+        resultado = SelectComWhere('tblMenu','nomeDoItem',nome,'nomeDoItem')
         if resultado:
             msg = "Produto ja cadastrados na base de dados"
             return render_template('formularioItemMenu.html',mensagem = msg)
@@ -198,9 +190,7 @@ def editarProduto2(id):
 def deleteProduto(id):
     try:
         id = int(id)
-        conn = mysql.connection
-        cursor = conn.cursor()
-
+        conn, cursor = connCursor()
         cursor.execute('SELECT * FROM tblItemXProd WHERE ItemMenuId = %s', (id,))
         itemXProd = cursor.fetchall()
 
@@ -210,8 +200,7 @@ def deleteProduto(id):
         else:
             msg = "Item não pode ser excluido pois está associado a outra tabela"
         
-        cursor.execute ('SELECT * FROM tblMenu WHERE itemId = %s ', (id,))
-        data = cursor.fetchall()
+        data = SelectComWhere('tblMenu','itemId',id)
 
         return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)
     
@@ -221,18 +210,12 @@ def deleteProduto(id):
 
 @app.route('/addprod/<id>',methods=['POST','GET'])
 def listaIngredienteNoPrato(id):
-    conn = mysql.connection
-    cursor = conn.cursor()
-    #pegando todos os produtos que fazem cadastrados no prato        
-    cursor.execute ('SELECT * FROM tblItemXProd WHERE ItemMenuId = %s',(id,))
-    listaProdMenu = cursor.fetchall()
+    listaProdMenu = SelectComWhere('tblItemXProd','ItemMenuId',id)
 
     #pegando todos os produtos cadastrados
-    cursor.execute ('SELECT * FROM tblProduto ')
-    todosProdutos = cursor.fetchall()
+    todosProdutos = SelectSemOrdem('tblProduto')
     #pegando o nome do item do menu
-    cursor.execute ('SELECT * FROM tblMenu WHERE ItemId = %s',(id,))
-    itemMenu = cursor.fetchall()
+    itemMenu = SelectComWhere('tblMenu','ItemId',id)
     
     return render_template('produtoMenu.html', prodMenu = listaProdMenu,totalProd = todosProdutos, prato = itemMenu )
 
@@ -240,13 +223,7 @@ def listaIngredienteNoPrato(id):
 def deleteingredientedoPrato(idItemXProd):
     try:
         idItemXProd = int(idItemXProd)   
-        print(f'id_item_x_prod: {idItemXProd}')
-        conn = mysql.connection
-        cursor = conn.cursor()
-        
-        #pegando o id do prato que vai ter o produto deletado         
-        cursor.execute ('SELECT ItemMenuId FROM tblItemXProd WHERE idItemXProd = %s',(idItemXProd,))
-        idPrato = cursor.fetchall()
+        idPrato = SelectComWhere('tblItemXProd','idItemXProd',idItemXProd,'ItemMenuId')
         DeleteComWhere('tblItemXProd','idItemXProd',idItemXProd)
 
         
@@ -273,14 +250,13 @@ def addIgredienteNoPrato():
     conn = mysql.connection
     cursor = conn.cursor()
     #pegando os valores do produto selecionado
-    cursor.execute ('SELECT * FROM tblProduto WHERE  nomeDoProduto = %s',(nomeProd,))
-    prodSelecionado = cursor.fetchall()
+    prodSelecionado = SelectComWhere('tblProduto','nomeDoProduto', nomeProd)
     idProd = prodSelecionado[0][0]
     #criando duas variáveis para ver para saber se estamos lhe dando com um produto em mL ou em gramas
     
-    
-    cursor.execute ('SELECT * FROM tblMenu WHERE ItemId = %s',(idPrato,))
-    itemMenu = cursor.fetchall()
+    #possivel retirada dessa parte de codigo
+    # cursor.execute ('SELECT * FROM tblMenu WHERE ItemId = %s',(idPrato,))
+    # itemMenu = cursor.fetchall()
 
     mlProd = prodSelecionado[0][3]
     pesoProd = prodSelecionado[0][4]
