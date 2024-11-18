@@ -3,7 +3,7 @@ from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
-from Sqls import SelectVariosSemOrdem, SelectTudoComWhere
+from Sqls import SelectVariosSemOrdem, SelectTudoComWhere, DeleteComWhere
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -142,8 +142,7 @@ def delete(id):
 
 
         if tabelaHistorico == () and tabelaItemXProd == () and tabelaOrdem == ():
-            cursor.execute('DELETE FROM tblProduto WHERE produtoId = %s', (id,))
-            conn.commit()
+            DeleteComWhere('tblProduto','produtoId', id)
             msg = "Excluido com sucesso"
 
         else:

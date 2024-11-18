@@ -17,10 +17,8 @@ def list():
             cursor = conn.cursor()
             cursor.execute ('SELECT * FROM tblHistorico WHERE tipo = "compra" ORDER BY  data DESC')
             data = cursor.fetchall()
-            print(data)
             cursor.execute('SELECT * FROM tblHistorico WHERE tipo = "venda" ORDER BY data DESC')
             data2 = cursor.fetchall()
-            print(data2)
             return render_template('listarHistorico.html', datasCompra=data, datasVenda=data2)
 
     except Exception as e:

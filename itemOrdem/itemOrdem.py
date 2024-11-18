@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL
 from datetime import datetime, timezone
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
-from Sqls import SelectVariosSemOrdem
+from Sqls import SelectVariosSemOrdem, DeleteComWhere, SelectTudoComWhere
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -120,10 +120,7 @@ def editarProduto(id):
 def delete(id):
     try:
         id = int(id)
-        conn = mysql.connection
-        cursor = conn.cursor()
-        cursor.execute('DELETE FROM tblItemOrdem WHERE itemOrdemId = %s', (id,))
-        conn.commit()
+        DeleteComWhere('tblItemOrdem','itemOrdemId', id)
         msg = "Excluido com sucesso"
         
         data = SelectVariosSemOrdem('tblItemOrdem')
@@ -138,17 +135,13 @@ def sobe_estoque(id):
     try:
         conn = mysql.connection
         cursor = conn.cursor()
-        #trocar
-        cursor.execute('SELECT * FROM tblItemOrdem WHERE itemOrdemId = %s', (id,))
-        data = cursor.fetchall()
+        data = SelectTudoComWhere('tblItemOrdem','itemOrdemId', id)
         nome = data[0][1] 
         quantidade = float(data[0][2])
         precoUnitario = data[0][3] 
         precoTotal = quantidade * precoUnitario
         dia = datetime.now()
-        #trocar
-        cursor.execute('SELECT * FROM tblProduto WHERE nomeDoProduto = %s', (nome,))
-        data = cursor.fetchall()
+        data = SelectTudoComWhere('tblProduto','nomeDoProduto', nome)
         idProd = data[0][0]
         mlTotal = data[0][3] * quantidade
         gramasTotal = data[0][4] * quantidade

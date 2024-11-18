@@ -17,3 +17,9 @@ def SelectTudoComWhere(tbl, coluna, valor):
     cursor.execute (f'SELECT * FROM {tbl} WHERE {coluna} = %s',(valor, ))
     resposta = cursor.fetchall()
     return resposta
+
+def DeleteComWhere(tbl, coluna, valor):
+    conn, cursor = connCursor()
+    cursor.execute (f'DELETE FROM {tbl} WHERE {coluna} = %s',(valor, ))
+    resposta = conn.commit()
+    return resposta

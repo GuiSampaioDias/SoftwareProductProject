@@ -3,7 +3,7 @@ from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config 
-from Sqls import SelectTudoComWhere
+from Sqls import SelectTudoComWhere, DeleteComWhere
 
 
 mysql = MySQL()
@@ -151,9 +151,7 @@ def editarProduto(id):
                 cursor.execute('UPDATE tblMenu SET nomeDoItem = %s, categoria = %s, descricao = %s, preco = %s WHERE ItemId = %s ', ( nome,categoria,descricao, preco, idProd))
                 conn.commit()
                 msg = "Edição realizada com sucesso"
-            
-            cursor.execute ('SELECT * FROM tblMenu WHERE itemId = %s', (idProd,))
-            data = cursor.fetchall()
+            data = SelectTudoComWhere('tblMenu','itemId',idProd)
             
             return render_template('listarUnicoMenu.html', mensagem = msg, datas=data)
         else:
@@ -211,8 +209,7 @@ def deleteProduto(id):
         itemXProd = cursor.fetchall()
 
         if itemXProd == ():
-            cursor.execute('DELETE FROM tblMenu WHERE itemId = %s', (id,))
-            conn.commit()
+            DeleteComWhere('tblMenu','itemId',id)
             msg = "Excluido com sucesso"
         else:
             msg = "Item não pode ser excluido pois está associado a outra tabela"
@@ -254,9 +251,8 @@ def deleteingredientedoPrato(idItemXProd):
         #pegando o id do prato que vai ter o produto deletado         
         cursor.execute ('SELECT ItemMenuId FROM tblItemXProd WHERE idItemXProd = %s',(idItemXProd,))
         idPrato = cursor.fetchall()
-        
-        cursor.execute('DELETE FROM tblItemXProd WHERE idItemXProd = %s ', (idItemXProd,))
-        conn.commit()
+        DeleteComWhere('tblItemXProd','idItemXProd',idItemXProd)
+
         
         
          
