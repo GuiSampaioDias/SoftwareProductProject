@@ -3,7 +3,7 @@ from flask import Flask, render_template, json, jsonify
 from flask_mysqldb import MySQL
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
-from Sqls import listarVariosSemOrdem
+from Sqls import SelectVariosSemOrdem
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -23,7 +23,7 @@ def listar_imagens():
 def list():
     try:
             arquivos = os.listdir(upload_folder)
-            data = listarVariosSemOrdem('tblMenu')
+            data = SelectVariosSemOrdem('tblMenu')
             arquivos_contados = [f for f in arquivos if os.path.isfile(os.path.join(upload_folder, f))]
         
             tamanhoArquivos = len(arquivos_contados)

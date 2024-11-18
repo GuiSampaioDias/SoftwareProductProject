@@ -126,8 +126,7 @@ def delete(id):
         conn.commit()
         msg = "Excluido com sucesso"
         
-        cursor.execute ('SELECT * FROM tblItemOrdem')
-        data = cursor.fetchall()
+        data = SelectVariosSemOrdem('tblItemOrdem')
 
         return render_template('listar.html', mensagem = msg, datas=data)
     
@@ -139,6 +138,7 @@ def sobe_estoque(id):
     try:
         conn = mysql.connection
         cursor = conn.cursor()
+        #trocar
         cursor.execute('SELECT * FROM tblItemOrdem WHERE itemOrdemId = %s', (id,))
         data = cursor.fetchall()
         nome = data[0][1] 
@@ -146,6 +146,7 @@ def sobe_estoque(id):
         precoUnitario = data[0][3] 
         precoTotal = quantidade * precoUnitario
         dia = datetime.now()
+        #trocar
         cursor.execute('SELECT * FROM tblProduto WHERE nomeDoProduto = %s', (nome,))
         data = cursor.fetchall()
         idProd = data[0][0]

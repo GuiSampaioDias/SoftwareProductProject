@@ -1,16 +1,14 @@
-import os
+import os, sys
 from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 from funcao import *
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import config
 
 mysql = MySQL()
 app = Flask(__name__)
 
-# MySQL configurations
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Impacta2024'
-app.config['MYSQL_DB'] = 'restaurante'
-app.config['MYSQL_HOST'] = 'localhost'
+app.config.from_object(config.Config)
 mysql.init_app(app)
 
 
@@ -30,31 +28,6 @@ def processar_selecao():
 
     
     return render_template('anotarPedido2.html', pizzas = pizza, bebidas = bebida, pratos = prato, drinks = drink, sobremesas = sobremesa,mesa = numeroMesa)
-
-# @app.route('/')
-# def main():
-#     conn = mysql.connection 
-#     cursor = conn.cursor() 
-#     cursor.execute("SELECT nomeCategoria FROM tblCategoria")
-#     categorias=cursor.fetchall()
-#     return render_template('formularioItemMenu.html',categorias=categorias)
-
-
-
-
-@app.route('/categoria')
-def categoria():
-    conn = mysql.connection
-    cursor = conn.cursor()
-    cursor.execute ('SELECT * FROM tblCategoria')
-    dados = cursor.fetchall()
-    
-    return render_template('categoria.html', dados=dados)
-
-
-
-
-
 
 
 
@@ -200,7 +173,6 @@ def listaIngredienteNoPrato(id):
 
 @app.route('/igrediente/delete/<int:idProduto>/<int:idPrato>')
 def deleteingredientedoPrato(idProduto,idPrato):
-    print(f"\n\n\n\n\n##########\n\n\npassei aqui\n\n\n")
     try:
         idProduto = int(idProduto)
         idPrato = int(idPrato)

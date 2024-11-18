@@ -3,6 +3,7 @@ from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config 
+from Sqls import SelectTudoComWhere
 
 
 mysql = MySQL()
@@ -87,6 +88,7 @@ def list():
             conn = mysql.connection
             cursor = conn.cursor()
             
+            
             cursor.execute ('SELECT * FROM tblMenu WHERE Categoria = "Bebida"')
             dataBebida = cursor.fetchall()
 
@@ -95,7 +97,7 @@ def list():
 
             cursor.execute ('select * from tblMenu WHERE Categoria = "Pizza"')
             dataPizza = cursor.fetchall()
-            
+    
             cursor.execute ('select * from tblMenu WHERE Categoria = "Prato"')
             dataPrato = cursor.fetchall()
 
@@ -111,12 +113,8 @@ def list():
 def editProd(id):
 
     try:
-
             id = int(id)
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM tblMenu WHERE itemId = %s', (id,))
-            data = cursor.fetchall()
+            data = SelectTudoComWhere('tblMenu', 'itemId', id)
             return render_template('editarItemMenu.html', datas=data)
     
     except Exception as e:
@@ -128,11 +126,7 @@ def editProdNoPrato(id):
     try:
 
             id = int(id)
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM tblItemXProd WHERE IdItemXProd = %s', (id,))
-            print("antes do try edit prod")
-            data = cursor.fetchall()
+            data = SelectTudoComWhere('tblItemXProd', 'IdItemXProd', id)
             return render_template('editarProdutoNoPrato.html', datas=data)
     
     except Exception as e:
@@ -185,7 +179,6 @@ def editarProduto2(id):
                 #pegando os valores do produto selecionado
                 cursor.execute ('SELECT * FROM tblProduto WHERE  produtoId = %s',(produtoNoPrato[0][3],))
                 prodSelecionado = cursor.fetchall()
-                print(prodSelecionado)
 
                 if produtoNoPrato[0][5] == 0:
                     gramas = peso
@@ -197,11 +190,9 @@ def editarProduto2(id):
                     gramas = 0
                 cursor.execute('UPDATE tblItemXProd SET ml = %s, pesoGramas = %s, quantidade = %s WHERE idItemXProd = %s ', ( ml,gramas, quantidade, idItemXProd))
                 conn.commit()
-                msg = "Edição realizada com sucesso"
             
             renderizar = listaIngredienteNoPrato(produtoNoPrato[0][1])
             return renderizar
-            #return render_template('listarUnicoMenu.html', mensagem = msg, )
            
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
@@ -266,7 +257,6 @@ def deleteingredientedoPrato(idItemXProd):
         
         cursor.execute('DELETE FROM tblItemXProd WHERE idItemXProd = %s ', (idItemXProd,))
         conn.commit()
-        msg = "Excluido com sucesso"
         
         
          
@@ -316,7 +306,6 @@ def addIgredienteNoPrato():
     resultado = cursor.fetchone()
     
     if resultado:
-        msg = "Produto ja cadastrados na base de dados"
         listaIngredienteNoPrato(idPrato)
         vitoria = listaIngredienteNoPrato(idPrato)
         return vitoria
@@ -324,7 +313,6 @@ def addIgredienteNoPrato():
         cursor.execute('INSERT INTO tblItemXProd (ItemMenuId, nomeItemMenu, produtoId, nomeDoProduto, ml, pesoGramas, quantidade) VALUES(%s, %s, %s, %s, %s, %s, %s)',(idPrato, nomePrato, idProd, nomeProd, ml,peso, quantidade))
         conn.commit()
         vitoria = listaIngredienteNoPrato(idPrato)
-        msg = "Item cadastrado com sucesso"
         return vitoria 
 
 if __name__ == "__main__":
