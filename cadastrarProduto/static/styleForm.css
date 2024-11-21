@@ -10,7 +10,7 @@
 }
 
 body{
-    background-color: rgb(34, 22, 41);
+    background: linear-gradient(to right,#000000, #a15113, #fd913e);
     color: white;
 }
 
@@ -40,11 +40,11 @@ input::placeholder, textarea::placeholder, select::placeholder{
 input:focus, textarea:focus, select:focus{
     outline: none;      /* Remove default outline and use border or box-shadow */
     box-shadow: 0 0 0 2px rgb(236, 70, 70); 
+    background-color: #f7bc8f;
 }
 
 li {
     display: inline;
-    margin-right: 20px;
   }
 a{
     text-decoration: none;
@@ -91,18 +91,45 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
 }
 
 
-.menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
+
+.tituloMenu {
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+    margin-right: 20px
+    ;
 }
+
+.tituloMenu1 {
+    list-style: circle;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* .tituloMenu:nth-child(-n+3){
+    list-style: circle;
+} */
+
+.tituloMenu:hover, 
+.tituloMenu1:hover{
+    animation: ease-in 2s linear;
+    color: rgb(236, 70, 70);
+    transition: 400ms linear;
+}
+
+.subItemMenu {
+    font-size: 15px;
+    
+}
+
 .logo {
     width: 80px; /* Defina o tamanho desejado para a imagem */
     height: auto;
+    
 }
 
 .titulo{
@@ -116,4 +143,162 @@ input[type=number]::-webkit-outer-spin-button {
 }
 input[type=number] {
     -moz-appearance: textfield; /* Firefox */
+}
+
+.btn {
+    margin: 0;
+    padding: 2px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    color: rgb(0, 0, 0);
+}
+
+#cadastrar {
+    margin-right: 15px;
+}
+
+.btn#cadastrar:hover{
+    background-color: rgb(91, 231, 91);
+}
+
+.btn#resetar:hover{
+    background-color: rgb(224, 62, 62);
+}
+
+.botao-lista:hover{
+    background-color: #dbeb51;
+    animation: ease-in 2s linear;
+    transition: 400ms linear;
+    cursor: pointer;
+}
+
+#pesquisa {
+    width: 150px;
+    max-width: 200px;
+    margin-left: 43%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#inputPesquisa {
+    width: 250px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+}
+
+#inputPesquisa::placeholder {
+    padding-left: 10px ;
+}
+
+input:focus {
+    padding-left: 10px;            
+}
+
+
+.barraPesquisa2 {
+    margin-top: 10px;
+    margin-left: 37%;
+    grid-gap: 5px 8px;
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+}
+
+#resetar:hover {
+    background-color: red;
+    cursor: pointer;
+}
+
+#menu-toggle {
+background: none;
+border: none;
+color: white;
+font-size: 1.5rem;
+cursor: pointer;
+}
+
+#sidebar {
+position: fixed;
+top: 0;
+right: -250px; /* Escondido inicialmente */
+width: 250px;
+height: 100%;
+background-color: #463228;
+color: white;
+transition: left 0.3s ease;
+padding: 1rem;
+}
+
+#sidebar nav ul {
+list-style: none;
+}
+
+
+
+#sidebar nav ul li a {
+color: white;
+text-decoration: none;
+font-size: 1.2rem;
+}
+
+main {
+padding: 2rem;
+}
+
+/* Classe para abrir o menu */
+#sidebar.open {
+right: 0;
+}
+
+li {
+display: flex;
+align-items: center;
+height: 20px;
+max-height: 25px;
+margin: 5px;
+}
+.botao-lista {
+    border-radius: 15px;
+    box-shadow: none;
+    border: none;
+    padding: 3px;
+    
+
+}
+
+
+li i {
+padding-right: 5px;
+}
+
+h3 {
+text-align: center;
+font-size: 20px;
+margin: 5px;
+font-weight: bold;
+}
+
+ul li:hover {
+transform: scale(1.1, 1.1);
+transition: all 0.3 ease ;
+background-color: #634a3dcc;
+
+
+}
+
+#menu-close {
+color: red;
+width: 50px;
+height: auto;
+background-color: transparent;
+text-decoration: none;
+border: none;
+font-size: 20px;
+display: flex;
+text-align: left;
+cursor: pointer;
 }

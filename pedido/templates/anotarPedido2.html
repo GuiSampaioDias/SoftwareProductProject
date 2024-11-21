@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
+    <title>Cadastrar produto no prato</title>
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        header .logo {
+            width: 100px;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .titulo {
+            font-size: 24px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .category-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .item-box {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .item-box:hover {
+            transform: scale(1.02);
+        }
+
+        .item-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .item-box.expanded .item-details {
+            display: block;
+        }
+
+        .item-details {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .item-description {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .item-price {
+            font-size: 16px;
+            font-weight: 500;
+            color: #000;
+        }
+
+        .item-quantity {
+            margin-top: 10px;
+        }
+
+        .item-quantity input {
+            width: 50px;
+            padding: 5px;
+        }
+
+        .item-submit {
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .item-submit:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="http://localhost:5002"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo" /></a>
+        <nav class="menu">
+            <ul>
+                <li><a href="http://localhost:5001/">Cadastrar Item Menu</a></li>
+                <li><a href="http://localhost:5001/list">Lista de Item Menu</a></li>
+                <li><a href="http://localhost:5002/list">Lista de Ordem de Compras</a></li>
+                <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
+                <li><a href="http://localhost:5000/list">Lista de Produtos</a></li>
+                <li><a href="http://localhost:5003/list">Lista do Estoque</a></li>
+            </ul>
+        </nav>
+    </header>
+    <hr>
+    <p class="titulo">Faça o seu pedido na mesa N° {{mesa}}</p>
+    <div class="container">
+        <form action="#####rota pedido###" method="post">
+            <div class="category-container">
+                <!-- Categoria Pizzas -->
+                {% for pizza in pizzas %}
+                <div class="item-box" onclick="toggleExpand(this)">
+                    <div class="item-content">
+                        <span class="item-name">{{ pizza[1] }}</span>
+                    </div>
+                    <div class="item-details">
+                        <p class="item-description">{{ pizza[3] }}</p>
+                        <p class="item-price">Preço: R$ {{ pizza[4] }}</p>
+                        <div class="item-quantity">
+                            <label for="pizzaQuantity">Quantidade:</label>
+                            <input type="number" id="pizzaQuantity" name="pizzaQuantity" min="1" required>
+                        </div>
+                        <button type="submit" class="item-submit">Enviar</button>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Categoria Pratos -->
+                {% for prato in pratos %}
+                <div class="item-box" onclick="toggleExpand(this)">
+                    <div class="item-content">
+                        <span class="item-name">{{ prato[1] }}</span>
+                    </div>
+                    <div class="item-details">
+                        <p class="item-description">{{ prato[3] }}</p>
+                        <p class="item-price">Preço: R$ {{ prato[4] }}</p>
+                        <div class="item-quantity">
+                            <label for="pratoQuantity">Quantidade:</label>
+                            <input type="number" id="pratoQuantity" name="pratoQuantity" min="1" required>
+                        </div>
+                        <button type="submit" class="item-submit">Enviar</button>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Categoria Bebidas -->
+                {% for bebida in bebidas %}
+                <div class="item-box" onclick="toggleExpand(this)">
+                    <div class="item-content">
+                        <span class="item-name">{{ bebida[1] }}</span>
+                    </div>
+                    <div class="item-details">
+                        <p class="item-description">{{ bebida[3] }}</p>
+                        <p class="item-price">Preço: R$ {{ bebida[4] }}</p>
+                        <div class="item-quantity">
+                            <label for="bebidaQuantity">Quantidade:</label>
+                            <input type="number" id="bebidaQuantity" name="bebidaQuantity" min="1" required>
+                        </div>
+                        <button type="submit" class="item-submit">Enviar</button>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Categoria Sobremesas -->
+                {% for sobremesa in sobremesas %}
+                <div class="item-box" onclick="toggleExpand(this)">
+                    <div class="item-content">
+                        <span class="item-name">{{ sobremesa[1] }}</span>
+                    </div>
+                    <div class="item-details">
+                        <p class="item-description">{{ sobremesa[3] }}</p>
+                        <p class="item-price">Preço: R$ {{ sobremesa[4] }}</p>
+                        <div class="item-quantity">
+                            <label for="sobremesaQuantity">Quantidade:</label>
+                            <input type="number" id="sobremesaQuantity" name="sobremesaQuantity" min="1" required>
+                        </div>
+                        <button type="submit" class="item-submit">Enviar</button>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Categoria Drinks -->
+                {% for drink in drinks %}
+                <div class="item-box" onclick="toggleExpand(this)">
+                    <div class="item-content">
+                        <span class="item-name">{{ drink[1] }}</span>
+                    </div>
+                    <div class="item-details">
+                        <p class="item-description">{{ drink[3] }}</p>
+                        <p class="item-price">Preço: R$ {{ drink[4] }}</p>
+                        <div class="item-quantity">
+                            <label for="drinkQuantity">Quantidade:</label>
+                            <input type="number" id="drinkQuantity" name="drinkQuantity" min="1" required>
+                        </div>
+                        <button type="submit" class="item-submit">Enviar</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function toggleExpand(element) {
+            element.classList.toggle('expanded');
+        }
+    </script>
+</body>
+
+</html>
