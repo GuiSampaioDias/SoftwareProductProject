@@ -55,6 +55,7 @@ async function carregarImagens() {
         img.alt = `Imagem ${index + 1}`;  // Define o texto alternativo
         img.style.width = '200px';
         img.style.height = '200px';  // Define o tamanho da imagem
+        img.id = "image"
 
         // Adiciona a imagem ao contêiner
         imageContainer.appendChild(img);
@@ -67,3 +68,24 @@ async function carregarImagens() {
 
 // Chama a função para carregar as imagens ao carregar a página
 carregarImagens();
+
+
+const menuToggle = document.getElementById('menu-toggle');
+const menuClose = document.getElementById('menu-close');
+const sidebar = document.getElementById('sidebar');
+
+// Abre o menu lateral
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.add('open');
+});
+
+// Fecha o menu lateral
+menuClose.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+});
+
+
+
+  
+
+

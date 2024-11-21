@@ -36,109 +36,6 @@
             position: relative;
         }
 
-        .sidebar {
-            position: fixed;
-            right: -250px; 
-            width: 250px;
-            background-color: #1eff00;
-            height: calc(100vh - 800px); 
-            padding: 20px; 
-            transition: all .5s ease;
-            z-index: 5; 
-            
-        }
-
-        .sidebar ul li {
-            padding-right: 20px;
-        }
-        
-        .sidebar header {
-            font-size: 22px;
-            color: white;
-            line-height: 30px;
-            text-align: center;
-            user-select: none;
-            width: 100%;
-        }
-
-        .sidebar ul a {
-            display: block;
-            height: 100%;
-            width: 100%;
-            line-height: 65px;
-            font-size: 20px;
-            color: white;
-            box-sizing: border-box;
-            border-bottom: 1px solid black;
-            border-top: 1px solid rgba(255,255,255,.1);
-            transition: .4s;
-            text-align: left;
-            padding-left: 5px;
-        }
-
-        
-
-        .sidebar ul a i {
-            margin-right: 16px;
-        }
-
-        .subMenu {
-            text-align: center;
-            padding: 10px;
-        }
-
-        #check {
-            display: none;
-        }
-
-        label #btn,
-        label #cancel {
-            position: absolute;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        label #btn {
-            right: 40px;
-            top: 25px;
-            font-size: 35px;
-            color: white;
-            padding: 6px 12px;
-            transition: all .5s;
-        }
-
-        label #btn:hover {
-            transform: scale(1.5,1.5);
-        }
-
-        label #cancel {
-            z-index: 1111;
-            right: -195px;
-            top: 17px;
-            font-size: 30px;
-            color: white; 
-            padding: 4px 9px;
-            transition: all .5s ease;
-        }
-
-        label #cancel:hover {
-            background-color: red;
-        }
-
-        #check:checked ~ .sidebar {
-            right: 0; 
-        }
-
-        #check:checked ~ label #btn {
-            right: 250px; 
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        #check:checked ~ label #cancel {
-            right: 195px; 
-        }
-
         section {
             background: url(bg.jpeg) no-repeat;
             background-position: center;
@@ -146,43 +43,165 @@
             height: 100vh;
             transition: all .5s;
         }
-    </style>
+
+        #pesquisa {
+            width: 150px;
+            max-width: 200px;
+            margin-left: 43%;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        #inputPesquisa {
+            width: 250px;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #inputPesquisa::placeholder {
+            padding-left: 10px ;
+        }
+
+        input:focus {
+            padding-left: 10px;            
+        }
+
+       
+        .barraPesquisa2 {
+            margin-top: 10px;
+            margin-left: 37%;
+            grid-gap: 5px 8px;
+            display: flex;
+            justify-content: space-around;
+            padding: 5px;
+        }
+
+        #resetar:hover {
+            background-color: red;
+            cursor: pointer;
+        }
+
+        #menu-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        #sidebar {
+            position: fixed;
+            top: 0;
+            right: -250px; /* Escondido inicialmente */
+            width: 250px;
+            height: 100%;
+            background-color: #463228;
+            color: white;
+            transition: left 0.3s ease;
+            padding: 1rem;
+        }
+
+        #sidebar nav ul {
+            list-style: none;
+        }
+
+
+
+        #sidebar nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        /* Classe para abrir o menu */
+        #sidebar.open {
+            right: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            height: 20px;
+            max-height: 25px;
+            margin: 5px;
+        }
+
+        li i {
+            padding-right: 5px;
+        }
+
+        h3 {
+            text-align: center;
+            font-size: 20px;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        ul li:hover {
+            transform: scale(1.1, 1.1);
+            transition: all 0.3 ease ;
+            background-color: #634a3dcc;
+
+
+        }
+
+        #menu-close {
+            color: red;
+            width: 50px;
+            height: auto;
+            background-color: transparent;
+            text-decoration: none;
+            border: none;
+            font-size: 20px;
+            display: flex;
+            text-align: left;
+            cursor: pointer;
+        }
+        
+</style>
 
     
 </head>
 <body>
 <header>
-    <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
-    <input type="checkbox" id="check">
-        <label for="check">
-            <i class="fas fa-bars" id="btn"></i>
-            <i class="fas fa-times" id="cancel"></i>
-        </label>
-        <div class="sidebar">
-            <ul>
-                <p class="subMenu">MENU</p>
-                <li><a href="#"><i class="fa-solid fa-bars"></i>Menu</a></li>
-                <li><a href="#"><i class="fa-solid fa-bars"></i>Menu</a></li>
-                <p class="subMenu">COMPRA</p>
-                <li><a href="#"><i class="fa-solid fa-cart-shopping"></i>Ordem de Compra</a></li>
-                <li><a href="#"><i class="fa-solid fa-cart-shopping"></i>Ordem de Compra</a></li>
-                <p class="subMenu">ESTOQUE</p>
-                <li><a href="#"><i class="fa-solid fa-layer-group"></i>Estoque</a></li>
-                <li><a href="#"><i class="fa-solid fa-layer-group"></i>Estoque</a></li>
-                <li><a href="#"><i class="fa-solid fa-layer-group"></i>Estoque</a></li>
-            </ul>
-        </div>
+    <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>        
+        <button id="menu-toggle">☰</button>
+
+        <aside id="sidebar">
+            <button id="menu-close">✖</button>
+            <nav>
+                <ul>
+                    <H3 class="subMenu">MENU</H3><br>
+                    <li><a href="http://localhost:5001/"><i class="fa-solid fa-bars"></i>Cadastrar Item</a></li><br>
+                    <li><a href="http://localhost:5001/list"><i class="fa-solid fa-bars"></i>Itens</a></li><br><br>
+                    <H3 class="subMenu">ORDEM DE COMPRA</H3><br>
+                    <li><a href="http://localhost:5002/"><i class="fa-solid fa-cart-shopping"></i>Cadastrar</a></li><br><br>
+                    <li><a href="http://localhost:5002/list"><i class="fa-solid fa-cart-shopping"></i>Ordens Efetuadas</a></li><br><br>
+                    <H3 class="subMenu">ESTOQUE</H3><br>
+                    <li><a href="http://localhost:5003/list"><i class="fa-solid fa-layer-group"></i>Estoque Disponível</a></li><br><br>
+                    <li><a href="http://localhost:5004/list"><i class="fa-solid fa-layer-group"></i>Histórico</a></li><br><br>
+                    <H3 class="subMenu">PRODUTOS</H3><br>
+                    <li><a href="http://localhost:5000/"><i class="fa-solid fa-layer-group"></i>Cadastrar Produto</a></li><br>
+                </ul>
+            </nav>
+          </aside>
+        
 </header>
 <hr>
 <p class="titulo">Lista de produtos</p>
 
 <form method="get" class="row" id="pesquisa">
-    <div class="col-9">
-        <input type="text" name="pesquisa" class="form-control" placeholder="Pesquise o produto aqui" id="barraPesquisa">
+    <div class="barraPesquisa">
+        <input type="text" name="pesquisa" class="form-control" placeholder="Buscar" id="inputPesquisa">
     </div>
-    <div class="col-3">
-        <button type="submit" class="btn btn-primary">Pesquisar</button>
-        <button type="submit">Resetar</button>
+    <div class="barraPesquisa2">
+        <button type="submit" class="botao-lista">Pesquisar</button>
+        <button type="submit" class="botao-lista" id="resetar">Resetar</button>
     </div>                    
 </form>
 
@@ -206,17 +225,20 @@
 </hr>
 <script>
 
-function toggleMenu() {
-            const menu = document.querySelector('.menuLateral ul');
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-        }
+const menuToggle = document.getElementById('menu-toggle');
+const menuClose = document.getElementById('menu-close');
+const sidebar = document.getElementById('sidebar');
 
-        // Função para mostrar ou ocultar os submenus (dropdowns)
-        function toggleDropdown(event) {
-            const parentLi = event.target.parentElement;
-            parentLi.classList.toggle('active');
-        }
-    
+// Abre o menu lateral
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.add('open');
+});
+
+// Fecha o menu lateral
+menuClose.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+});
+  
     const link = document.URL;
     console.log(link);
     form = document.getElementById("pesquisa")

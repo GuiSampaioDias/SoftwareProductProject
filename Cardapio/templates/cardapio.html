@@ -4,18 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css">
-    <title>Cardapio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="{{url_for('static', filename='/Logo.png')}}">
+    <title>Cardápio</title>
 </head>
 <body>
+    <header>
+        <a href="http://localhost:5000"><img src="{{url_for('static', filename='/Logo.png')}}" class="logo"/></a>
+        <h1>CARDÁPIO</h1>
+    </header>
+
+    
   <p style="display: none;" id="lenArquivos" class="lenArquivos">{{ lenArquivos }}</p>
     {% for item in data  %}
-    <div> 
-    <div id="image-container-{{ loop.index }}">
+    <div class="pratos"> 
+        <div id="image-container-{{ loop.index }}">
     </div>
-    <p>{{item[1]}}</p>
-    <p>{{item[3]}}</p>
-    <p>{{"R$%.2f"|format(item[4])}}</p>
-</div>
+        <p>{{item[1]}}</p> 
+        <p class="descricaoPrato">{{item[3]}}</p> 
+        <p>{{"R$%.2f"|format(item[4])}}</p>
+    </div>
     {% endfor %}
     <script src="/static/index.js"></script>
 </body>
