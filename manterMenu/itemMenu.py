@@ -44,8 +44,7 @@ def cadastro():
             msg = "Produto ja cadastrados na base de dados"
             return render_template('formularioItemMenu.html',mensagem = msg)
         else:
-            conn = mysql.connection
-            cursor = conn.cursor()
+            conn, cursor = connCursor()
             cursor.execute('INSERT INTO tblMenu (nomeDoItem, categoria, descricao, preco) VALUES(%s, %s, %s, %s)',(nome, categoria,  descricao, preco))
             conn.commit()
             msg = "Item cadastrado com sucesso"
@@ -73,10 +72,8 @@ def cadastro():
 @app.route('/list',methods=['GET'])
 def list():
     try:
-            conn = mysql.connection
-            cursor = conn.cursor()
-            
-            
+            conn, cursor = connCursor()
+
             cursor.execute ('SELECT * FROM tblMenu WHERE Categoria = "Bebida"')
             dataBebida = cursor.fetchall()
 
@@ -134,8 +131,7 @@ def editarProduto(id):
 
         if request.method == 'POST':
             if nome and categoria and preco:
-                conn = mysql.connection
-                cursor = conn.cursor()
+                conn, cursor = connCursor()
                 cursor.execute('UPDATE tblMenu SET nomeDoItem = %s, categoria = %s, descricao = %s, preco = %s WHERE ItemId = %s ', ( nome,categoria,descricao, preco, idProd))
                 conn.commit()
                 msg = "Edição realizada com sucesso"
@@ -157,9 +153,7 @@ def editarProduto2(id):
         
         if request.method == 'POST':
             if peso and idItemXProd :
-                conn = mysql.connection
-                cursor = conn.cursor()
-
+                conn, cursor = connCursor()
                 cursor.execute ('SELECT * FROM tblItemXProd WHERE idItemXProd = %s',(idItemXProd,))
                 produtoNoPrato = cursor.fetchall()
                 #pegando os valores do produto selecionado
@@ -247,8 +241,7 @@ def addIgredienteNoPrato():
     nomePrato = request.form['pratoNome']
     idPrato = request.form['idPrato']
     
-    conn = mysql.connection
-    cursor = conn.cursor()
+    conn, cursor = connCursor()
     #pegando os valores do produto selecionado
     prodSelecionado = SelectComWhere('tblProduto','nomeDoProduto', nomeProd)
     idProd = prodSelecionado[0][0]

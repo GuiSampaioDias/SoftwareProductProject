@@ -3,7 +3,7 @@ from flask import Flask, render_template, json
 from flask_mysqldb import MySQL
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config 
-
+from Sqls import connCursor
 mysql = MySQL()
 app = Flask(__name__)
 
@@ -13,8 +13,7 @@ mysql.init_app(app)
 @app.route('/list',methods=['GET'])
 def list():
     try:
-            conn = mysql.connection
-            cursor = conn.cursor()
+            conn, cursor = connCursor()
             cursor.execute ('SELECT * FROM tblHistorico WHERE tipo = "compra" ORDER BY  data DESC')
             data = cursor.fetchall()
             cursor.execute('SELECT * FROM tblHistorico WHERE tipo = "venda" ORDER BY data DESC')

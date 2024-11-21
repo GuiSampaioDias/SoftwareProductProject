@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL
 from datetime import datetime, timezone
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
-from Sqls import SelectSemOrdem, DeleteComWhere, SelectComWhere
+from Sqls import SelectSemOrdem, DeleteComWhere, SelectComWhere, connCursor
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -39,8 +39,7 @@ def cadastro():
         if not descricao:
             descricao = "Não Há"
 
-        conn = mysql.connection
-        cursor = conn.cursor()
+        conn, cursor = connCursor()
         cursor.execute('INSERT into tblItemOrdem (nomeItem,quantidade,precoProduto, precoTotalPorProduto, descricao) VALUES (%s, %s, %s, %s, %s)', (nome,quantidade,preco,precoTotal,descricao))
         conn.commit()
         msg = "Item ordem cadastrados com sucesso"
@@ -90,8 +89,7 @@ def editarProduto(id):
 
         if nome and quantidade and preco:
             
-            conn = mysql.connection
-            cursor = conn.cursor()
+            conn, cursor = connCursor()
             cursor.execute('UPDATE tblItemOrdem SET nomeItem = %s, quantidade = %s, precoProduto = %s, precoTotalPorProduto = %s, descricao = %s WHERE itemOrdemId = %s', (nome,quantidade,preco,precoTotal,descricao,idProd))
             conn.commit()
             msg = "Edição realizada com sucesso"
@@ -122,8 +120,7 @@ def delete(id):
 @app.route('/estoque/<id>', methods=['POST','GET'])
 def sobe_estoque(id):
     try:
-        conn = mysql.connection
-        cursor = conn.cursor()
+        conn, cursor = connCursor()
         data = SelectComWhere('tblItemOrdem','itemOrdemId', id)
         nome = data[0][1] 
         quantidade = float(data[0][2])

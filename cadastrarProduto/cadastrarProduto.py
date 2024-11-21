@@ -3,7 +3,7 @@ from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
-from Sqls import SelectSemOrdem, SelectComWhere, DeleteComWhere
+from Sqls import SelectSemOrdem, SelectComWhere, DeleteComWhere, connCursor
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -44,10 +44,8 @@ def cadastro():
         if resultado:
             msg = "Produto ja cadastrados na base de dados"
             return render_template('formularioProduto.html', mensagem = msg)
-        else:
-                       
-            conn = mysql.connection
-            cursor = conn.cursor()
+        else:             
+            conn, cursor = connCursor()
             cursor.execute('INSERT INTO tblProduto (nomeDoProduto, categoria, ml,pesoGramas, descricao) VALUES (%s, %s, %s, %s, %s)', ( nome,categoria,ml,peso,descricao))
             conn.commit()
             msg = "Produtos cadastrados com sucesso"
@@ -65,8 +63,7 @@ def list():
             pesquisa = request.args.get('pesquisa', '')
             if pesquisa:
                 
-                conn = mysql.connection
-                cursor = conn.cursor()
+                conn, cursor = connCursor()
                 cursor.execute("SELECT * FROM tblProduto WHERE nomeDoProduto LIKE %s ORDER BY nomeDoProduto", (f"%{pesquisa}%",))
                 data = cursor.fetchall()
                 return render_template('listar.html', datas=data)
@@ -104,8 +101,7 @@ def editarProduto(id):
 
         if nome and categoria:
             
-            conn = mysql.connection
-            cursor = conn.cursor()
+            conn, cursor = connCursor()
             cursor.execute('UPDATE tblProduto SET nomeDoProduto = %s, categoria = %s, ml = %s,pesoGramas = %s, descricao = %s WHERE produtoId = %s ', (nome,categoria,ml,peso,descricao,idProd))
             conn.commit()
             msg = "Edição realizada com sucesso"
@@ -123,9 +119,7 @@ def delete(id):
     try:
         id = int(id)
 
-        conn = mysql.connection
-        cursor = conn.cursor()  
-
+        conn, cursor = connCursor()
         cursor.execute('SELECT nomeDoProduto FROM tblProduto WHERE produtoId = %s', (id,))
         nome = cursor.fetchall()  
         cursor.execute('SELECT * FROM tblHistorico WHERE produtoId = %s', (id,))
