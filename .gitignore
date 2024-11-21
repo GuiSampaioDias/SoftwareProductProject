@@ -1,2 +1,4 @@
 /Cardapio/static/img/*
-/estoque/__pycache__/funcao.cpython-312.pyc
+/estoque/__pycache__
+/__pycache__
+

@@ -91,6 +91,11 @@ p{
     font-size: 25px;
 }
 
+td
+{
+    text-align: center;
+}
+
 
 @keyframes fadeOut {
     0% { opacity: 1; }

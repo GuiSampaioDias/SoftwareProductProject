@@ -1,16 +1,15 @@
-import os
+import os, sys
 from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 from funcao import *
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import config
+from Sqls import connCursor
 
 mysql = MySQL()
 app = Flask(__name__)
 
-# MySQL configurations
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Impacta2024'
-app.config['MYSQL_DB'] = 'restaurante'
-app.config['MYSQL_HOST'] = 'localhost'
+app.config.from_object(config.Config)
 mysql.init_app(app)
 
 
@@ -30,31 +29,6 @@ def processar_selecao():
 
     
     return render_template('anotarPedido2.html', pizzas = pizza, bebidas = bebida, pratos = prato, drinks = drink, sobremesas = sobremesa,mesa = numeroMesa)
-
-# @app.route('/')
-# def main():
-#     conn = mysql.connection 
-#     cursor = conn.cursor() 
-#     cursor.execute("SELECT nomeCategoria FROM tblCategoria")
-#     categorias=cursor.fetchall()
-#     return render_template('formularioItemMenu.html',categorias=categorias)
-
-
-
-
-@app.route('/categoria')
-def categoria():
-    conn = mysql.connection
-    cursor = conn.cursor()
-    cursor.execute ('SELECT * FROM tblCategoria')
-    dados = cursor.fetchall()
-    
-    return render_template('categoria.html', dados=dados)
-
-
-
-
-
 
 
 
@@ -92,9 +66,7 @@ def cadastro():
 @app.route('/list',methods=['GET'])
 def list():
     try:
-            conn = mysql.connection
-            cursor = conn.cursor()
-            
+            conn, cursor = connCursor()
             cursor.execute ('SELECT * FROM tblMenu WHERE Categoria = "Bebida"')
             dataBebida = cursor.fetchall()
 
@@ -120,10 +92,8 @@ def editProd(id):
     try:
 
             id = int(id)
-            conn = mysql.connection
-            cursor = conn.cursor()
+            conn, cursor = connCursor()
             cursor.execute('SELECT * FROM tblMenu WHERE itemId = %s', (id,))
-            print("antes do try edit prod")
             data = cursor.fetchall()
             return render_template('editarItemMenu.html', datas=data)
     
@@ -144,9 +114,7 @@ def editarProduto(id):
 
         if request.method == 'POST':
             if nome and categoria and preco:
-                conn = mysql.connection
-                cursor = conn.cursor()
-                print("Oi")
+                conn, cursor = connCursor()
                 cursor.execute('UPDATE tblMenu SET nomeDoItem = %s, categoria = %s, descricao = %s, preco = %s WHERE ItemId = %s ', ( nome,categoria,descricao, preco, idProd))
                 conn.commit()
                 msg = "Edição realizada com sucesso"
@@ -165,8 +133,7 @@ def editarProduto(id):
 def deleteProduto(id):
     try:
         id = int(id)
-        conn = mysql.connection
-        cursor = conn.cursor()
+        conn, cursor = connCursor()
         cursor.execute('DELETE FROM tblMenu WHERE itemId = %s', (id,))
         conn.commit()
         msg = "Excluido com sucesso"
@@ -182,8 +149,7 @@ def deleteProduto(id):
 
 @app.route('/addprod/<id>',methods=['POST','GET'])
 def listaIngredienteNoPrato(id):
-    conn = mysql.connection
-    cursor = conn.cursor()
+    conn, cursor = connCursor()
     #pegando todos os produtos que fazem cadastrados no prato        
     cursor.execute ('SELECT * FROM tblItemXProd WHERE ItemMenuId = %s',(id,))
     listaProdMenu = cursor.fetchall()
@@ -200,14 +166,12 @@ def listaIngredienteNoPrato(id):
 
 @app.route('/igrediente/delete/<int:idProduto>/<int:idPrato>')
 def deleteingredientedoPrato(idProduto,idPrato):
-    print(f"\n\n\n\n\n##########\n\n\npassei aqui\n\n\n")
     try:
         idProduto = int(idProduto)
         idPrato = int(idPrato)
         print(f'id prod: {idProduto}')
         print(f'id prato: {idPrato}')
-        conn = mysql.connection
-        cursor = conn.cursor()
+        conn, cursor = connCursor()
         cursor.execute('DELETE FROM tblItemXProd') #WHERE produtoId = %s and ItemMenuId = %s', (idProduto, idPrato))
         conn.commit()
         msg = "Excluido com sucesso"
@@ -226,8 +190,7 @@ def addIgredienteNoPrato():
     nomePrato = request.form['pratoNome']
     idPrato = request.form['idPrato']
     
-    conn = mysql.connection
-    cursor = conn.cursor()
+    conn, cursor = connCursor()
     #pegando os valores do produto selecionado
     cursor.execute ('SELECT * FROM tblProduto WHERE  nomeDoProduto = %s',(nomeProd,))
     prodSelecionado = cursor.fetchall()
