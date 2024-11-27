@@ -172,6 +172,9 @@
             text-align: left;
             cursor: pointer;
         }
+        li.cardapio {
+            margin-top: 25px;
+        }
     </style>
 </head>
 <body>
@@ -193,35 +196,24 @@
                     <li><a href="http://localhost:5004/list"><i class="fa-solid fa-layer-group"></i>Histórico</a></li><br><br>
                     <H3 class="subMenu">PRODUTOS</H3><br>
                     <li><a href="http://localhost:5000/"><i class="fa-solid fa-layer-group"></i>Cadastrar Produto</a></li><br>
-                    <li><a href="http://localhost:5000/list"><i class="fa-solid fa-layer-group"></i>Listar Produto</a></li><br>
+                    <li><a href="http://localhost:5000/list"><i class="fa-solid fa-layer-group"></i>Listar Produto</a></li><br><br>
+                    <h3 class="subMenu">CARDÁPIO</h3>
+                    <li class="cardapio"><a href="http://localhost:5007"><i class="fa-solid fa-clipboard-list"></i>Cardápio</a></li>
                 </ul>
             </nav>
         </aside>
     </header>
-    <hr />
+    <hr><br>
     <div class="container">
       <form action="editar" method="post">
-        <label for="inputNome" class="sr-only">Nome do produto:</label><br />
+        <label for="inputNome">Nome do produto:</label><br>
         <input type="text" name="inputNome" id="inputNome" value="{{ datas[0][1] }}" class="form-control" required autofocus /><br />
-        <label for="inputCategoria">Categoria:</label><br />
-        <select name="inputCategoria" id="inputCategoria" class="form-control" required>
+        <label for="inputCategoria">Categoria:</label><br>
+        <select name="inputCategoria" id="inputCategoria" class="form-control" style="width: 500px;" required>
           <option value="{{ datas[0][2] }}">{{ datas[0][2] }}</option>
           <option value="bebida">Bebida</option>
           <option value="alimento">Alimento</option>
           <option value="sobremesa">Sobremesa</option>
-        </select><br />
-
-    <form action="editar" method="post">
-        <label for="inputNome" class="sr-only">Nome do produto: </label><br>
-        <input type="text" name="inputNome" id="inputNome" value="{{datas[0][1]}}"
-        class="form-control" required autofocus ><br>
-        <label for="inputCategoria">Categoria: </label><br>
-        <select name="inputCategoria" id="inputCategoria"
-         class="form-control" required>
-            <option value="{{datas[0][2]}}">{{datas[0][2]}}</option>
-            <option value="bebida">Bebida</option>
-            <option value="alimento">Alimento</option>
-            <option value="sobremesa">Sobremesa</option>
         </select><br>
    
 
@@ -231,7 +223,7 @@
         <input type="number" name="inputPeso" id="inputPeso" value="{{datas[0][4]}}" class="form-control" step="0.001" placeholder="Digite a quantidade de Gramas" ><br>
         <label for="inputDescricao">Descrição:</label><br>
         <textarea name="inputDescricao" id="inputDescricao" value="{{datas[0][5]}}" class="form-control" placeholder="Digite a descrição" maxlength="45" >{{datas[0][5]}}</textarea><br>
-        <button id="cadastrar" class="" type="submit">Salvar</button>
+        <button id="cadastrar" class="btn" type="submit">Salvar</button>
         <input type="hidden" id="idProd" name="idProd" value="{{datas[0][0]}}">
     </form> 
     <p class="mensagem">{{mensagem}}</p>

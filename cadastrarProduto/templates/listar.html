@@ -162,7 +162,9 @@
             text-align: left;
             cursor: pointer;
         }
-        
+        li.cardapio {
+            margin-top: 25px;
+        }
 </style>
 
     
@@ -186,13 +188,15 @@
                     <li><a href="http://localhost:5003/list"><i class="fa-solid fa-layer-group"></i>Estoque Disponível</a></li><br><br>
                     <li><a href="http://localhost:5004/list"><i class="fa-solid fa-layer-group"></i>Histórico</a></li><br><br>
                     <H3 class="subMenu">PRODUTOS</H3><br>
-                    <li><a href="http://localhost:5000/"><i class="fa-solid fa-layer-group"></i>Cadastrar Produto</a></li><br>
+                    <li><a href="http://localhost:5000/"><i class="fa-solid fa-layer-group"></i>Cadastrar Produto</a></li><br><br>
+                    <h3 class="subMenu">CARDÁPIO</h3>
+                    <li class="cardapio"><a href="http://localhost:5007"><i class="fa-solid fa-clipboard-list"></i>Cardápio</a></li>
                 </ul>
             </nav>
           </aside>
         
 </header>
-<hr>
+<hr><br>
 <p class="titulo">Lista de produtos</p>
 
 <form method="get" class="row" id="pesquisa">
@@ -218,22 +222,7 @@
             <th><a href="/produto/{{item[0]}}"><button class="botao-lista" id="atualizar-lista">Atualizar</button></a></th>
             <th><button onclick="funcao1('{{item[0]}}')" class="botao-lista" id="deletar-lista">Deletar</button></th>
         </tr>
-        {% for item in datas %}
-          <tr>
-            <th>{{ item[0] }}</th>
-            <th>{{ item[1] }}</th>
-            <th>{{ item[2] }}</th>
-            <th>{{ item[3] }}</th>
-            <th>{{ item[4] }}</th>
-            <th>{{ item[5] }}</th>
-            <th>{{ item[6] }}</th>
-            <th>{{ item[7] }}</th>
-            <th>{{ item[8] }}</th>
-            <th>
-              <a href="/produto/{{ item[0] }}"><button>Atualizar</button></a>
-            </th>
-          </tr>
-        {% endfor %}
+        {% endfor %}   
       </table>
     </div>
     <p class="mensagem">{{mensagem}}</p>

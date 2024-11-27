@@ -159,6 +159,23 @@
             text-align: left;
             cursor: pointer;
         }
+        .btn {
+    margin: 0;
+    padding: 2px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    color: black;
+        }
+    .botao-lista:hover{
+    background-color: #dbeb51;
+    animation: ease-in 2s linear;
+    transition: 400ms linear;
+}
+li.cardapio {
+            margin-top: 25px;
+        }
         
 </style>
 </head>
@@ -181,7 +198,9 @@
                     <li><a href="http://localhost:5004/list"><i class="fa-solid fa-layer-group"></i>Histórico</a></li><br><br>
                     <H3 class="subMenu">PRODUTOS</H3><br>
                     <li><a href="http://localhost:5000/"><i class="fa-solid fa-layer-group"></i>Cadastrar Produto</a></li><br>
-                    <li><a href="http://localhost:5000/list"><i class="fa-solid fa-layer-group"></i>Listar Produtos</a></li><br>
+                    <li><a href="http://localhost:5000/list"><i class="fa-solid fa-layer-group"></i>Listar Produtos</a></li><br><br>
+                    <h3 class="subMenu">CARDÁPIO</h3>
+                    <li class="cardapio"><a href="http://localhost:5007"><i class="fa-solid fa-clipboard-list"></i>Cardápio</a></li>
                 </ul>
             </nav>
           </aside>
@@ -203,6 +222,7 @@
         </tr>
         {% endfor %}
     </table>
+    <button class="btn botao-lista"><a href="http://localhost:5001/list">Voltar</a></button>
     </div><br><br>
     <p class="mensagem">{{mensagem}}</p>
 

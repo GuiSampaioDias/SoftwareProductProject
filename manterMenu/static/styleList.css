@@ -347,4 +347,6 @@ text-align: left;
 cursor: pointer;
 }
 
-
+button a{
+    color: #000000;
+} 
