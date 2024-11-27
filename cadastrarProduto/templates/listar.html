@@ -2,47 +2,212 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/static/list.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styleList.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
     <title>Listar Produtos</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
+        
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        header {
+            color: white;
+            padding: 20px;
+            text-align: right;
+            position: relative;
+        }
+
+        section {
+            background: url(bg.jpeg) no-repeat;
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+            transition: all .5s;
+        }
+
+        #pesquisa {
+            width: 150px;
+            max-width: 200px;
+            margin-left: 43%;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        #inputPesquisa {
+            width: 250px;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #inputPesquisa::placeholder {
+            padding-left: 10px ;
+        }
+
+        input:focus {
+            padding-left: 10px;            
+        }
+
+       
+        .barraPesquisa2 {
+            margin-top: 10px;
+            margin-left: 37%;
+            grid-gap: 5px 8px;
+            display: flex;
+            justify-content: space-around;
+            padding: 5px;
+        }
+
+        #resetar:hover {
+            background-color: red;
+            cursor: pointer;
+        }
+
+        #menu-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        #sidebar {
+            position: fixed;
+            top: 0;
+            right: -250px; /* Escondido inicialmente */
+            width: 250px;
+            height: 100%;
+            background-color: #463228;
+            color: white;
+            transition: left 0.3s ease;
+            padding: 1rem;
+        }
+
+        #sidebar nav ul {
+            list-style: none;
+        }
+
+
+
+        #sidebar nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        /* Classe para abrir o menu */
+        #sidebar.open {
+            right: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            height: 20px;
+            max-height: 25px;
+            margin: 5px;
+        }
+
+        li i {
+            padding-right: 5px;
+        }
+
+        h3 {
+            text-align: center;
+            font-size: 20px;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        ul li:hover {
+            transform: scale(1.1, 1.1);
+            transition: all 0.3 ease ;
+            background-color: #634a3dcc;
+
+
+        }
+
+        #menu-close {
+            color: red;
+            width: 50px;
+            height: auto;
+            background-color: transparent;
+            text-decoration: none;
+            border: none;
+            font-size: 20px;
+            display: flex;
+            text-align: left;
+            cursor: pointer;
+        }
+        
+</style>
+
+    
 </head>
 <body>
 <header>
-    <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
-    <nav class="menu">
-        <ul>
-            <li><a href="http://localhost:5001/">Cadastrar um Item no Menu</a></li>
-            <li><a href="http://localhost:5001/list">Itens do Menu</a></li>
-            <li><a href="http://localhost:5002/">Cadastrar uma Ordem de Compra</a></li>
-            <li><a href="http://localhost:5002/list">Ordens de Compra efetuadas</a></li>
-            <li><a href="http://localhost:5000/">Cadastrar Produtos</a></li>
-            <li><a href="http://localhost:5003/list">Estoque Disponível</a></li>
-        </ul>
-</nav>
+    <a href="http://localhost:5000"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>        
+        <button id="menu-toggle">☰</button>
+
+        <aside id="sidebar">
+            <button id="menu-close">✖</button>
+            <nav>
+                <ul>
+                    <H3 class="subMenu">MENU</H3><br>
+                    <li><a href="http://localhost:5001/"><i class="fa-solid fa-bars"></i>Cadastrar Item</a></li><br>
+                    <li><a href="http://localhost:5001/list"><i class="fa-solid fa-bars"></i>Itens</a></li><br><br>
+                    <H3 class="subMenu">ORDEM DE COMPRA</H3><br>
+                    <li><a href="http://localhost:5002/"><i class="fa-solid fa-cart-shopping"></i>Cadastrar</a></li><br><br>
+                    <li><a href="http://localhost:5002/list"><i class="fa-solid fa-cart-shopping"></i>Ordens Efetuadas</a></li><br><br>
+                    <H3 class="subMenu">ESTOQUE</H3><br>
+                    <li><a href="http://localhost:5003/list"><i class="fa-solid fa-layer-group"></i>Estoque Disponível</a></li><br><br>
+                    <li><a href="http://localhost:5004/list"><i class="fa-solid fa-layer-group"></i>Histórico</a></li><br><br>
+                    <H3 class="subMenu">PRODUTOS</H3><br>
+                    <li><a href="http://localhost:5000/"><i class="fa-solid fa-layer-group"></i>Cadastrar Produto</a></li><br>
+                </ul>
+            </nav>
+          </aside>
+        
 </header>
 <hr>
 <p class="titulo">Lista de produtos</p>
 
 <form method="get" class="row" id="pesquisa">
-    <div class="col-9">
-        <input type="text" name="pesquisa" class="form-control">
+    <div class="barraPesquisa">
+        <input type="text" name="pesquisa" class="form-control" placeholder="Buscar" id="inputPesquisa">
     </div>
-    <div class="col-3">
-        <button type="submit" class="btn btn-primary">Pesquisar</button>
-        <button type="submit">Resetar</button>
+    <div class="barraPesquisa2">
+        <button type="submit" class="botao-lista">Pesquisar</button>
+        <button type="submit" class="botao-lista" id="resetar">Resetar</button>
     </div>                    
 </form>
 
 <div class="container">
     <table>
-        <tr><td> Nomes </td><td>Tipo</td><td>ML</td><td>Gramas</td><td>Descrição</td></tr>
+        <tr><td> Nomes </td><td>Tipo</td><td>ML</td><td>Gramas</td><td>Descrição</td><td colspan="2">Opções</td></tr>
         {% for item in datas %}
         <tr>
             <th>{{item[1]}}</th>
@@ -53,13 +218,42 @@
             <th><a href="/produto/{{item[0]}}"><button class="botao-lista" id="atualizar-lista">Atualizar</button></a></th>
             <th><button onclick="funcao1('{{item[0]}}')" class="botao-lista" id="deletar-lista">Deletar</button></th>
         </tr>
+        {% for item in datas %}
+          <tr>
+            <th>{{ item[0] }}</th>
+            <th>{{ item[1] }}</th>
+            <th>{{ item[2] }}</th>
+            <th>{{ item[3] }}</th>
+            <th>{{ item[4] }}</th>
+            <th>{{ item[5] }}</th>
+            <th>{{ item[6] }}</th>
+            <th>{{ item[7] }}</th>
+            <th>{{ item[8] }}</th>
+            <th>
+              <a href="/produto/{{ item[0] }}"><button>Atualizar</button></a>
+            </th>
+          </tr>
         {% endfor %}
-    </table>
+      </table>
     </div>
     <p class="mensagem">{{mensagem}}</p>
 </hr>
 <script>
 
+const menuToggle = document.getElementById('menu-toggle');
+const menuClose = document.getElementById('menu-close');
+const sidebar = document.getElementById('sidebar');
+
+// Abre o menu lateral
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.add('open');
+});
+
+// Fecha o menu lateral
+menuClose.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+});
+  
     const link = document.URL;
     console.log(link);
     form = document.getElementById("pesquisa")
@@ -68,6 +262,6 @@
 form.style.display = "none"
 
 }
-        </script>
+</script>
 </body>
 </html>

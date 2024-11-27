@@ -1,15 +1,20 @@
-import os
+import os, sys
 from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
-from funcao import *
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import config
+from Sqls import updateParametroMinMax, SelectComWhere, SelectComOrder
 
+
+mysql = MySQL()
+app = Flask(__name__)
+app.config.from_object(config.Config)
+mysql.init_app(app)
 
 @app.route('/list',methods=['GET'])
 def list():
     try:
-               
-            
-            data = extrai__tudo_com_order('tblEstoque', 'nomeDoProduto', 'ASC')
+            data = SelectComOrder('tblEstoque', 'nomeDoProduto', 'ASC')
             return render_template('listarEstoque.html', datas = data)
 
     except Exception as e:
@@ -17,16 +22,15 @@ def list():
 
 @app.route('/item_estoque/<id>',methods=['GET'])
 def parametrizar(id):
-     prod_no_estoque = extrai__tudo_com_where('tblEstoque','produtoId',int(id))
+     prod_no_estoque = SelectComWhere('tblEstoque','produtoId',int(id))
      return render_template('parametrizar.html',datas = prod_no_estoque)
 
 @app.route('/parametrizar/', methods=['POST','GET'])
 def atualizar_parametros():
-    print('\n\n\noioioi')
     produtoId = int(request.form['idProd'])
     par_min = int(request.form['inputMin'])
     par_max = int(request.form['inputMaximo'])
-    update_parametro_min_max('tblestoque',par_min, par_max, produtoId)
+    updateParametroMinMax('tblestoque',par_min, par_max, produtoId)
     vitoria = list()
     return vitoria
     

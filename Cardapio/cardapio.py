@@ -1,31 +1,29 @@
-import os
-from flask import Flask, render_template, json, request
+import os, sys
+from flask import Flask, render_template, json, jsonify
 from flask_mysqldb import MySQL
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import config
+from Sqls import SelectSemOrdem
 
 mysql = MySQL()
 app = Flask(__name__)
 
-
 upload_folder = os.path.join(os.path.dirname(__file__), '../Cardapio/static/img')
 
-# MySQL configurations
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Impacta2024'
-app.config['MYSQL_DB'] = 'restaurante'
-app.config['MYSQL_HOST'] = 'localhost'
+app.config.from_object(config.Config)
 mysql.init_app(app)
 
-
+@app.route('/imagens')
+def listar_imagens():
+    # Filtra arquivos apenas com extensões de imagem
+    imagens = [f for f in os.listdir(upload_folder) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+    return jsonify(imagens)
 
 @app.route('/',methods=['GET'])
 def list():
     try:
-            conn = mysql.connection
-            cursor = conn.cursor()
             arquivos = os.listdir(upload_folder)
-            
-            cursor.execute ('SELECT * FROM tblMenu')
-            data = cursor.fetchall()
+            data = SelectSemOrdem('tblMenu')
             arquivos_contados = [f for f in arquivos if os.path.isfile(os.path.join(upload_folder, f))]
         
             tamanhoArquivos = len(arquivos_contados)
