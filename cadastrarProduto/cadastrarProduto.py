@@ -138,10 +138,8 @@ def delete(id):
 
         else:
             msg = "Item não pode ser excluido pois está associado a outra tabela"
-        
-        data = None
 
-        return render_template('delete.html', mensagem = msg, datas=data)
+        return render_template('delete.html', mensagem = msg)
     
     except Exception as e:
         return json.dumps({'error': str(e)})   
