@@ -187,8 +187,7 @@ cursor: pointer;
 
 .pratos {
     cursor: pointer;
-    margin-left: 70px;
-    margin-bottom: 100px;
+    margin: 0px 10px 100px 70px;
 }
 
 .pratos:hover {
@@ -213,4 +212,14 @@ cursor: pointer;
 }
 hr{
     margin-bottom: 100px;
+}
+
+
+
+
+@media screen and (width <= 500px)
+{
+    h1{
+        margin-left:10%;
+    }
 }
