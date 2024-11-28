@@ -16,16 +16,16 @@
         <a href="http://localhost:5000"><img src="{{url_for('static', filename='/Logo.png')}}" class="logo"/></a>
         <h1>CARDÁPIO</h1>
     </header>
-
+<hr>
     
   <p style="display: none;" id="lenArquivos" class="lenArquivos">{{ lenArquivos }}</p>
     {% for item in data  %}
     <div class="pratos"> 
         <div id="image-container-{{ loop.index }}">
     </div>
-        <p>{{item[1]}}</p> 
+        <p class="title">{{item[1]}}</p> 
         <p class="descricaoPrato">{{item[3]}}</p> 
-        <p>{{"R$%.2f"|format(item[4])}}</p>
+        <p class="preco">{{"R$%.2f"|format(item[4])}}</p>
     </div>
     {% endfor %}
     <script src="/static/index.js"></script>
