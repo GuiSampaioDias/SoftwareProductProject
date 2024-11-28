@@ -1,16 +1,14 @@
-import os
+import os, sys
 from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
-
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import config
+from Sqls import SelectSemOrdem, SelectComWhere, DeleteComWhere, connCursor
 
 mysql = MySQL()
 app = Flask(__name__)
 
-# MySQL configurations
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Impacta2024'
-app.config['MYSQL_DB'] = 'restaurante'
-app.config['MYSQL_HOST'] = 'localhost'
+app.config.from_object(config.Config)
 mysql.init_app(app)
 
 
@@ -28,31 +26,27 @@ def cadastro():
         categoria = request.form['inputCategoria']
         ml = request.form['inputML']
         peso = request.form['inputPeso']
-        preco = request.form['inputPreco']
         descricao = request.form['inputDescricao'].lower()
         #lower deixa tudo minusculo
-
         if not ml:
             ml = 0
-        if not peso :
+        else:
             peso = 0
         if not descricao:
             descricao = "Não Há"
+
+        if not ml and not peso:
+            msg = "Cadastre alguma gramatura ou volume"
+            return render_template('formularioProduto.html', mensagem = msg)
     
-        cur = mysql.connection.cursor()
-
-        cur.execute("SELECT nomeDoProduto FROM tblProduto WHERE nomeDoProduto = %s", (nome,))
-
-        resultado = cur.fetchone()
-
+        resultado = SelectComWhere('tblProduto','nomeDoProduto',nome,'nomeDoProduto')
+        
         if resultado:
             msg = "Produto ja cadastrados na base de dados"
             return render_template('formularioProduto.html', mensagem = msg)
-        else:
-                       
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute('INSERT INTO tblProduto (nomeDoProduto, categoria, ml,pesoGramas, preco, descricao) VALUES (%s, %s, %s, %s, %s, %s)', ( nome,categoria,ml,peso,preco,descricao))
+        else:             
+            conn, cursor = connCursor()
+            cursor.execute('INSERT INTO tblProduto (nomeDoProduto, categoria, ml,pesoGramas, descricao) VALUES (%s, %s, %s, %s, %s)', ( nome,categoria,ml,peso,descricao))
             conn.commit()
             msg = "Produtos cadastrados com sucesso"
             return render_template('formularioProduto.html', mensagem = msg)
@@ -69,16 +63,12 @@ def list():
             pesquisa = request.args.get('pesquisa', '')
             if pesquisa:
                 
-                conn = mysql.connection
-                cursor = conn.cursor()
+                conn, cursor = connCursor()
                 cursor.execute("SELECT * FROM tblProduto WHERE nomeDoProduto LIKE %s ORDER BY nomeDoProduto", (f"%{pesquisa}%",))
                 data = cursor.fetchall()
                 return render_template('listar.html', datas=data)
             else:
-                conn = mysql.connection
-                cursor = conn.cursor()
-                cursor.execute ('SELECT * FROM tblProduto')
-                data = cursor.fetchall()
+                data = SelectSemOrdem('tblProduto')
                 return render_template('listar.html', datas=data)
 
     except Exception as e:
@@ -88,10 +78,7 @@ def list():
 def editProd(id):
     try:
             id = int(id)
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM tblProduto WHERE produtoId = %s', (id,))
-            data = cursor.fetchall()
+            data =  SelectComWhere('tblproduto','produtoId', id)
             return render_template('editarProduto.html', datas=data)
     
     except Exception as e:
@@ -99,14 +86,12 @@ def editProd(id):
     
 @app.route('/produto/<id>',methods=['POST','GET'])
 def editarProduto(id):
-    
     try:
         idProd = int(request.form['idProd'])
         nome = request.form['inputNome']
         categoria = request.form['inputCategoria']
         ml = request.form['inputML']
         peso = request.form['inputPeso']
-        preco = request.form['inputPreco']
         descricao = request.form['inputDescricao']
 
         if not ml:
@@ -114,17 +99,14 @@ def editarProduto(id):
         if not peso :
             peso = 0
 
-        if nome and categoria and preco:
+        if nome and categoria:
             
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute('UPDATE tblProduto SET nomeDoProduto = %s, categoria = %s, ml = %s,pesoGramas = %s, preco = %s, descricao = %s WHERE produtoId = %s ', ( nome,categoria,ml,peso,preco,descricao,idProd))
+            conn, cursor = connCursor()
+            cursor.execute('UPDATE tblProduto SET nomeDoProduto = %s, categoria = %s, ml = %s,pesoGramas = %s, descricao = %s WHERE produtoId = %s ', (nome,categoria,ml,peso,descricao,idProd))
             conn.commit()
             msg = "Edição realizada com sucesso"
     
-            cursor.execute ('SELECT * FROM tblProduto WHERE produtoId = %s ', (idProd,))
-            data = cursor.fetchall()  
-                  
+            data =  SelectComWhere('tblproduto','produtoId', idProd)
             return render_template('listar.html', mensagem = msg, datas=data)
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
@@ -137,9 +119,7 @@ def delete(id):
     try:
         id = int(id)
 
-        conn = mysql.connection
-        cursor = conn.cursor()  
-
+        conn, cursor = connCursor()
         cursor.execute('SELECT nomeDoProduto FROM tblProduto WHERE produtoId = %s', (id,))
         nome = cursor.fetchall()  
         cursor.execute('SELECT * FROM tblHistorico WHERE produtoId = %s', (id,))
@@ -153,17 +133,13 @@ def delete(id):
 
 
         if tabelaHistorico == () and tabelaItemXProd == () and tabelaOrdem == ():
-            cursor.execute('DELETE FROM tblProduto WHERE produtoId = %s', (id,))
-            conn.commit()
+            DeleteComWhere('tblProduto','produtoId', id)
             msg = "Excluido com sucesso"
 
         else:
             msg = "Item não pode ser excluido pois está associado a outra tabela"
-        
-        cursor.execute ('SELECT * FROM tblProduto')
-        data = cursor.fetchall()
 
-        return render_template('delete.html', mensagem = msg, datas=data)
+        return render_template('delete.html', mensagem = msg)
     
     except Exception as e:
         return json.dumps({'error': str(e)})   

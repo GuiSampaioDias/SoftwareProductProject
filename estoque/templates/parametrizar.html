@@ -1,16 +1,34 @@
+<!-- DEFINIR MINIMO E MÁXIMO RECOMENDADO DE PRODUTOS NO ESTOQUE -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/styleForm.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="icon" href="{{url_for('static', filename='/static/img/Logo.png')}}">
+    <link rel="icon" href="{{url_for('static', filename='img/Logo.png')}}">
     <title>Editar produto</title>
+
     <style>
+        button {
+            border-radius: 15px;
+            box-shadow: none; 
+            border: none; 
+            margin-top: 5px;
+        }
+
+        button:hover {
+            background-color: rgb(255, 255, 111);
+        }
+
+        .form-control {
+            margin-bottom: 20px; 
+        }
+
         @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
         
         * {
@@ -161,11 +179,12 @@
         li.cardapio {
             margin-top: 25px;
         }
-</style>
+
+    </style>
 </head>
 <body>
     <header>
-        <a href="http://localhost:5001"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
+        <a href="http://localhost:5003/list"><img src="{{url_for('static', filename='img/Logo.png')}}" class="logo"/></a>
         <button id="menu-toggle">☰</button>
         <aside id="sidebar">
             <button id="menu-close">✖</button>
@@ -178,47 +197,27 @@
                     <li><a href="http://localhost:5002/"><i class="fa-solid fa-cart-shopping"></i>Cadastrar</a></li><br><br>
                     <li><a href="http://localhost:5002/list"><i class="fa-solid fa-cart-shopping"></i>Ordens Efetuadas</a></li><br><br>
                     <H3 class="subMenu">ESTOQUE</H3><br>
-                    <li><a href="http://localhost:5003/list"><i class="fa-solid fa-layer-group"></i>Estoque Disponível</a></li><br><br>
                     <li><a href="http://localhost:5004/list"><i class="fa-solid fa-layer-group"></i>Histórico</a></li><br><br>
                     <H3 class="subMenu">PRODUTOS</H3><br>
                     <li><a href="http://localhost:5000/"><i class="fa-solid fa-layer-group"></i>Cadastrar Produto</a></li><br>
-                    <li><a href="http://localhost:5000/list"><i class="fa-solid fa-layer-group"></i>Listar Produtos</a></li><br><br>
+                    <li><a href="http://localhost:5000/list"><i class="fa-solid fa-layer-group"></i>Listar Produto</a></li><br><br>
                     <h3 class="subMenu">CARDÁPIO</h3>
                     <li class="cardapio"><a href="http://localhost:5007"><i class="fa-solid fa-clipboard-list"></i>Cardápio</a></li>
                 </ul>
             </nav>
-          </aside>
+        </aside>
     </header>
     <hr>
-    <p class="titulo">Edite Item do Menu</p>
+    <p class="titulo">Definir os limites esperados do produto {{datas[0][1]}} no estoque</p>
     <div class="container">
 
-    <form action="editar" method="post">
-        <label for="inputNome" class="sr-only">Nome do Item: </label><br>
-        <input type="text" name="inputNome" id="inputNome" value="{{datas[0][1]}}"
-        class="form-control"  required autofocus ><br>
-        <label for="inputCategoria">Categoria: </label><br>
-        <select name="inputCategoria" id="inputCategoria" class="form-control" required>
-            <option value="{{datas[0][2]}}">{{datas[0][2]}}</option>
-            <!-- {% for categoria in categorias %}
-            <option value="{{categoria[0]}}">{{categoria[0]}}</option>
-            {%endfor%} -->
-            <option value="Bebida">Bebida</option>
-            <option value="Drink">Drink</option>
-            <option value="Pizza">Pizza</option>
-            <option value="Prato">Prato</option>
-            <option value="Sobremesa">Sobremesa</option>
-        </select><br>
-        <label for="inputDescricao">Descrição:</label><br>
-        <textarea name="inputDescricao" id="inputDescricao" value="{{datas[0][3]}}" class="form-control" placeholder="Digite a descrição" maxlength="45" >{{datas[0][3]}}</textarea><br>   
-        <label for="inputPreco">Preço:</label><br>
-        <input type="number" name="inputPreco" id="inputPreco" value="{{datas[0][4]}}" class="form-control" placeholder="Digite o preço (ex: 10.99)" step="0.01" min="0" required><br>
-        <!-- <label for="imagem" style="font-weight: bold">Selecione uma imagem:</label><br>
-            <input type="file" id="imagem" name="imagem" ><br><br>
-             
-            <input type="submit" value="Upload">          -->
-        <button id="cadastrar" class="botao-lista" type="submit">Salvar</button>
-        <input type="hidden" id="id_item_menu" name="idProd" value="{{datas[0][0]}}">
+    <form action="/parametrizar/" method="post">
+        <label for="inputMin">Minimo:</label><br>
+        <input type="number" name="inputMin" id="inputMin" value="{{datas[0][5]}}" class="form-control" step="0.01" placeholder="Digite a quantidade minima esperada"><br>
+        <label for="inputMaximo">Máximo:</label><br>
+        <input type="number" name="inputMaximo" id="inputMaximo" value="{{datas[0][6]}}" class="form-control" step="0.001" placeholder="Digite a máxima esperada" ><br>
+        <button id="cadastrar" class="" type="submit">Salvar</button>
+        <input type="hidden" id="idProd" name="idProd" value="{{datas[0][0]}}">
     </form> 
     <p class="mensagem">{{mensagem}}</p>
     </div>

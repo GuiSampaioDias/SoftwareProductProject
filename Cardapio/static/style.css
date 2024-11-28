@@ -7,6 +7,11 @@
 *
 {
     font-family:Be Vietnam Pro  ;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
 }
 
 body{
@@ -14,109 +19,31 @@ body{
     color: white;
 }
 
-li {
-    display: inline;
-    margin-right: 20px;
-  }
-
-.tituloPrincipal {
-    background-color: #ff8800;
-
-}
-
-td {
-    background-color: #ffb055;
-    text-align: center;
-}
-
-th, td{
-    border: 1px solid white;
-    padding: 8px;
-    width: auto;
-    height: auto;
-    border-radius: 10px;
-    text-align: center;
-}
-
-a{
-    text-decoration: none;
-    color: white;
-}
-
-a:hover{
-    animation: ease-in 2s linear;
-    color: rgb(236, 70, 70);
-    transition: 400ms linear;
-}
-  .container
-{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-
-
-
 header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
 }
 
-
-.menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+h1 {
     display: flex;
-}
-.logo {
-    width: 80px;
-    height: auto;
-}
-
-p{
+    align-items: center;
     text-align: center;
-    font-size: 25px;
+    margin-left: 41%;
+
+}
+
+.logo {
+    width: 80px; /* Defina o tamanho desejado para a imagem */
+    height: auto;
+    
 }
 
 
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    10% {opacity: 0.9;}
-    20% {opacity: 0.8;}
-    30% {opacity: 0.7;}
-    40% {opacity: 0.6;}
-    50% {opacity: 0.5;}
-    60% {opacity: 0.4;}
-    70%{opacity:0.3;}
-    80%{opacity: 0.2;}
-    90% {opacity:0.1;}
-    100% { opacity: 0; }
-}
-
-/* Aplica a animação ao elemento */
-.mensagem {
-    animation: fadeOut 2s ease forwards;
-    animation-delay: 2s; /* Define o atraso antes de começar a animação */
-    opacity: 1; /* Define a opacidade inicial */
-}
-
-.btn {
-    border-radius: 10px;
-    /* background-color: yellow; */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn#cadastrar:hover{
-    background-color: rgb(91, 231, 91);
-}
-
-.btn#resetar:hover{
-    background-color: rgb(224, 62, 62);
+div{
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
 }
 
 .botao-lista:hover{
@@ -252,4 +179,47 @@ font-size: 20px;
 display: flex;
 text-align: left;
 cursor: pointer;
+}
+
+.descricaoPrato {
+    max-width: 200px;
+}
+
+.pratos {
+    cursor: pointer;
+    margin: 0px 10px 100px 70px;
+}
+
+.pratos:hover {
+    transform: scale(1.3,1.3);
+    transition: all 0.3 ease;
+}
+
+#image{
+    border-radius: 3px;
+}
+
+.preco
+{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.title
+{
+    font-weight: bold;
+    margin-top:5px;
+}
+hr{
+    margin-bottom: 100px;
+}
+
+
+
+
+@media screen and (width <= 500px)
+{
+    h1{
+        margin-left:10%;
+    }
 }

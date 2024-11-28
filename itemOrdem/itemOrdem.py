@@ -1,25 +1,22 @@
-import os
+import os, sys
 from flask import Flask, render_template, json, request
 from flask_mysqldb import MySQL
 from datetime import datetime, timezone
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import config
+from Sqls import SelectSemOrdem, DeleteComWhere, SelectComWhere, connCursor
+
 mysql = MySQL()
 app = Flask(__name__)
 
-# MySQL configurations
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Impacta2024'
-app.config['MYSQL_DB'] = 'restaurante'
-app.config['MYSQL_HOST'] = 'localhost'
+app.config.from_object(config.Config)
 mysql.init_app(app)
 
 
 @app.route('/')
 def main():
     try:
-        conn = mysql.connection
-        cursor = conn.cursor()
-        cursor.execute('SELECT nomeDoProduto FROM tblProduto')
-        prods = cursor.fetchall()
+        prods = SelectSemOrdem('tblProduto', item = 'nomeDoProduto')
 
         return render_template('formularioItem.html',produtos=prods)
     
@@ -30,10 +27,7 @@ def main():
 @app.route('/cadastrar',methods=['POST','GET'])
 def cadastro():
     try:
-        conn = mysql.connection
-        cursor = conn.cursor()
-        cursor.execute('SELECT nomeDoProduto FROM tblProduto')
-        prods = cursor.fetchall()
+        prods = SelectSemOrdem('tblProduto', item = 'nomeDoProduto')
         nome = request.form['inputNome']
         #title pega o comeco das palavras. Strip tira os espacoes
         quantidade = request.form['inputQuantidade']
@@ -45,8 +39,7 @@ def cadastro():
         if not descricao:
             descricao = "Não Há"
 
-        conn = mysql.connection
-        cursor = conn.cursor()
+        conn, cursor = connCursor()
         cursor.execute('INSERT into tblItemOrdem (nomeItem,quantidade,precoProduto, precoTotalPorProduto, descricao) VALUES (%s, %s, %s, %s, %s)', (nome,quantidade,preco,precoTotal,descricao))
         conn.commit()
         msg = "Item ordem cadastrados com sucesso"
@@ -60,11 +53,8 @@ def cadastro():
 @app.route('/list',methods=['GET'])
 def list():
     try:
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute ('SELECT * FROM tblItemOrdem')
-            data = cursor.fetchall()
-            return render_template('listar.html', datas=data)
+        data = SelectSemOrdem('tblItemOrdem')
+        return render_template('listar.html', datas=data)
 
     except Exception as e:
         return json.dumps({'error':str(e)})
@@ -73,12 +63,8 @@ def list():
 def editProd(id):
     try:
             id = int(id)
-            conn = mysql.connection
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM tblItemOrdem WHERE itemOrdemId = %s', (id,))
-            data = cursor.fetchall()
+            data = SelectComWhere('tblItemOrdem','itemOrdemId', id)
 
-    
             conn = mysql.connection
             cursor = conn.cursor()
             cursor.execute('SELECT nomeDoProduto FROM tblProduto ORDER BY produtoId')
@@ -103,14 +89,12 @@ def editarProduto(id):
 
         if nome and quantidade and preco:
             
-            conn = mysql.connection
-            cursor = conn.cursor()
+            conn, cursor = connCursor()
             cursor.execute('UPDATE tblItemOrdem SET nomeItem = %s, quantidade = %s, precoProduto = %s, precoTotalPorProduto = %s, descricao = %s WHERE itemOrdemId = %s', (nome,quantidade,preco,precoTotal,descricao,idProd))
             conn.commit()
             msg = "Edição realizada com sucesso"
-            
-            cursor.execute ('SELECT * FROM tblItemOrdem WHERE itemOrdemId = %s', (idProd,))
-            data = cursor.fetchall()
+        
+            data = SelectComWhere('tblItemOrdem','itemOrdemId',idProd)
             
             return render_template('listar.html', mensagem = msg, datas=data)
         else:
@@ -123,14 +107,10 @@ def editarProduto(id):
 def delete(id):
     try:
         id = int(id)
-        conn = mysql.connection
-        cursor = conn.cursor()
-        cursor.execute('DELETE FROM tblItemOrdem WHERE itemOrdemId = %s', (id,))
-        conn.commit()
+        DeleteComWhere('tblItemOrdem','itemOrdemId', id)
         msg = "Excluido com sucesso"
         
-        cursor.execute ('SELECT * FROM tblItemOrdem')
-        data = cursor.fetchall()
+        data = SelectSemOrdem('tblItemOrdem')
 
         return render_template('listar.html', mensagem = msg, datas=data)
     
@@ -140,21 +120,18 @@ def delete(id):
 @app.route('/estoque/<id>', methods=['POST','GET'])
 def sobe_estoque(id):
     try:
-        conn = mysql.connection
-        cursor = conn.cursor()
-        cursor.execute('SELECT * FROM tblItemOrdem WHERE itemOrdemId = %s', (id,))
-        data = cursor.fetchall()
+        conn, cursor = connCursor()
+        data = SelectComWhere('tblItemOrdem','itemOrdemId', id)
         nome = data[0][1] 
         quantidade = float(data[0][2])
         precoUnitario = data[0][3] 
         precoTotal = quantidade * precoUnitario
         dia = datetime.now()
-        cursor.execute('SELECT * FROM tblProduto WHERE nomeDoProduto = %s', (nome,))
-        data = cursor.fetchall()
+        data = SelectComWhere('tblProduto','nomeDoProduto', nome)
         idProd = data[0][0]
         mlTotal = data[0][3] * quantidade
         gramasTotal = data[0][4] * quantidade
-        cursor.execute('INSERT INTO tblEstoque (produtoId, nomeDoProduto, ml, pesoGramas, quantidade) VALUES (%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE quantidade = quantidade + VALUES(quantidade), ml = ml + VALUES(ml), pesoGramas = pesoGramas + VALUES(pesoGramas)',(idProd, nome,mlTotal,gramasTotal, quantidade))
+        cursor.execute('INSERT INTO tblEstoque (produtoId, nomeDoProduto, ml, pesoGramas, quantidade, min, sugerido) VALUES (%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE quantidade = quantidade + VALUES(quantidade), ml = ml + VALUES(ml), pesoGramas = pesoGramas + VALUES(pesoGramas)',(idProd, nome,mlTotal,gramasTotal, quantidade, 0, 0))
         conn.commit()
         tipo = 'compra'
         cursor.execute('INSERT INTO tblHistorico (produtoId, nomeDoProduto, quantidade, precoUnitario, precoTotal, data, tipo) VALUES (%s,%s,%s,%s,%s,%s,%s)',(idProd, nome,quantidade, precoUnitario, precoTotal, dia, tipo))
